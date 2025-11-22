@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../Saga%20Pattern/">
+      
+      
+        <link rel="next" href="../Transactional%20Outbox/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,11 +323,1239 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-high-cardinality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔑 1. High Cardinality
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-even-data-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚖️ 2. Even Data Distribution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-align-with-query-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 3. Align With Query Patterns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-ideal-shard-key-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Summary: Ideal Shard Key Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚫 Common Mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-mongodb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 1. MongoDB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧱 1. MongoDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#good-example-hasheduserid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Good Example: hashed(userId)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bad-example-createdat-timestamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠ Bad Example: createdAt (timestamp)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-compound-shard-key-region-hasheduserid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Alternative: Compound Shard Key { region, hashed(userId) }
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cassandra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🪴 2. Cassandra
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🪴 2. Cassandra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#good-example-user_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Good Example: (user_id)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bad-example-country" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠ Bad Example: (country)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#better-compound-partition-key-country-user_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Better: Compound Partition Key (country, user_id)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-elasticsearch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 3. Elasticsearch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 3. Elasticsearch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#good-example-userid-as-routing-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Good Example: userId (as routing key)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bad-example-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠ Bad Example: region
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Comparison Table
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ Comparison Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-rule-of-thumb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 General Rule of Thumb
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 What Is Sharding?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Types of Sharding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧱 Types of Sharding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-range-based-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1️⃣ Range-Based Sharding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-hash-based-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2️⃣ Hash-Based Sharding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-directory-based-lookup-based-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3️⃣ Directory-Based (Lookup-Based) Sharding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-composite-hybrid-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4️⃣ Composite / Hybrid Sharding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-table_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonus-consistent-hashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Bonus: Consistent Hashing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 When to Use Which
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -329,7 +1571,979 @@
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -374,7 +2588,7 @@
 
 <p>![[Pasted image 20251122171427.png]]When choosing a <strong>shard key</strong> (in a sharded database like MongoDB, Cassandra, or any distributed data system), these <strong>three principles</strong> are the most critical. Let’s break them down clearly:</p>
 <hr />
-<h3 id="1-high-cardinality">🔑 1. <strong>High Cardinality</strong><a class="headerlink" href="#1-high-cardinality" title="Permanent link">&para;</a></h3>
+<h3 id="1-high-cardinality">🔑 1. <strong>High Cardinality</strong></h3>
 <p><strong>Meaning:</strong></p>
 <ul>
 <li>
@@ -414,7 +2628,7 @@
 </tbody>
 </table>
 <hr />
-<h3 id="2-even-data-distribution">⚖️ 2. <strong>Even Data Distribution</strong><a class="headerlink" href="#2-even-data-distribution" title="Permanent link">&para;</a></h3>
+<h3 id="2-even-data-distribution">⚖️ 2. <strong>Even Data Distribution</strong></h3>
 <p><strong>Meaning:</strong></p>
 <ul>
 <li>The shard key should spread data <strong>uniformly across shards</strong> to prevent <strong>hotspots</strong> (shards getting uneven traffic).</li>
@@ -438,7 +2652,7 @@
 </li>
 </ul>
 <hr />
-<h3 id="3-align-with-query-patterns">🧭 3. <strong>Align With Query Patterns</strong><a class="headerlink" href="#3-align-with-query-patterns" title="Permanent link">&para;</a></h3>
+<h3 id="3-align-with-query-patterns">🧭 3. <strong>Align With Query Patterns</strong></h3>
 <p><strong>Meaning:</strong></p>
 <ul>
 <li>The shard key must <strong>match your most common query filters</strong> to enable <strong>targeted queries</strong> (querying one shard instead of all).</li>
@@ -449,15 +2663,15 @@
 </ul>
 <p><strong>Example:</strong><br />
 If your common queries are:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">db</span><span class="p">.</span><span class="nx">orders</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="w"> </span><span class="nx">userId</span><span class="o">:</span><span class="w"> </span><span class="mf">123</span><span class="w"> </span><span class="p">})</span>
-</code></pre></div>
+<pre><code class="language-js">db.orders.find({ userId: 123 })
+</code></pre>
 <p>Then <code>userId</code> (or <code>hashed(userId)</code>) is a perfect shard key.</p>
 <p>If queries are like:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">db</span><span class="p">.</span><span class="nx">orders</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="w"> </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;US&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">orderDate</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$gt</span><span class="o">:</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">})</span>
-</code></pre></div>
+<pre><code class="language-js">db.orders.find({ region: 'US', orderDate: { $gt: ... } })
+</code></pre>
 <p>Then a <strong>compound shard key</strong> like <code>{ region, orderDate }</code> might be ideal.</p>
 <hr />
-<h3 id="summary-ideal-shard-key-checklist">🧩 Summary: Ideal Shard Key Checklist<a class="headerlink" href="#summary-ideal-shard-key-checklist" title="Permanent link">&para;</a></h3>
+<h3 id="summary-ideal-shard-key-checklist">🧩 Summary: Ideal Shard Key Checklist</h3>
 <table>
 <thead>
 <tr>
@@ -485,7 +2699,7 @@ If your common queries are:</p>
 </tbody>
 </table>
 <hr />
-<h3 id="common-mistakes">🚫 Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h3>
+<h3 id="common-mistakes">🚫 Common Mistakes</h3>
 <ul>
 <li>
 <p>Sharding on <strong>timestamp</strong> → causes all writes to newest shard (hotspot).</p>
@@ -500,11 +2714,11 @@ If your common queries are:</p>
 <hr />
 <p>Would you like me to show a <strong>few practical shard key examples</strong> for systems like MongoDB, Cassandra, and Elasticsearch side by side?<br />
 That way you can see how these principles apply in real design scenarios.</p>
-<h2 id="question">Question<a class="headerlink" href="#question" title="Permanent link">&para;</a></h2>
+<h2 id="question">Question</h2>
 <p>Let’s go through <strong>real-world shard key design examples</strong> across three popular distributed databases — <strong>MongoDB</strong>, <strong>Cassandra</strong>, and <strong>Elasticsearch</strong> — to see how <em>high cardinality</em>, <em>even distribution</em>, and <em>query alignment</em> work together.</p>
 <hr />
-<h2 id="1-mongodb">🧱 1. <strong>MongoDB</strong><a class="headerlink" href="#1-mongodb" title="Permanent link">&para;</a></h2>
-<h3 id="good-example-hasheduserid">✅ Good Example: <code>hashed(userId)</code><a class="headerlink" href="#good-example-hasheduserid" title="Permanent link">&para;</a></h3>
+<h2 id="1-mongodb">🧱 1. <strong>MongoDB</strong></h2>
+<h3 id="good-example-hasheduserid">✅ Good Example: <code>hashed(userId)</code></h3>
 <p><strong>Use Case:</strong> Large multi-tenant app (e.g., e-commerce, social media).</p>
 <table>
 <thead>
@@ -532,7 +2746,7 @@ That way you can see how these principles apply in real design scenarios.</p>
 ✔ Balanced writes and queries target only one shard.<br />
 ⚠ Downside — you lose ordering by userId (hash breaks order).</p>
 <hr />
-<h3 id="bad-example-createdat-timestamp">⚠ Bad Example: <code>createdAt</code> (timestamp)<a class="headerlink" href="#bad-example-createdat-timestamp" title="Permanent link">&para;</a></h3>
+<h3 id="bad-example-createdat-timestamp">⚠ Bad Example: <code>createdAt</code> (timestamp)</h3>
 <table>
 <thead>
 <tr>
@@ -558,7 +2772,7 @@ That way you can see how these principles apply in real design scenarios.</p>
 <p><strong>Result:</strong><br />
 Uneven write load, one shard overloaded (the latest).</p>
 <hr />
-<h3 id="alternative-compound-shard-key-region-hasheduserid">✅ Alternative: Compound Shard Key <code>{ region, hashed(userId) }</code><a class="headerlink" href="#alternative-compound-shard-key-region-hasheduserid" title="Permanent link">&para;</a></h3>
+<h3 id="alternative-compound-shard-key-region-hasheduserid">✅ Alternative: Compound Shard Key <code>{ region, hashed(userId) }</code></h3>
 <table>
 <thead>
 <tr>
@@ -584,9 +2798,9 @@ Uneven write load, one shard overloaded (the latest).</p>
 <p><strong>Result:</strong><br />
 Perfect for region-based apps like food delivery or social platforms.</p>
 <hr />
-<h2 id="2-cassandra">🪴 2. <strong>Cassandra</strong><a class="headerlink" href="#2-cassandra" title="Permanent link">&para;</a></h2>
+<h2 id="2-cassandra">🪴 2. <strong>Cassandra</strong></h2>
 <p>Cassandra partitions data based on the <strong>partition key</strong> (acts like shard key).</p>
-<h3 id="good-example-user_id">✅ Good Example: <code>(user_id)</code><a class="headerlink" href="#good-example-user_id" title="Permanent link">&para;</a></h3>
+<h3 id="good-example-user_id">✅ Good Example: <code>(user_id)</code></h3>
 <p><strong>Use Case:</strong> Accessing user data or timeline.</p>
 <table>
 <thead>
@@ -613,7 +2827,7 @@ Perfect for region-based apps like food delivery or social platforms.</p>
 <p><strong>Result:</strong><br />
 Fast lookups, evenly distributed partitions.</p>
 <hr />
-<h3 id="bad-example-country">⚠ Bad Example: <code>(country)</code><a class="headerlink" href="#bad-example-country" title="Permanent link">&para;</a></h3>
+<h3 id="bad-example-country">⚠ Bad Example: <code>(country)</code></h3>
 <table>
 <thead>
 <tr>
@@ -639,7 +2853,7 @@ Fast lookups, evenly distributed partitions.</p>
 <p><strong>Result:</strong><br />
 Hot partitions and unbalanced storage.</p>
 <hr />
-<h3 id="better-compound-partition-key-country-user_id">✅ Better: Compound Partition Key <code>(country, user_id)</code><a class="headerlink" href="#better-compound-partition-key-country-user_id" title="Permanent link">&para;</a></h3>
+<h3 id="better-compound-partition-key-country-user_id">✅ Better: Compound Partition Key <code>(country, user_id)</code></h3>
 <table>
 <thead>
 <tr>
@@ -663,9 +2877,9 @@ Hot partitions and unbalanced storage.</p>
 </tbody>
 </table>
 <hr />
-<h2 id="3-elasticsearch">🔍 3. <strong>Elasticsearch</strong><a class="headerlink" href="#3-elasticsearch" title="Permanent link">&para;</a></h2>
+<h2 id="3-elasticsearch">🔍 3. <strong>Elasticsearch</strong></h2>
 <p>Elasticsearch distributes data using <strong>index shards</strong> and routing keys.</p>
-<h3 id="good-example-userid-as-routing-key">✅ Good Example: <code>userId</code> (as routing key)<a class="headerlink" href="#good-example-userid-as-routing-key" title="Permanent link">&para;</a></h3>
+<h3 id="good-example-userid-as-routing-key">✅ Good Example: <code>userId</code> (as routing key)</h3>
 <p><strong>Use Case:</strong> Querying logs or posts per user.</p>
 <table>
 <thead>
@@ -692,7 +2906,7 @@ Hot partitions and unbalanced storage.</p>
 <p><strong>Result:</strong><br />
 Low latency, reduced cluster load.</p>
 <hr />
-<h3 id="bad-example-region">⚠ Bad Example: <code>region</code><a class="headerlink" href="#bad-example-region" title="Permanent link">&para;</a></h3>
+<h3 id="bad-example-region">⚠ Bad Example: <code>region</code></h3>
 <table>
 <thead>
 <tr>
@@ -716,7 +2930,7 @@ Low latency, reduced cluster load.</p>
 </tbody>
 </table>
 <hr />
-<h2 id="comparison-table">⚙️ Comparison Table<a class="headerlink" href="#comparison-table" title="Permanent link">&para;</a></h2>
+<h2 id="comparison-table">⚙️ Comparison Table</h2>
 <table>
 <thead>
 <tr>
@@ -752,7 +2966,7 @@ Low latency, reduced cluster load.</p>
 </tbody>
 </table>
 <hr />
-<h3 id="general-rule-of-thumb">🧭 General Rule of Thumb<a class="headerlink" href="#general-rule-of-thumb" title="Permanent link">&para;</a></h3>
+<h3 id="general-rule-of-thumb">🧭 General Rule of Thumb</h3>
 <table>
 <thead>
 <tr>
@@ -780,11 +2994,11 @@ Low latency, reduced cluster load.</p>
 </tbody>
 </table>
 <hr />
-<h2 id="question_1">Question<a class="headerlink" href="#question_1" title="Permanent link">&para;</a></h2>
+<h2 id="question_1">Question</h2>
 <p><strong>Different types of sharding</strong> is fundamental for system design interviews and real-world architecture.</p>
 <p>Let’s break this down <strong>clearly, deeply, and visually structured</strong> 👇</p>
 <hr />
-<h2 id="what-is-sharding">🧩 <strong>What Is Sharding?</strong><a class="headerlink" href="#what-is-sharding" title="Permanent link">&para;</a></h2>
+<h2 id="what-is-sharding">🧩 <strong>What Is Sharding?</strong></h2>
 <p><strong>Sharding</strong> = breaking a large dataset into smaller, faster, more manageable parts called <strong>shards</strong>, which are distributed across multiple servers (nodes).</p>
 <p>It’s mainly used to:</p>
 <ul>
@@ -799,7 +3013,7 @@ Low latency, reduced cluster load.</p>
 </li>
 </ul>
 <hr />
-<h2 id="types-of-sharding">🧱 <strong>Types of Sharding</strong><a class="headerlink" href="#types-of-sharding" title="Permanent link">&para;</a></h2>
+<h2 id="types-of-sharding">🧱 <strong>Types of Sharding</strong></h2>
 <p>There are <strong>four major types</strong> of sharding you should know:</p>
 <ol>
 <li>
@@ -817,7 +3031,7 @@ Low latency, reduced cluster load.</p>
 </ol>
 <p>Let’s explore each.</p>
 <hr />
-<h3 id="1-range-based-sharding">1️⃣ <strong>Range-Based Sharding</strong><a class="headerlink" href="#1-range-based-sharding" title="Permanent link">&para;</a></h3>
+<h3 id="1-range-based-sharding">1️⃣ <strong>Range-Based Sharding</strong></h3>
 <p><strong>How it works:</strong><br />
 Data is divided into shards based on value <strong>ranges</strong> of the shard key.</p>
 <p><strong>Example:</strong></p>
@@ -877,7 +3091,7 @@ Data is divided into shards based on value <strong>ranges</strong> of the shard 
 </li>
 </ul>
 <hr />
-<h3 id="2-hash-based-sharding">2️⃣ <strong>Hash-Based Sharding</strong><a class="headerlink" href="#2-hash-based-sharding" title="Permanent link">&para;</a></h3>
+<h3 id="2-hash-based-sharding">2️⃣ <strong>Hash-Based Sharding</strong></h3>
 <p><strong>How it works:</strong><br />
 Apply a <strong>hash function</strong> to the shard key, then assign the data to shards based on the hash output.</p>
 <p><strong>Example:</strong><br />
@@ -942,7 +3156,7 @@ Apply a <strong>hash function</strong> to the shard key, then assign the data to
 </li>
 </ul>
 <hr />
-<h3 id="3-directory-based-lookup-based-sharding">3️⃣ <strong>Directory-Based (Lookup-Based) Sharding</strong><a class="headerlink" href="#3-directory-based-lookup-based-sharding" title="Permanent link">&para;</a></h3>
+<h3 id="3-directory-based-lookup-based-sharding">3️⃣ <strong>Directory-Based (Lookup-Based) Sharding</strong></h3>
 <p><strong>How it works:</strong><br />
 A <strong>mapping service (directory)</strong> stores which shard each key belongs to.</p>
 <p><strong>Example:</strong></p>
@@ -1006,7 +3220,7 @@ A <strong>mapping service (directory)</strong> stores which shard each key belon
 </li>
 </ul>
 <hr />
-<h3 id="4-composite-hybrid-sharding">4️⃣ <strong>Composite / Hybrid Sharding</strong><a class="headerlink" href="#4-composite-hybrid-sharding" title="Permanent link">&para;</a></h3>
+<h3 id="4-composite-hybrid-sharding">4️⃣ <strong>Composite / Hybrid Sharding</strong></h3>
 <p><strong>How it works:</strong><br />
 Combines <strong>multiple sharding strategies</strong> — for example:</p>
 <ul>
@@ -1084,7 +3298,7 @@ Shard first by <code>region</code>, then within region by <code>hashed(userId)</
 </li>
 </ul>
 <hr />
-<h2 id="comparison-table_1">⚙️ <strong>Comparison Table</strong><a class="headerlink" href="#comparison-table_1" title="Permanent link">&para;</a></h2>
+<h2 id="comparison-table_1">⚙️ <strong>Comparison Table</strong></h2>
 <table>
 <thead>
 <tr>
@@ -1127,14 +3341,14 @@ Shard first by <code>region</code>, then within region by <code>hashed(userId)</
 </tbody>
 </table>
 <hr />
-<h2 id="bonus-consistent-hashing">🧠 Bonus: <strong>Consistent Hashing</strong><a class="headerlink" href="#bonus-consistent-hashing" title="Permanent link">&para;</a></h2>
+<h2 id="bonus-consistent-hashing">🧠 Bonus: <strong>Consistent Hashing</strong></h2>
 <p>A <strong>variant of hash sharding</strong> used in systems like <strong>Cassandra</strong>, <strong>DynamoDB</strong>, <strong>Kafka</strong>, and <strong>Redis Cluster</strong>.</p>
 <p><strong>Idea:</strong><br />
 Instead of <code>hash(key) % N</code>, use a <strong>hash ring</strong> — when adding/removing a shard, only a small subset of keys move.</p>
 <p><strong>✅ Benefit:</strong><br />
 Highly scalable and avoids full data reshuffling.</p>
 <hr />
-<h2 id="when-to-use-which">🧭 When to Use Which<a class="headerlink" href="#when-to-use-which" title="Permanent link">&para;</a></h2>
+<h2 id="when-to-use-which">🧭 When to Use Which</h2>
 <table>
 <thead>
 <tr>

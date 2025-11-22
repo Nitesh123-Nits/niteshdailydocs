@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../Helm%20Chart/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -264,6 +278,461 @@
   
 
       </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DevOps
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-evolution-why-containerization-came-into-existence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 1. The Evolution — Why Containerization Came into Existence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 1. The Evolution — Why Containerization Came into Existence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Before Containers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧱 Before Containers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problems-with-vms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problems with VMs:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-rise-of-containers-and-image-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐳 2. The Rise of Containers and Image Creation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐳 2. The Rise of Containers and Image Creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 What is a Container?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 What is an Image?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-it-solved-a-big-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Why it Solved a Big Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-birth-of-kubernetes-container-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☸️ 3. The Birth of Kubernetes — Container Orchestration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="☸️ 3. The Birth of Kubernetes — Container Orchestration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 What is Kubernetes?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-key-components-of-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 4. Key Components of Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-how-it-solves-modern-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 5. How It Solves Modern Problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 5. How It Solves Modern Problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#distributed-scalable-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Distributed &amp; Scalable Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fault-tolerance-self-healing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💪 Fault Tolerance &amp; Self-Healing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-native-and-microservices-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☁️ Cloud-Native and Microservices Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔐 Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-kubernetes-architecture-diagram-conceptually" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 6. Kubernetes Architecture Diagram (Conceptually)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-how-it-enables-cloud-native-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 7. How It Enables Cloud-Native Development
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-real-world-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 8. Real-World Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-common-interview-questions-with-expected-angle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 9. Common Interview Questions (With Expected Angle)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💬 9. Common Interview Questions (With Expected Angle)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Level
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-discussion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Discussion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 10. Key Takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -283,17 +752,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    System Design
+    Distributed Sytem
   
 
     
@@ -304,16 +773,740 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    Distributed Sytem
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -329,7 +1522,979 @@
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -374,8 +2539,8 @@
 
 <p>Perfect — this is one of the most <strong>frequent system design and DevOps crossover topics</strong> asked in interviews for backend and microservice developers. Let’s go step-by-step and connect the dots from <strong>why containerization exists</strong> to <strong>how Kubernetes orchestrates modern distributed systems</strong> and <strong>the interview-level questions</strong> you can expect.</p>
 <hr />
-<h2 id="1-the-evolution-why-containerization-came-into-existence">🚀 1. The Evolution — Why Containerization Came into Existence<a class="headerlink" href="#1-the-evolution-why-containerization-came-into-existence" title="Permanent link">&para;</a></h2>
-<h3 id="before-containers">🧱 Before Containers<a class="headerlink" href="#before-containers" title="Permanent link">&para;</a></h3>
+<h2 id="1-the-evolution-why-containerization-came-into-existence">🚀 1. The Evolution — Why Containerization Came into Existence</h2>
+<h3 id="before-containers">🧱 Before Containers</h3>
 <p>Earlier, we used to:</p>
 <ul>
 <li>
@@ -385,7 +2550,7 @@
 <p>Then came <strong>Virtual Machines (VMs)</strong> — they allowed multiple OSes to run on one physical machine, each with its own kernel.</p>
 </li>
 </ul>
-<h4 id="problems-with-vms">Problems with VMs:<a class="headerlink" href="#problems-with-vms" title="Permanent link">&para;</a></h4>
+<h4 id="problems-with-vms">Problems with VMs:</h4>
 <ul>
 <li>
 <p><strong>Heavyweight:</strong> Each VM includes a full guest OS.</p>
@@ -401,8 +2566,8 @@
 </li>
 </ul>
 <hr />
-<h2 id="2-the-rise-of-containers-and-image-creation">🐳 2. The Rise of Containers and Image Creation<a class="headerlink" href="#2-the-rise-of-containers-and-image-creation" title="Permanent link">&para;</a></h2>
-<h3 id="what-is-a-container">🧩 What is a Container?<a class="headerlink" href="#what-is-a-container" title="Permanent link">&para;</a></h3>
+<h2 id="2-the-rise-of-containers-and-image-creation">🐳 2. The Rise of Containers and Image Creation</h2>
+<h3 id="what-is-a-container">🧩 What is a Container?</h3>
 <p>A <strong>container</strong> is a lightweight, isolated environment that packages:</p>
 <ul>
 <li>
@@ -420,20 +2585,20 @@
 </ul>
 <p>All inside a single <strong>image</strong> that can run anywhere.</p>
 <p>Unlike VMs, containers <strong>share the same OS kernel</strong> and isolate processes using Linux features like <strong>cgroups</strong> and <strong>namespaces</strong> — hence, faster and lighter.</p>
-<h3 id="what-is-an-image">🔧 What is an Image?<a class="headerlink" href="#what-is-an-image" title="Permanent link">&para;</a></h3>
+<h3 id="what-is-an-image">🔧 What is an Image?</h3>
 <p>A <strong>Docker Image</strong> is an immutable blueprint of your container — like a snapshot of your app and its environment.</p>
 <p>Example structure:</p>
-<div class="highlight"><pre><span></span><code>FROM openjdk:17-jdk
+<pre><code>FROM openjdk:17-jdk
 COPY target/app.jar /app.jar
 CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
-</code></pre></div>
+</code></pre>
 <p>You build this using:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>myapp:1.0<span class="w"> </span>.
-</code></pre></div>
+<pre><code class="language-bash">docker build -t myapp:1.0 .
+</code></pre>
 <p>Then run:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>myapp:1.0
-</code></pre></div>
-<h3 id="why-it-solved-a-big-problem">⚙️ Why it Solved a Big Problem<a class="headerlink" href="#why-it-solved-a-big-problem" title="Permanent link">&para;</a></h3>
+<pre><code class="language-bash">docker run -p 8080:8080 myapp:1.0
+</code></pre>
+<h3 id="why-it-solved-a-big-problem">⚙️ Why it Solved a Big Problem</h3>
 <ul>
 <li>
 <p><strong>Consistency:</strong> “Works on my machine” is no longer an issue.</p>
@@ -452,7 +2617,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 </li>
 </ul>
 <hr />
-<h2 id="3-the-birth-of-kubernetes-container-orchestration">☸️ 3. The Birth of Kubernetes — Container Orchestration<a class="headerlink" href="#3-the-birth-of-kubernetes-container-orchestration" title="Permanent link">&para;</a></h2>
+<h2 id="3-the-birth-of-kubernetes-container-orchestration">☸️ 3. The Birth of Kubernetes — Container Orchestration</h2>
 <p>Once teams started using <strong>hundreds of containers</strong>, new challenges appeared:</p>
 <ul>
 <li>
@@ -466,7 +2631,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 </li>
 </ul>
 <p>That’s where <strong>Kubernetes (K8s)</strong> was born (originally from Google’s Borg system).</p>
-<h3 id="what-is-kubernetes">🎯 What is Kubernetes?<a class="headerlink" href="#what-is-kubernetes" title="Permanent link">&para;</a></h3>
+<h3 id="what-is-kubernetes">🎯 What is Kubernetes?</h3>
 <p>Kubernetes is a <strong>container orchestration platform</strong> that automates:</p>
 <ul>
 <li>
@@ -490,7 +2655,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 </ul>
 <p>It manages <strong>clusters</strong> of containers across many machines.</p>
 <hr />
-<h2 id="4-key-components-of-kubernetes">🧩 4. Key Components of Kubernetes<a class="headerlink" href="#4-key-components-of-kubernetes" title="Permanent link">&para;</a></h2>
+<h2 id="4-key-components-of-kubernetes">🧩 4. Key Components of Kubernetes</h2>
 <table>
 <thead>
 <tr>
@@ -550,8 +2715,8 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 </tbody>
 </table>
 <hr />
-<h2 id="5-how-it-solves-modern-problems">🧠 5. How It Solves Modern Problems<a class="headerlink" href="#5-how-it-solves-modern-problems" title="Permanent link">&para;</a></h2>
-<h3 id="distributed-scalable-systems">🏗️ Distributed &amp; Scalable Systems<a class="headerlink" href="#distributed-scalable-systems" title="Permanent link">&para;</a></h3>
+<h2 id="5-how-it-solves-modern-problems">🧠 5. How It Solves Modern Problems</h2>
+<h3 id="distributed-scalable-systems">🏗️ Distributed &amp; Scalable Systems</h3>
 <ul>
 <li>
 <p>Kubernetes can automatically <strong>scale</strong> applications based on CPU/memory usage.</p>
@@ -563,7 +2728,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 <p><strong>Load balancing</strong> via services or ingress controllers ensures even traffic distribution.</p>
 </li>
 </ul>
-<h3 id="fault-tolerance-self-healing">💪 Fault Tolerance &amp; Self-Healing<a class="headerlink" href="#fault-tolerance-self-healing" title="Permanent link">&para;</a></h3>
+<h3 id="fault-tolerance-self-healing">💪 Fault Tolerance &amp; Self-Healing</h3>
 <ul>
 <li>
 <p>If a Pod crashes, Kubernetes <strong>restarts</strong> it.</p>
@@ -575,7 +2740,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 <p>Health checks (<code>livenessProbe</code>, <code>readinessProbe</code>) ensure only healthy Pods receive traffic.</p>
 </li>
 </ul>
-<h3 id="cloud-native-and-microservices-architecture">☁️ Cloud-Native and Microservices Architecture<a class="headerlink" href="#cloud-native-and-microservices-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="cloud-native-and-microservices-architecture">☁️ Cloud-Native and Microservices Architecture</h3>
 <ul>
 <li>
 <p>Ideal for microservices — each service runs in its own container.</p>
@@ -587,7 +2752,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 <p>Integrates seamlessly with <strong>CI/CD pipelines</strong>.</p>
 </li>
 </ul>
-<h3 id="security">🔐 Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<h3 id="security">🔐 Security</h3>
 <ul>
 <li>
 <p>Namespace and RBAC (Role-Based Access Control) isolate resources.</p>
@@ -600,8 +2765,8 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 </li>
 </ul>
 <hr />
-<h2 id="6-kubernetes-architecture-diagram-conceptually">⚙️ 6. Kubernetes Architecture Diagram (Conceptually)<a class="headerlink" href="#6-kubernetes-architecture-diagram-conceptually" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>                  ┌──────────────────────────┐
+<h2 id="6-kubernetes-architecture-diagram-conceptually">⚙️ 6. Kubernetes Architecture Diagram (Conceptually)</h2>
+<pre><code>                  ┌──────────────────────────┐
                   │       Master Node        │
                   │ ┌──────────────────────┐ │
                   │ │  API Server          │ │
@@ -621,9 +2786,9 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
  │ │   └──────────────┘   │  │  │   └──────────────┘   │ │
  │ └──────────────────────┘  │  └──────────────────────┘ │
  └───────────────────────────┴───────────────────────────┘
-</code></pre></div>
+</code></pre>
 <hr />
-<h2 id="7-how-it-enables-cloud-native-development">⚡ 7. How It Enables Cloud-Native Development<a class="headerlink" href="#7-how-it-enables-cloud-native-development" title="Permanent link">&para;</a></h2>
+<h2 id="7-how-it-enables-cloud-native-development">⚡ 7. How It Enables Cloud-Native Development</h2>
 <p>Cloud-native apps leverage:</p>
 <ul>
 <li>
@@ -643,7 +2808,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 </li>
 </ul>
 <hr />
-<h2 id="8-real-world-examples">🎯 8. Real-World Examples<a class="headerlink" href="#8-real-world-examples" title="Permanent link">&para;</a></h2>
+<h2 id="8-real-world-examples">🎯 8. Real-World Examples</h2>
 <table>
 <thead>
 <tr>
@@ -671,8 +2836,8 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 </tbody>
 </table>
 <hr />
-<h2 id="9-common-interview-questions-with-expected-angle">💬 9. Common Interview Questions (With Expected Angle)<a class="headerlink" href="#9-common-interview-questions-with-expected-angle" title="Permanent link">&para;</a></h2>
-<h3 id="basic-level"><strong>Basic Level</strong><a class="headerlink" href="#basic-level" title="Permanent link">&para;</a></h3>
+<h2 id="9-common-interview-questions-with-expected-angle">💬 9. Common Interview Questions (With Expected Angle)</h2>
+<h3 id="basic-level"><strong>Basic Level</strong></h3>
 <ol>
 <li>
 <p>What is the difference between a VM and a Container?</p>
@@ -687,7 +2852,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 <p>How does Docker isolate environments?</p>
 </li>
 </ol>
-<h3 id="intermediate"><strong>Intermediate</strong><a class="headerlink" href="#intermediate" title="Permanent link">&para;</a></h3>
+<h3 id="intermediate"><strong>Intermediate</strong></h3>
 <ol>
 <li>
 <p>What is a Pod in Kubernetes?</p>
@@ -702,7 +2867,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 <p>Explain ConfigMap and Secret.</p>
 </li>
 </ol>
-<h3 id="advanced"><strong>Advanced</strong><a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h3>
+<h3 id="advanced"><strong>Advanced</strong></h3>
 <ol>
 <li>
 <p>How does Kubernetes handle self-healing?</p>
@@ -723,7 +2888,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 <p>How would you scale your application dynamically in Kubernetes?</p>
 </li>
 </ol>
-<h3 id="architecture-discussion"><strong>Architecture Discussion</strong><a class="headerlink" href="#architecture-discussion" title="Permanent link">&para;</a></h3>
+<h3 id="architecture-discussion"><strong>Architecture Discussion</strong></h3>
 <ol>
 <li>
 <p>Explain how Kubernetes supports microservice architecture.</p>
@@ -739,7 +2904,7 @@ CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;/app.jar&quot;]
 </li>
 </ol>
 <hr />
-<h2 id="10-key-takeaway">🧩 10. Key Takeaway<a class="headerlink" href="#10-key-takeaway" title="Permanent link">&para;</a></h2>
+<h2 id="10-key-takeaway">🧩 10. Key Takeaway</h2>
 <table>
 <thead>
 <tr>

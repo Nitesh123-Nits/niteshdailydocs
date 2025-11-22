@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../Distributed%20Monolith/">
+      
+      
+        <link rel="next" href="../HTTP%201.1%20vs%202.0%20vs%203.0/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,11 +323,1111 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-fan-out-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 1. What is Fan-Out Architecture?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-fan-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 2. What is Fan-In?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-fan-in-fan-out-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 3. Fan-In / Fan-Out Together
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-where-is-fan-out-fan-in-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 4. Where Is Fan-Out / Fan-In Used?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-problem-it-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 5. What Problem It Solves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-real-world-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 6. Real-World Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ 6. Real-World Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-e-commerce-order-processing-microservices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧾 Example 1: E-commerce Order Processing (Microservices)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-aws-sns-sqs-cloud-native" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☁️ Example 2: AWS SNS + SQS (Cloud Native)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-search-query-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Example 3: Search Query Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-interview-questions-and-how-to-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧑‍💻 7. Interview Questions and How to Answer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧑‍💻 7. Interview Questions and How to Answer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-what-is-a-fan-out-pattern-in-system-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q1. What is a fan-out pattern in system design?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-how-is-fan-in-different-from-fan-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q2. How is fan-in different from fan-out?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-what-are-the-benefits-of-fan-out-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q3. What are the benefits of fan-out architecture?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-how-do-you-implement-fan-out-fan-in-in-a-microservice-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q4. How do you implement fan-out / fan-in in a microservice architecture?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-what-are-the-challenges-with-fan-outfan-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q5. What are the challenges with fan-out/fan-in?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q6-can-you-give-a-system-design-example-using-fan-outfan-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q6. Can you give a system design example using fan-out/fan-in?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-related-design-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 8. Related Design Patterns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 9. Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-mnemonic-for-interview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 Quick Mnemonic for Interview
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -329,7 +1443,979 @@
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -373,7 +2459,7 @@
   <h1>Fan out vs Fan in</h1>
 
 <hr />
-<h2 id="1-what-is-fan-out-architecture">🧠 1. What is Fan-Out Architecture?<a class="headerlink" href="#1-what-is-fan-out-architecture" title="Permanent link">&para;</a></h2>
+<h2 id="1-what-is-fan-out-architecture">🧠 1. What is Fan-Out Architecture?</h2>
 <p><strong>Definition:</strong></p>
 <blockquote>
 <p>Fan-out refers to the process of <strong>distributing (or replicating)</strong> a message, task, or request from <strong>one source</strong> to <strong>multiple downstream systems or services</strong> in parallel.</p>
@@ -405,7 +2491,7 @@ Think of a <strong>YouTube uploader</strong>:</p>
 </li>
 </ul>
 <hr />
-<h2 id="2-what-is-fan-in">🧩 2. What is Fan-In?<a class="headerlink" href="#2-what-is-fan-in" title="Permanent link">&para;</a></h2>
+<h2 id="2-what-is-fan-in">🧩 2. What is Fan-In?</h2>
 <p><strong>Definition:</strong></p>
 <blockquote>
 <p>Fan-in is the reverse of fan-out. It refers to <strong>aggregating or collecting outputs</strong> from <strong>multiple sources/services</strong> into <strong>a single destination</strong>.</p>
@@ -421,7 +2507,7 @@ Think of a <strong>YouTube uploader</strong>:</p>
 </li>
 </ul>
 <hr />
-<h2 id="3-fan-in-fan-out-together">⚙️ 3. Fan-In / Fan-Out Together<a class="headerlink" href="#3-fan-in-fan-out-together" title="Permanent link">&para;</a></h2>
+<h2 id="3-fan-in-fan-out-together">⚙️ 3. Fan-In / Fan-Out Together</h2>
 <p>In distributed systems, both concepts are <strong>used together</strong> to enable <strong>parallelism + aggregation</strong>:</p>
 <ol>
 <li>
@@ -433,7 +2519,7 @@ Think of a <strong>YouTube uploader</strong>:</p>
 </ol>
 <p>This pattern enables <strong>scalability, concurrency, and high throughput</strong>.</p>
 <hr />
-<h2 id="4-where-is-fan-out-fan-in-used">💡 4. Where Is Fan-Out / Fan-In Used?<a class="headerlink" href="#4-where-is-fan-out-fan-in-used" title="Permanent link">&para;</a></h2>
+<h2 id="4-where-is-fan-out-fan-in-used">💡 4. Where Is Fan-Out / Fan-In Used?</h2>
 <table>
 <thead>
 <tr>
@@ -476,7 +2562,7 @@ Think of a <strong>YouTube uploader</strong>:</p>
 </tbody>
 </table>
 <hr />
-<h2 id="5-what-problem-it-solves">🧩 5. What Problem It Solves<a class="headerlink" href="#5-what-problem-it-solves" title="Permanent link">&para;</a></h2>
+<h2 id="5-what-problem-it-solves">🧩 5. What Problem It Solves</h2>
 <table>
 <thead>
 <tr>
@@ -508,8 +2594,8 @@ Think of a <strong>YouTube uploader</strong>:</p>
 </tbody>
 </table>
 <hr />
-<h2 id="6-real-world-examples">🏗️ 6. Real-World Examples<a class="headerlink" href="#6-real-world-examples" title="Permanent link">&para;</a></h2>
-<h3 id="example-1-e-commerce-order-processing-microservices">🧾 Example 1: E-commerce Order Processing (Microservices)<a class="headerlink" href="#example-1-e-commerce-order-processing-microservices" title="Permanent link">&para;</a></h3>
+<h2 id="6-real-world-examples">🏗️ 6. Real-World Examples</h2>
+<h3 id="example-1-e-commerce-order-processing-microservices">🧾 Example 1: E-commerce Order Processing (Microservices)</h3>
 <ul>
 <li>
 <p><strong>Fan-out:</strong> When an order is placed → message published to event bus (Kafka topic).</p>
@@ -521,7 +2607,7 @@ Think of a <strong>YouTube uploader</strong>:</p>
 <p><strong>Fan-in:</strong> When all services complete their jobs → their statuses fan-in to an <strong>Order Aggregator Service</strong> to mark the order as “Completed”.</p>
 </li>
 </ul>
-<h3 id="example-2-aws-sns-sqs-cloud-native">☁️ Example 2: AWS SNS + SQS (Cloud Native)<a class="headerlink" href="#example-2-aws-sns-sqs-cloud-native" title="Permanent link">&para;</a></h3>
+<h3 id="example-2-aws-sns-sqs-cloud-native">☁️ Example 2: AWS SNS + SQS (Cloud Native)</h3>
 <ul>
 <li>
 <p>SNS (Simple Notification Service) fans out messages to multiple SQS queues or Lambda functions.</p>
@@ -533,7 +2619,7 @@ Think of a <strong>YouTube uploader</strong>:</p>
 <p>A final collector Lambda aggregates the outcomes (fan-in).</p>
 </li>
 </ul>
-<h3 id="example-3-search-query-execution">🧠 Example 3: Search Query Execution<a class="headerlink" href="#example-3-search-query-execution" title="Permanent link">&para;</a></h3>
+<h3 id="example-3-search-query-execution">🧠 Example 3: Search Query Execution</h3>
 <ul>
 <li>
 <p>A query is <strong>fanned out</strong> to multiple search shards/nodes.</p>
@@ -546,16 +2632,16 @@ Think of a <strong>YouTube uploader</strong>:</p>
 </li>
 </ul>
 <hr />
-<h2 id="7-interview-questions-and-how-to-answer">🧑‍💻 7. Interview Questions and How to Answer<a class="headerlink" href="#7-interview-questions-and-how-to-answer" title="Permanent link">&para;</a></h2>
-<h3 id="q1-what-is-a-fan-out-pattern-in-system-design">Q1. What is a fan-out pattern in system design?<a class="headerlink" href="#q1-what-is-a-fan-out-pattern-in-system-design" title="Permanent link">&para;</a></h3>
+<h2 id="7-interview-questions-and-how-to-answer">🧑‍💻 7. Interview Questions and How to Answer</h2>
+<h3 id="q1-what-is-a-fan-out-pattern-in-system-design">Q1. What is a fan-out pattern in system design?</h3>
 <p><strong>Answer:</strong><br />
 Fan-out is when a system or service distributes a task or message to multiple downstream services or workers simultaneously to achieve concurrency or parallel processing. For example, in an event-driven system, a single event can be consumed by multiple subscribers.</p>
 <hr />
-<h3 id="q2-how-is-fan-in-different-from-fan-out">Q2. How is fan-in different from fan-out?<a class="headerlink" href="#q2-how-is-fan-in-different-from-fan-out" title="Permanent link">&para;</a></h3>
+<h3 id="q2-how-is-fan-in-different-from-fan-out">Q2. How is fan-in different from fan-out?</h3>
 <p><strong>Answer:</strong><br />
 Fan-in is the opposite process — it aggregates responses or data from multiple sources into one. In a search system, for example, queries are fanned out to multiple shards and results are fanned in and merged before returning to the client.</p>
 <hr />
-<h3 id="q3-what-are-the-benefits-of-fan-out-architecture">Q3. What are the benefits of fan-out architecture?<a class="headerlink" href="#q3-what-are-the-benefits-of-fan-out-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="q3-what-are-the-benefits-of-fan-out-architecture">Q3. What are the benefits of fan-out architecture?</h3>
 <p><strong>Answer:</strong></p>
 <ul>
 <li>
@@ -572,7 +2658,7 @@ Fan-in is the opposite process — it aggregates responses or data from multiple
 </li>
 </ul>
 <hr />
-<h3 id="q4-how-do-you-implement-fan-out-fan-in-in-a-microservice-architecture">Q4. How do you implement fan-out / fan-in in a microservice architecture?<a class="headerlink" href="#q4-how-do-you-implement-fan-out-fan-in-in-a-microservice-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="q4-how-do-you-implement-fan-out-fan-in-in-a-microservice-architecture">Q4. How do you implement fan-out / fan-in in a microservice architecture?</h3>
 <p><strong>Answer:</strong><br />
 Using an <strong>event-driven approach</strong>:</p>
 <ul>
@@ -584,7 +2670,7 @@ Using an <strong>event-driven approach</strong>:</p>
 </li>
 </ul>
 <hr />
-<h3 id="q5-what-are-the-challenges-with-fan-outfan-in">Q5. What are the challenges with fan-out/fan-in?<a class="headerlink" href="#q5-what-are-the-challenges-with-fan-outfan-in" title="Permanent link">&para;</a></h3>
+<h3 id="q5-what-are-the-challenges-with-fan-outfan-in">Q5. What are the challenges with fan-out/fan-in?</h3>
 <p><strong>Answer:</strong></p>
 <ul>
 <li>
@@ -601,7 +2687,7 @@ Using an <strong>event-driven approach</strong>:</p>
 </li>
 </ul>
 <hr />
-<h3 id="q6-can-you-give-a-system-design-example-using-fan-outfan-in">Q6. Can you give a system design example using fan-out/fan-in?<a class="headerlink" href="#q6-can-you-give-a-system-design-example-using-fan-outfan-in" title="Permanent link">&para;</a></h3>
+<h3 id="q6-can-you-give-a-system-design-example-using-fan-outfan-in">Q6. Can you give a system design example using fan-out/fan-in?</h3>
 <p><strong>Answer:</strong><br />
 If asked, describe a <strong>video processing pipeline</strong>:</p>
 <ul>
@@ -617,7 +2703,7 @@ If asked, describe a <strong>video processing pipeline</strong>:</p>
 </ul>
 <p>This example shows <strong>parallelism, decoupling, and aggregation</strong> — key features of fan-out/fan-in design.</p>
 <hr />
-<h2 id="8-related-design-patterns">🧩 8. Related Design Patterns<a class="headerlink" href="#8-related-design-patterns" title="Permanent link">&para;</a></h2>
+<h2 id="8-related-design-patterns">🧩 8. Related Design Patterns</h2>
 <table>
 <thead>
 <tr>
@@ -649,7 +2735,7 @@ If asked, describe a <strong>video processing pipeline</strong>:</p>
 </tbody>
 </table>
 <hr />
-<h2 id="9-summary-table">🧱 9. Summary Table<a class="headerlink" href="#9-summary-table" title="Permanent link">&para;</a></h2>
+<h2 id="9-summary-table">🧱 9. Summary Table</h2>
 <table>
 <thead>
 <tr>
@@ -675,7 +2761,7 @@ If asked, describe a <strong>video processing pipeline</strong>:</p>
 </tbody>
 </table>
 <hr />
-<h2 id="quick-mnemonic-for-interview">🚀 Quick Mnemonic for Interview<a class="headerlink" href="#quick-mnemonic-for-interview" title="Permanent link">&para;</a></h2>
+<h2 id="quick-mnemonic-for-interview">🚀 Quick Mnemonic for Interview</h2>
 <blockquote>
 <p>“Fan-out for speed, fan-in for meaning.”</p>
 </blockquote>

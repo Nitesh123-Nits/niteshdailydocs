@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../HTTP%201.1%20vs%202.0%20vs%203.0/">
+      
+      
+        <link rel="next" href="../Load%20balancer%20vs%20Reverse%20proxy/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,11 +323,2277 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-hot-key-meaning-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 1. “Hot Key” — Meaning &amp; Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 1. “Hot Key” — Meaning &amp; Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Problem:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Solutions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-the-word" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 When to use the word:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-hot-api-meaning-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌐 2. “Hot API” — Meaning &amp; Context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌐 2. “Hot API” — Meaning &amp; Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Problem:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Solutions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-the-word_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 When to use the word:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cold-key-or-cold-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧊 3. “Cold Key” or “Cold Path”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-hot-partition-or-hot-shard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 4. “Hot Partition” or “Hot Shard”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-hot-path-or-hot-code-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 5. “Hot Path” or “Hot Code Path”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-why-these-words-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 6. Why These Words Matter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-interview-conversation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗣️ Example Interview Conversation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-system-design-concepts-for-scalability-resilience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Advanced System Design Concepts for Scalability &amp; Resilience
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Advanced System Design Concepts for Scalability &amp; Resilience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cache-stampede-aka-dogpile-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 1. Cache Stampede (a.k.a. Dogpile Effect)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚙️ 1. Cache Stampede (a.k.a. Dogpile Effect)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-it-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Problem It Solves:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-mitigation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Common Mitigation Strategies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Real-world Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-cross-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Interview Cross-Questions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-thundering-herd-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🐘 2. Thundering Herd Problem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐘 2. Thundering Herd Problem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-it-solves_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Problem It Solves:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-mitigation-strategies_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Common Mitigation Strategies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Real-world Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-cross-questions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Interview Cross-Questions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-backpressure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧵 3. Backpressure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧵 3. Backpressure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-it-solves_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Problem It Solves:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-mitigation-strategies_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Common Mitigation Strategies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Real-world Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-cross-questions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Interview Cross-Questions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-circuit-breaker-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ 4. Circuit Breaker Pattern
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ 4. Circuit Breaker Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#states" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ States:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-it-solves_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Problem It Solves:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Common Implementations:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Real-world Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-cross-questions_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Interview Cross-Questions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-bulkhead-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🪣 5. Bulkhead Pattern
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🪣 5. Bulkhead Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-it-solves_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Problem It Solves:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-mitigation-strategies_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Common Mitigation Strategies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Real-world Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-cross-questions_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Interview Cross-Questions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚧 6. Rate Limiting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚧 6. Rate Limiting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-it-solves_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Problem It Solves:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Common Algorithms:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Real-world Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-cross-questions_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Interview Cross-Questions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-load-shedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💥 7. Load Shedding
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💥 7. Load Shedding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-it-solves_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 Problem It Solves:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-mitigation-strategies_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Common Mitigation Strategies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Real-world Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-cross-questions_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Interview Cross-Questions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-retry-with-exponential-backoff-jitter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⏱️ 8. Retry with Exponential Backoff &amp; Jitter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ 8. Retry with Exponential Backoff &amp; Jitter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Real-world Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-cross-questions_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Interview Cross-Questions:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-system-design-concepts-block-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Advanced System Design Concepts – Block 2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Advanced System Design Concepts – Block 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-idempotency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 1. Idempotency
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 1. Idempotency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Techniques:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-consistency-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚖️ 2. Consistency Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚖️ 2. Consistency Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Common Models:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cap-theorem-pacelc-theorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧮 3. CAP Theorem &amp; PACELC Theorem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧮 3. CAP Theorem &amp; PACELC Theorem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-eventual-consistency-conflict-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 4. Eventual Consistency &amp; Conflict Resolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 4. Eventual Consistency &amp; Conflict Resolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolution-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Resolution Strategies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-data-sharding-hotspotting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕸️ 5. Data Sharding &amp; Hotspotting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🕸️ 5. Data Sharding &amp; Hotspotting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharding-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Sharding Strategies:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-leader-election" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🕰️ 6. Leader Election
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🕰️ 6. Leader Election">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Tools:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-exactly-once-at-least-once-at-most-once-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔁 7. Exactly-Once, At-Least-Once, At-Most-Once Semantics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔁 7. Exactly-Once, At-Least-Once, At-Most-Once Semantics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-distributed-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 8. Distributed Locking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 8. Distributed Locking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Implementations:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-event-driven-architecture-message-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧰 9. Event-Driven Architecture &amp; Message Ordering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧰 9. Event-Driven Architecture &amp; Message Ordering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#techniques_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Techniques:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-observability-tracing-logging-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 10. Observability: Tracing, Logging, Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 10. Observability: Tracing, Logging, Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Tools:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-quorum-consensus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 11. Quorum &amp; Consensus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧱 11. Quorum &amp; Consensus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Formula:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-graceful-degradation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧍 12. Graceful Degradation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧍 12. Graceful Degradation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Examples:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insight_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Interview Insight:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-table-block-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Summary Table (Block 2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -329,7 +2609,979 @@
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -373,19 +3625,18 @@
 <p>System design interviews<strong>, using “loaded” yet meaningful terms like <em>hot key</em>, <em>hot API</em>, <em>cold path</em>, <em>cache stampede</em>, <em>fan-out</em>, <em>thundering herd</em>, etc., conveys </strong>depth and practical understanding** — not because they sound fancy, but because they hint that you’ve faced real-world scale issues and understand <em>why systems behave the way they do under load</em>.</p>
 <p>Let’s unpack <strong>“hot key,” “hot API,” and related terms</strong> in a structured way — including meaning, examples, problems they cause, and how to handle them.</p>
 <hr />
-<h2 id="1-hot-key-meaning-context">🧠 1. “Hot Key” — Meaning &amp; Context<a class="headerlink" href="#1-hot-key-meaning-context" title="Permanent link">&para;</a></h2>
+<h2 id="1-hot-key-meaning-context">🧠 1. “Hot Key” — Meaning &amp; Context</h2>
 <p><strong>Definition:</strong><br />
 A <strong>hot key</strong> refers to a <em>specific key or item</em> that receives <strong>disproportionately high access traffic</strong> compared to others in a distributed system (cache, DB, or storage).</p>
-<h3 id="example">🔍 Example:<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<h3 id="example">🔍 Example:</h3>
 <ul>
 <li>
 <p>Suppose you have a <strong>Redis cache</strong> storing product details:</p>
-<div class="highlight"><pre><span></span><code>product:{id} -&gt; productDetails
-</code></pre></div>
+<p><code>product:{id} -&gt; productDetails</code></p>
 <p>If <code>product:123</code> is an iPhone 16, and 80% of your users view that product page, then this key (<code>product:123</code>) becomes a <strong>hot key</strong>.</p>
 </li>
 </ul>
-<h3 id="problem">⚠️ Problem:<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h3>
+<h3 id="problem">⚠️ Problem:</h3>
 <ul>
 <li>
 <p>That single key gets <strong>too many reads/writes</strong> on one cache node or partition → <strong>hotspotting</strong>, <strong>load imbalance</strong>, or even <strong>throttling</strong>.</p>
@@ -394,7 +3645,7 @@ A <strong>hot key</strong> refers to a <em>specific key or item</em> that receiv
 <p>It breaks horizontal scalability assumptions (since load is uneven).</p>
 </li>
 </ul>
-<h3 id="solutions">🛠️ Solutions:<a class="headerlink" href="#solutions" title="Permanent link">&para;</a></h3>
+<h3 id="solutions">🛠️ Solutions:</h3>
 <ul>
 <li>
 <p><strong>Sharding or Key Hashing</strong>: Spread requests across nodes by random suffixing keys (e.g., <code>product:123:1</code>, <code>product:123:2</code>) and combine results.</p>
@@ -409,16 +3660,16 @@ A <strong>hot key</strong> refers to a <em>specific key or item</em> that receiv
 <p><strong>Async batching</strong>: Debounce or batch reads/writes on the same key.</p>
 </li>
 </ul>
-<h3 id="when-to-use-the-word">💬 When to use the word:<a class="headerlink" href="#when-to-use-the-word" title="Permanent link">&para;</a></h3>
+<h3 id="when-to-use-the-word">💬 When to use the word:</h3>
 <blockquote>
 <p>“We noticed a <em>hot key</em> pattern in Redis due to one product’s extreme popularity, which caused uneven load. We mitigated it by adding key randomization and read replicas.”</p>
 </blockquote>
 <p>That sounds <strong>very seasoned and real-world</strong>.</p>
 <hr />
-<h2 id="2-hot-api-meaning-context">🌐 2. “Hot API” — Meaning &amp; Context<a class="headerlink" href="#2-hot-api-meaning-context" title="Permanent link">&para;</a></h2>
+<h2 id="2-hot-api-meaning-context">🌐 2. “Hot API” — Meaning &amp; Context</h2>
 <p><strong>Definition:</strong><br />
 A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint that receives <strong>a very high QPS (queries per second)</strong> compared to other endpoints — becoming a <strong>bottleneck or hotspot</strong> in your microservice architecture.</p>
-<h3 id="example_1">🔍 Example:<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<h3 id="example_1">🔍 Example:</h3>
 <ul>
 <li>
 <p>In an e-commerce platform:</p>
@@ -432,7 +3683,7 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 </ul>
 </li>
 </ul>
-<h3 id="problem_1">⚠️ Problem:<a class="headerlink" href="#problem_1" title="Permanent link">&para;</a></h3>
+<h3 id="problem_1">⚠️ Problem:</h3>
 <ul>
 <li>
 <p>These endpoints experience <strong>latency spikes</strong>, <strong>rate-limit issues</strong>, or <strong>backend contention</strong>.</p>
@@ -441,7 +3692,7 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>Could trigger <strong>DB load spikes</strong> or <strong>cache thrashing</strong>.</p>
 </li>
 </ul>
-<h3 id="solutions_1">🛠️ Solutions:<a class="headerlink" href="#solutions_1" title="Permanent link">&para;</a></h3>
+<h3 id="solutions_1">🛠️ Solutions:</h3>
 <ul>
 <li>
 <p><strong>Cache responses</strong> (Redis, CDN, in-memory).</p>
@@ -459,13 +3710,13 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p><strong>Edge caching</strong> or <strong>API Gateway-level caching</strong>.</p>
 </li>
 </ul>
-<h3 id="when-to-use-the-word_1">💬 When to use the word:<a class="headerlink" href="#when-to-use-the-word_1" title="Permanent link">&para;</a></h3>
+<h3 id="when-to-use-the-word_1">💬 When to use the word:</h3>
 <blockquote>
 <p>“The <code>/api/homepage</code> endpoint turned into a <em>hot API</em> after we went live — so we cached its response in Redis for 2 seconds to flatten load spikes.”</p>
 </blockquote>
 <p>That phrasing gives <em>instant credibility</em>.</p>
 <hr />
-<h2 id="3-cold-key-or-cold-path">🧊 3. “Cold Key” or “Cold Path”<a class="headerlink" href="#3-cold-key-or-cold-path" title="Permanent link">&para;</a></h2>
+<h2 id="3-cold-key-or-cold-path">🧊 3. “Cold Key” or “Cold Path”</h2>
 <p><strong>Cold key</strong> = rarely accessed data.<br />
 <strong>Cold path</strong> = code path not frequently used (opposite of hot path).</p>
 <p>Example:</p>
@@ -478,7 +3729,7 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>“We maintain a hot-cold data split where frequently accessed metrics stay in Redis and older metrics are moved to S3.”</p>
 </blockquote>
 <hr />
-<h2 id="4-hot-partition-or-hot-shard">⚡ 4. “Hot Partition” or “Hot Shard”<a class="headerlink" href="#4-hot-partition-or-hot-shard" title="Permanent link">&para;</a></h2>
+<h2 id="4-hot-partition-or-hot-shard">⚡ 4. “Hot Partition” or “Hot Shard”</h2>
 <p>If the load imbalance happens <strong>at the partition level</strong> (in Kafka, Cassandra, MongoDB, etc.), that’s called a <strong>hot partition</strong> or <strong>hot shard</strong>.</p>
 <p>Example:</p>
 <ul>
@@ -494,7 +3745,7 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>“We faced a <em>hot partition</em> issue in Kafka because our partitioning key wasn’t uniform — we fixed it by using a composite key with random salt.”</p>
 </blockquote>
 <hr />
-<h2 id="5-hot-path-or-hot-code-path">🔥 5. “Hot Path” or “Hot Code Path”<a class="headerlink" href="#5-hot-path-or-hot-code-path" title="Permanent link">&para;</a></h2>
+<h2 id="5-hot-path-or-hot-code-path">🔥 5. “Hot Path” or “Hot Code Path”</h2>
 <p><strong>Hot path</strong> = the most frequently executed part of code in a request flow or microservice.</p>
 <p>Example:</p>
 <ul>
@@ -510,7 +3761,7 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>“We optimized the <em>hot path</em> by switching from JSON to binary serialization, cutting 30% CPU overhead.”</p>
 </blockquote>
 <hr />
-<h2 id="6-why-these-words-matter">🧩 6. Why These Words Matter<a class="headerlink" href="#6-why-these-words-matter" title="Permanent link">&para;</a></h2>
+<h2 id="6-why-these-words-matter">🧩 6. Why These Words Matter</h2>
 <p>Using terms like:</p>
 <ul>
 <li>
@@ -549,7 +3800,7 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 </ul>
 <p>… communicates that you don’t just know <em>concepts</em> but also <em>operational realities</em> of distributed systems — <strong>how they behave under pressure</strong>.</p>
 <hr />
-<h2 id="example-interview-conversation">🗣️ Example Interview Conversation<a class="headerlink" href="#example-interview-conversation" title="Permanent link">&para;</a></h2>
+<h2 id="example-interview-conversation">🗣️ Example Interview Conversation</h2>
 <p><strong>Interviewer:</strong> What caching challenges have you seen in large-scale systems?<br />
 <strong>You:</strong></p>
 <blockquote>
@@ -576,15 +3827,15 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 </li>
 </ol>
 <hr />
-<h1 id="advanced-system-design-concepts-for-scalability-resilience">🧩 Advanced System Design Concepts for Scalability &amp; Resilience<a class="headerlink" href="#advanced-system-design-concepts-for-scalability-resilience" title="Permanent link">&para;</a></h1>
+<h1 id="advanced-system-design-concepts-for-scalability-resilience">🧩 Advanced System Design Concepts for Scalability &amp; Resilience</h1>
 <hr />
-<h2 id="1-cache-stampede-aka-dogpile-effect">⚙️ 1. Cache Stampede (a.k.a. Dogpile Effect)<a class="headerlink" href="#1-cache-stampede-aka-dogpile-effect" title="Permanent link">&para;</a></h2>
-<h3 id="concept">🧠 Concept:<a class="headerlink" href="#concept" title="Permanent link">&para;</a></h3>
+<h2 id="1-cache-stampede-aka-dogpile-effect">⚙️ 1. Cache Stampede (a.k.a. Dogpile Effect)</h2>
+<h3 id="concept">🧠 Concept:</h3>
 <p>A <strong>cache stampede</strong> occurs when a cache entry expires, and suddenly <strong>multiple concurrent requests</strong> try to fetch and recompute the same data — <strong>overloading the database or backend</strong>.</p>
 <p>It’s like everyone rushing to refill the same cache entry at once.</p>
-<h3 id="problem-it-solves">🚨 Problem It Solves:<a class="headerlink" href="#problem-it-solves" title="Permanent link">&para;</a></h3>
+<h3 id="problem-it-solves">🚨 Problem It Solves:</h3>
 <p>Without protection, the system experiences a <strong>sudden traffic spike</strong> to the origin (DB, microservice, etc.), leading to latency or even cascading failures.</p>
-<h3 id="common-mitigation-strategies">💡 Common Mitigation Strategies:<a class="headerlink" href="#common-mitigation-strategies" title="Permanent link">&para;</a></h3>
+<h3 id="common-mitigation-strategies">💡 Common Mitigation Strategies:</h3>
 <ul>
 <li>
 <p><strong>Locking / Single Flight</strong>: Only one thread recomputes the data; others wait.</p>
@@ -599,11 +3850,11 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p><strong>Background Refresh</strong>: Asynchronously update cache in the background.</p>
 </li>
 </ul>
-<h3 id="real-world-example">💬 Real-world Example:<a class="headerlink" href="#real-world-example" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example">💬 Real-world Example:</h3>
 <blockquote>
 <p>“We faced a <em>cache stampede</em> issue in Redis when our homepage cache expired, leading to thousands of DB hits in seconds. We implemented soft TTL and added random jitter to prevent synchronized expirations.”</p>
 </blockquote>
-<h3 id="interview-cross-questions">🎯 Interview Cross-Questions:<a class="headerlink" href="#interview-cross-questions" title="Permanent link">&para;</a></h3>
+<h3 id="interview-cross-questions">🎯 Interview Cross-Questions:</h3>
 <ul>
 <li>
 <p><em>“How is it different from a thundering herd?”</em><br />
@@ -615,13 +3866,13 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 </li>
 </ul>
 <hr />
-<h2 id="2-thundering-herd-problem">🐘 2. Thundering Herd Problem<a class="headerlink" href="#2-thundering-herd-problem" title="Permanent link">&para;</a></h2>
-<h3 id="concept_1">🧠 Concept:<a class="headerlink" href="#concept_1" title="Permanent link">&para;</a></h3>
+<h2 id="2-thundering-herd-problem">🐘 2. Thundering Herd Problem</h2>
+<h3 id="concept_1">🧠 Concept:</h3>
 <p>A <strong>thundering herd</strong> happens when <strong>many clients or threads</strong> wake up simultaneously to process the same event or access a single shared resource — causing a massive load surge.</p>
 <p>It’s a <em>synchronized spike</em> problem, not necessarily cache-specific.</p>
-<h3 id="problem-it-solves_1">🚨 Problem It Solves:<a class="headerlink" href="#problem-it-solves_1" title="Permanent link">&para;</a></h3>
+<h3 id="problem-it-solves_1">🚨 Problem It Solves:</h3>
 <p>Avoids <em>resource contention</em> and <em>spike overload</em> on downstream services, databases, or locks.</p>
-<h3 id="common-mitigation-strategies_1">💡 Common Mitigation Strategies:<a class="headerlink" href="#common-mitigation-strategies_1" title="Permanent link">&para;</a></h3>
+<h3 id="common-mitigation-strategies_1">💡 Common Mitigation Strategies:</h3>
 <ul>
 <li>
 <p><strong>Request coalescing</strong> (merge identical requests)</p>
@@ -639,11 +3890,11 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p><strong>Staggered wake-ups</strong> (using randomized timers)</p>
 </li>
 </ul>
-<h3 id="real-world-example_1">💬 Real-world Example:<a class="headerlink" href="#real-world-example_1" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_1">💬 Real-world Example:</h3>
 <blockquote>
 <p>“We noticed a <em>thundering herd</em> on our Kafka consumers when a topic became available — all consumers woke up simultaneously. We fixed it by adding jittered scheduling and batch consumption.”</p>
 </blockquote>
-<h3 id="interview-cross-questions_1">🎯 Interview Cross-Questions:<a class="headerlink" href="#interview-cross-questions_1" title="Permanent link">&para;</a></h3>
+<h3 id="interview-cross-questions_1">🎯 Interview Cross-Questions:</h3>
 <ul>
 <li>
 <p><em>“What’s the difference between thundering herd and cache stampede?”</em><br />
@@ -655,13 +3906,13 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 </li>
 </ul>
 <hr />
-<h2 id="3-backpressure">🧵 3. Backpressure<a class="headerlink" href="#3-backpressure" title="Permanent link">&para;</a></h2>
-<h3 id="concept_2">🧠 Concept:<a class="headerlink" href="#concept_2" title="Permanent link">&para;</a></h3>
+<h2 id="3-backpressure">🧵 3. Backpressure</h2>
+<h3 id="concept_2">🧠 Concept:</h3>
 <p><strong>Backpressure</strong> is a <em>flow control mechanism</em> that helps systems <strong>slow down producers</strong> when <strong>consumers are overwhelmed</strong> — preventing queue buildup, OOM errors, or latency spikes.</p>
 <p>Think of it like a pressure valve in a water pipe — it signals upstream systems to stop or slow data flow.</p>
-<h3 id="problem-it-solves_2">🚨 Problem It Solves:<a class="headerlink" href="#problem-it-solves_2" title="Permanent link">&para;</a></h3>
+<h3 id="problem-it-solves_2">🚨 Problem It Solves:</h3>
 <p>In event-driven or streaming systems, producers may emit messages faster than consumers can handle. Without backpressure, you get <strong>queue overflow</strong> or <strong>system crashes</strong>.</p>
-<h3 id="common-mitigation-strategies_2">💡 Common Mitigation Strategies:<a class="headerlink" href="#common-mitigation-strategies_2" title="Permanent link">&para;</a></h3>
+<h3 id="common-mitigation-strategies_2">💡 Common Mitigation Strategies:</h3>
 <ul>
 <li>
 <p><strong>Reactive Streams / Flow control signals</strong> (e.g., in Spring WebFlux, Kafka, gRPC streaming)</p>
@@ -676,11 +3927,11 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p><strong>Load shedding when thresholds are reached</strong></p>
 </li>
 </ul>
-<h3 id="real-world-example_2">💬 Real-world Example:<a class="headerlink" href="#real-world-example_2" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_2">💬 Real-world Example:</h3>
 <blockquote>
 <p>“We implemented <em>backpressure</em> in our reactive pipeline to avoid overloading the downstream payment service when the Kafka topic spiked.”</p>
 </blockquote>
-<h3 id="interview-cross-questions_2">🎯 Interview Cross-Questions:<a class="headerlink" href="#interview-cross-questions_2" title="Permanent link">&para;</a></h3>
+<h3 id="interview-cross-questions_2">🎯 Interview Cross-Questions:</h3>
 <ul>
 <li>
 <p><em>“What happens if backpressure isn’t implemented?”</em><br />
@@ -692,11 +3943,11 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 </li>
 </ul>
 <hr />
-<h2 id="4-circuit-breaker-pattern">⚡ 4. Circuit Breaker Pattern<a class="headerlink" href="#4-circuit-breaker-pattern" title="Permanent link">&para;</a></h2>
-<h3 id="concept_3">🧠 Concept:<a class="headerlink" href="#concept_3" title="Permanent link">&para;</a></h3>
+<h2 id="4-circuit-breaker-pattern">⚡ 4. Circuit Breaker Pattern</h2>
+<h3 id="concept_3">🧠 Concept:</h3>
 <p>The <strong>Circuit Breaker</strong> is a resilience pattern that <strong>prevents cascading failures</strong> by <em>cutting off requests</em> to a failing downstream service.</p>
 <p>It’s inspired by electrical circuits — once too many failures occur, the breaker <em>opens</em> and blocks further calls temporarily.</p>
-<h3 id="states">⚙️ States:<a class="headerlink" href="#states" title="Permanent link">&para;</a></h3>
+<h3 id="states">⚙️ States:</h3>
 <ol>
 <li>
 <p><strong>Closed:</strong> Normal operation.</p>
@@ -708,9 +3959,9 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p><strong>Half-Open:</strong> Allow limited requests to test recovery.</p>
 </li>
 </ol>
-<h3 id="problem-it-solves_3">🚨 Problem It Solves:<a class="headerlink" href="#problem-it-solves_3" title="Permanent link">&para;</a></h3>
+<h3 id="problem-it-solves_3">🚨 Problem It Solves:</h3>
 <p>Prevents overloading a service that’s already failing, and stops consuming resources on guaranteed failures.</p>
-<h3 id="common-implementations">💡 Common Implementations:<a class="headerlink" href="#common-implementations" title="Permanent link">&para;</a></h3>
+<h3 id="common-implementations">💡 Common Implementations:</h3>
 <ul>
 <li>
 <p>Netflix Hystrix (legacy)</p>
@@ -722,11 +3973,11 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>Istio / Envoy sidecars for service mesh</p>
 </li>
 </ul>
-<h3 id="real-world-example_3">💬 Real-world Example:<a class="headerlink" href="#real-world-example_3" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_3">💬 Real-world Example:</h3>
 <blockquote>
 <p>“We applied a <em>circuit breaker</em> around our user-service calls to prevent cascading failures when it went down. The breaker opened after 5 timeouts, and half-opened after 30 seconds.”</p>
 </blockquote>
-<h3 id="interview-cross-questions_3">🎯 Interview Cross-Questions:<a class="headerlink" href="#interview-cross-questions_3" title="Permanent link">&para;</a></h3>
+<h3 id="interview-cross-questions_3">🎯 Interview Cross-Questions:</h3>
 <ul>
 <li>
 <p><em>“How is it different from retry?”</em><br />
@@ -742,12 +3993,12 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 </li>
 </ul>
 <hr />
-<h2 id="5-bulkhead-pattern">🪣 5. Bulkhead Pattern<a class="headerlink" href="#5-bulkhead-pattern" title="Permanent link">&para;</a></h2>
-<h3 id="concept_4">🧠 Concept:<a class="headerlink" href="#concept_4" title="Permanent link">&para;</a></h3>
+<h2 id="5-bulkhead-pattern">🪣 5. Bulkhead Pattern</h2>
+<h3 id="concept_4">🧠 Concept:</h3>
 <p><strong>Bulkhead isolation</strong> means dividing a system into <em>isolated compartments</em>, so if one fails, it doesn’t sink the entire system — just like watertight sections in a ship.</p>
-<h3 id="problem-it-solves_4">🚨 Problem It Solves:<a class="headerlink" href="#problem-it-solves_4" title="Permanent link">&para;</a></h3>
+<h3 id="problem-it-solves_4">🚨 Problem It Solves:</h3>
 <p>Prevents cascading failures by isolating resource usage between services or threads.</p>
-<h3 id="common-mitigation-strategies_3">💡 Common Mitigation Strategies:<a class="headerlink" href="#common-mitigation-strategies_3" title="Permanent link">&para;</a></h3>
+<h3 id="common-mitigation-strategies_3">💡 Common Mitigation Strategies:</h3>
 <ul>
 <li>
 <p>Separate <strong>thread pools</strong>, <strong>connection pools</strong>, or <strong>service quotas</strong>.</p>
@@ -756,22 +4007,22 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>Limit impact radius of failure.</p>
 </li>
 </ul>
-<h3 id="real-world-example_4">💬 Real-world Example:<a class="headerlink" href="#real-world-example_4" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_4">💬 Real-world Example:</h3>
 <blockquote>
 <p>“We used <em>bulkhead isolation</em> by assigning dedicated thread pools per downstream dependency to prevent one slow API from starving others.”</p>
 </blockquote>
-<h3 id="interview-cross-questions_4">🎯 Interview Cross-Questions:<a class="headerlink" href="#interview-cross-questions_4" title="Permanent link">&para;</a></h3>
+<h3 id="interview-cross-questions_4">🎯 Interview Cross-Questions:</h3>
 <ul>
 <li><em>“How does this differ from circuit breaker?”</em><br />
     → Circuit breaker stops calling a failing service; bulkhead prevents one from impacting others.</li>
 </ul>
 <hr />
-<h2 id="6-rate-limiting">🚧 6. Rate Limiting<a class="headerlink" href="#6-rate-limiting" title="Permanent link">&para;</a></h2>
-<h3 id="concept_5">🧠 Concept:<a class="headerlink" href="#concept_5" title="Permanent link">&para;</a></h3>
+<h2 id="6-rate-limiting">🚧 6. Rate Limiting</h2>
+<h3 id="concept_5">🧠 Concept:</h3>
 <p><strong>Rate limiting</strong> restricts how many requests a client or service can make in a given time window.</p>
-<h3 id="problem-it-solves_5">🚨 Problem It Solves:<a class="headerlink" href="#problem-it-solves_5" title="Permanent link">&para;</a></h3>
+<h3 id="problem-it-solves_5">🚨 Problem It Solves:</h3>
 <p>Protects services from abuse, DDoS attacks, or unintentional client spikes.</p>
-<h3 id="common-algorithms">💡 Common Algorithms:<a class="headerlink" href="#common-algorithms" title="Permanent link">&para;</a></h3>
+<h3 id="common-algorithms">💡 Common Algorithms:</h3>
 <ul>
 <li>
 <p>Token Bucket</p>
@@ -783,22 +4034,22 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>Fixed Window / Sliding Window</p>
 </li>
 </ul>
-<h3 id="real-world-example_5">💬 Real-world Example:<a class="headerlink" href="#real-world-example_5" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_5">💬 Real-world Example:</h3>
 <blockquote>
 <p>“We applied <em>rate limiting</em> using a token bucket algorithm at API Gateway level to prevent clients from overwhelming our backend.”</p>
 </blockquote>
-<h3 id="interview-cross-questions_5">🎯 Interview Cross-Questions:<a class="headerlink" href="#interview-cross-questions_5" title="Permanent link">&para;</a></h3>
+<h3 id="interview-cross-questions_5">🎯 Interview Cross-Questions:</h3>
 <ul>
 <li><em>“How does it differ from backpressure?”</em><br />
     → Rate limiting controls <em>incoming requests from outside</em>; backpressure controls <em>internal flow</em>.</li>
 </ul>
 <hr />
-<h2 id="7-load-shedding">💥 7. Load Shedding<a class="headerlink" href="#7-load-shedding" title="Permanent link">&para;</a></h2>
-<h3 id="concept_6">🧠 Concept:<a class="headerlink" href="#concept_6" title="Permanent link">&para;</a></h3>
+<h2 id="7-load-shedding">💥 7. Load Shedding</h2>
+<h3 id="concept_6">🧠 Concept:</h3>
 <p><strong>Load shedding</strong> is the deliberate dropping of requests when the system is near capacity — to keep response times stable and avoid total collapse.</p>
-<h3 id="problem-it-solves_6">🚨 Problem It Solves:<a class="headerlink" href="#problem-it-solves_6" title="Permanent link">&para;</a></h3>
+<h3 id="problem-it-solves_6">🚨 Problem It Solves:</h3>
 <p>Maintains system stability under extreme load.</p>
-<h3 id="common-mitigation-strategies_4">💡 Common Mitigation Strategies:<a class="headerlink" href="#common-mitigation-strategies_4" title="Permanent link">&para;</a></h3>
+<h3 id="common-mitigation-strategies_4">💡 Common Mitigation Strategies:</h3>
 <ul>
 <li>
 <p>Prioritize high-value requests.</p>
@@ -810,31 +4061,31 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>Return HTTP 503 with retry hints.</p>
 </li>
 </ul>
-<h3 id="real-world-example_6">💬 Real-world Example:<a class="headerlink" href="#real-world-example_6" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_6">💬 Real-world Example:</h3>
 <blockquote>
 <p>“During peak load, we applied <em>load shedding</em> by rejecting low-priority analytics events to maintain latency SLAs on user transactions.”</p>
 </blockquote>
-<h3 id="interview-cross-questions_6">🎯 Interview Cross-Questions:<a class="headerlink" href="#interview-cross-questions_6" title="Permanent link">&para;</a></h3>
+<h3 id="interview-cross-questions_6">🎯 Interview Cross-Questions:</h3>
 <ul>
 <li><em>“Isn’t dropping requests bad?”</em><br />
     → Sometimes it’s better to fail fast for some users than to fail completely for all.</li>
 </ul>
 <hr />
-<h2 id="8-retry-with-exponential-backoff-jitter">⏱️ 8. Retry with Exponential Backoff &amp; Jitter<a class="headerlink" href="#8-retry-with-exponential-backoff-jitter" title="Permanent link">&para;</a></h2>
-<h3 id="concept_7">🧠 Concept:<a class="headerlink" href="#concept_7" title="Permanent link">&para;</a></h3>
+<h2 id="8-retry-with-exponential-backoff-jitter">⏱️ 8. Retry with Exponential Backoff &amp; Jitter</h2>
+<h3 id="concept_7">🧠 Concept:</h3>
 <p>Instead of retrying failed requests immediately (which worsens overload), use <strong>exponential backoff</strong> — wait progressively longer before retrying.</p>
 <p><strong>Jitter</strong> adds randomness to prevent synchronized retries from many clients (which causes <em>thundering herd</em>).</p>
-<h3 id="real-world-example_7">💬 Real-world Example:<a class="headerlink" href="#real-world-example_7" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_7">💬 Real-world Example:</h3>
 <blockquote>
 <p>“We used exponential backoff with jitter in our gRPC clients to avoid synchronized retry storms when the downstream service recovered.”</p>
 </blockquote>
-<h3 id="interview-cross-questions_7">🎯 Interview Cross-Questions:<a class="headerlink" href="#interview-cross-questions_7" title="Permanent link">&para;</a></h3>
+<h3 id="interview-cross-questions_7">🎯 Interview Cross-Questions:</h3>
 <ul>
 <li><em>“Why add jitter?”</em><br />
     → To desynchronize retries — otherwise, everyone retries at the same time.</li>
 </ul>
 <hr />
-<h1 id="summary-table">🧱 Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h1>
+<h1 id="summary-table">🧱 Summary Table</h1>
 <table>
 <thead>
 <tr>
@@ -898,13 +4149,13 @@ A <strong>hot API</strong> (or <strong>hot endpoint</strong>) is an API endpoint
 <p>This block builds on what we’ve already covered (Cache Stampede, Thundering Herd, Backpressure, Circuit Breaker, Bulkhead, Rate Limiting, Load Shedding, Retry + Backoff).<br />
 Now we’ll cover additional <strong>production-grade reliability, scalability, and observability patterns</strong> — concepts senior engineers often bring up in design interviews or architecture reviews.</p>
 <hr />
-<h1 id="advanced-system-design-concepts-block-2">⚡ <strong>Advanced System Design Concepts – Block 2</strong><a class="headerlink" href="#advanced-system-design-concepts-block-2" title="Permanent link">&para;</a></h1>
+<h1 id="advanced-system-design-concepts-block-2">⚡ <strong>Advanced System Design Concepts – Block 2</strong></h1>
 <hr />
-<h2 id="1-idempotency">🧩 1. <strong>Idempotency</strong><a class="headerlink" href="#1-idempotency" title="Permanent link">&para;</a></h2>
-<h3 id="concept_8">🧠 Concept:<a class="headerlink" href="#concept_8" title="Permanent link">&para;</a></h3>
+<h2 id="1-idempotency">🧩 1. <strong>Idempotency</strong></h2>
+<h3 id="concept_8">🧠 Concept:</h3>
 <p>An <strong>idempotent operation</strong> is one that can be safely retried <strong>multiple times</strong> without changing the result beyond the initial application.</p>
 <p>In distributed systems, retries are common due to transient failures — <em>idempotency ensures correctness</em> even under duplicate requests.</p>
-<h3 id="example_2">💡 Example:<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<h3 id="example_2">💡 Example:</h3>
 <ul>
 <li>
 <p><code>PUT /users/123</code> with a full body is <strong>idempotent</strong> (same result no matter how many times it’s called).</p>
@@ -913,7 +4164,7 @@ Now we’ll cover additional <strong>production-grade reliability, scalability, 
 <p><code>POST /users</code> (creating new resource) is <strong>non-idempotent</strong>, unless you use <strong>idempotency keys</strong>.</p>
 </li>
 </ul>
-<h3 id="techniques">⚙️ Techniques:<a class="headerlink" href="#techniques" title="Permanent link">&para;</a></h3>
+<h3 id="techniques">⚙️ Techniques:</h3>
 <ul>
 <li>
 <p>Use <strong>unique request IDs (UUID or idempotency key)</strong> to detect duplicates.</p>
@@ -922,7 +4173,7 @@ Now we’ll cover additional <strong>production-grade reliability, scalability, 
 <p>Maintain a <strong>request log table</strong> to discard duplicate operations.</p>
 </li>
 </ul>
-<h3 id="interview-insight">💬 Interview Insight:<a class="headerlink" href="#interview-insight" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight">💬 Interview Insight:</h3>
 <blockquote>
 <p>“In our payment microservice, we made transaction creation <em>idempotent</em> using a unique idempotency key to avoid double charges on retries.”</p>
 </blockquote>
@@ -932,11 +4183,11 @@ Now we’ll cover additional <strong>production-grade reliability, scalability, 
     → Idempotency is an application-level guarantee; those are message delivery semantics.</li>
 </ul>
 <hr />
-<h2 id="2-consistency-models">⚖️ 2. <strong>Consistency Models</strong><a class="headerlink" href="#2-consistency-models" title="Permanent link">&para;</a></h2>
-<h3 id="concept_9">🧠 Concept:<a class="headerlink" href="#concept_9" title="Permanent link">&para;</a></h3>
+<h2 id="2-consistency-models">⚖️ 2. <strong>Consistency Models</strong></h2>
+<h3 id="concept_9">🧠 Concept:</h3>
 <p>Distributed systems often sacrifice <em>immediate consistency</em> to gain <em>availability and partition tolerance</em> (CAP theorem).<br />
 There are multiple <strong>consistency models</strong>, each balancing latency vs correctness.</p>
-<h3 id="common-models">💡 Common Models:<a class="headerlink" href="#common-models" title="Permanent link">&para;</a></h3>
+<h3 id="common-models">💡 Common Models:</h3>
 <ul>
 <li>
 <p><strong>Strong Consistency</strong>: Always up-to-date (e.g., traditional RDBMS).</p>
@@ -951,7 +4202,7 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
 <p><strong>Monotonic Reads</strong>: Once you’ve seen a value, you’ll never see an older one.</p>
 </li>
 </ul>
-<h3 id="interview-insight_1">💬 Interview Insight:<a class="headerlink" href="#interview-insight_1" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_1">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We chose <em>eventual consistency</em> for user activity feeds since real-time strict consistency wasn’t critical, but latency was.”</p>
 </blockquote>
@@ -961,8 +4212,8 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
     → For transactions like payments or inventory where correctness matters more than speed.</li>
 </ul>
 <hr />
-<h2 id="3-cap-theorem-pacelc-theorem">🧮 3. <strong>CAP Theorem &amp; PACELC Theorem</strong><a class="headerlink" href="#3-cap-theorem-pacelc-theorem" title="Permanent link">&para;</a></h2>
-<h3 id="concept_10">🧠 Concept:<a class="headerlink" href="#concept_10" title="Permanent link">&para;</a></h3>
+<h2 id="3-cap-theorem-pacelc-theorem">🧮 3. <strong>CAP Theorem &amp; PACELC Theorem</strong></h2>
+<h3 id="concept_10">🧠 Concept:</h3>
 <ul>
 <li>
 <p><strong>CAP Theorem</strong>: A distributed system can only guarantee two of three — <strong>Consistency, Availability, Partition Tolerance</strong>.</p>
@@ -971,7 +4222,7 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
 <p><strong>PACELC Theorem</strong> extends it: <em>Even when there’s no partition</em>, you must choose between <strong>Latency (L)</strong> and <strong>Consistency (C)</strong>.</p>
 </li>
 </ul>
-<h3 id="interview-insight_2">💬 Interview Insight:<a class="headerlink" href="#interview-insight_2" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_2">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We designed our system as AP — prioritizing availability over consistency during partitions, acceptable for analytics data.”</p>
 </blockquote>
@@ -981,10 +4232,10 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
     → CP — Consistency + Partition tolerance, sacrificing availability.</li>
 </ul>
 <hr />
-<h2 id="4-eventual-consistency-conflict-resolution">📦 4. <strong>Eventual Consistency &amp; Conflict Resolution</strong><a class="headerlink" href="#4-eventual-consistency-conflict-resolution" title="Permanent link">&para;</a></h2>
-<h3 id="concept_11">🧠 Concept:<a class="headerlink" href="#concept_11" title="Permanent link">&para;</a></h3>
+<h2 id="4-eventual-consistency-conflict-resolution">📦 4. <strong>Eventual Consistency &amp; Conflict Resolution</strong></h2>
+<h3 id="concept_11">🧠 Concept:</h3>
 <p>In <strong>eventually consistent systems</strong>, replicas will converge over time. But if two replicas accept writes concurrently, <strong>conflicts occur</strong>.</p>
-<h3 id="resolution-strategies">💡 Resolution Strategies:<a class="headerlink" href="#resolution-strategies" title="Permanent link">&para;</a></h3>
+<h3 id="resolution-strategies">💡 Resolution Strategies:</h3>
 <ul>
 <li>
 <p><strong>Last Write Wins (LWW)</strong></p>
@@ -996,7 +4247,7 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
 <p><strong>CRDTs (Conflict-Free Replicated Data Types)</strong></p>
 </li>
 </ul>
-<h3 id="interview-insight_3">💬 Interview Insight:<a class="headerlink" href="#interview-insight_3" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_3">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We used CRDTs in our chat service to merge concurrent edits without conflict — it guarantees eventual convergence.”</p>
 </blockquote>
@@ -1006,11 +4257,11 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
     → When order matters more than intermediate states (like timestamps in logs).</li>
 </ul>
 <hr />
-<h2 id="5-data-sharding-hotspotting">🕸️ 5. <strong>Data Sharding &amp; Hotspotting</strong><a class="headerlink" href="#5-data-sharding-hotspotting" title="Permanent link">&para;</a></h2>
-<h3 id="concept_12">🧠 Concept:<a class="headerlink" href="#concept_12" title="Permanent link">&para;</a></h3>
+<h2 id="5-data-sharding-hotspotting">🕸️ 5. <strong>Data Sharding &amp; Hotspotting</strong></h2>
+<h3 id="concept_12">🧠 Concept:</h3>
 <p><strong>Sharding</strong> splits large datasets horizontally into <strong>shards</strong> (smaller, distributed partitions).<br />
 <strong>Hotspotting</strong> occurs when uneven data access overloads one shard (similar to <em>hot partition</em>).</p>
-<h3 id="sharding-strategies">💡 Sharding Strategies:<a class="headerlink" href="#sharding-strategies" title="Permanent link">&para;</a></h3>
+<h3 id="sharding-strategies">💡 Sharding Strategies:</h3>
 <ul>
 <li>
 <p><strong>Hash-based</strong> (uniform distribution)</p>
@@ -1022,7 +4273,7 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
 <p><strong>Directory-based</strong> (lookup table)</p>
 </li>
 </ul>
-<h3 id="interview-insight_4">💬 Interview Insight:<a class="headerlink" href="#interview-insight_4" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_4">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We implemented hash-based sharding to evenly distribute users across shards and avoid <em>hotspotting</em>.”</p>
 </blockquote>
@@ -1032,14 +4283,14 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
     → Add new shards, migrate subsets, or use consistent hashing.</li>
 </ul>
 <hr />
-<h2 id="6-leader-election">🕰️ 6. <strong>Leader Election</strong><a class="headerlink" href="#6-leader-election" title="Permanent link">&para;</a></h2>
-<h3 id="concept_13">🧠 Concept:<a class="headerlink" href="#concept_13" title="Permanent link">&para;</a></h3>
+<h2 id="6-leader-election">🕰️ 6. <strong>Leader Election</strong></h2>
+<h3 id="concept_13">🧠 Concept:</h3>
 <p>In distributed coordination, <strong>leader election</strong> ensures that only one node performs a critical task at a time (avoiding race conditions).</p>
-<h3 id="tools">💡 Tools:<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h3>
+<h3 id="tools">💡 Tools:</h3>
 <ul>
 <li><strong>Zookeeper</strong>, <strong>etcd</strong>, <strong>Consul</strong>, <strong>Raft protocol</strong>, or <strong>Kubernetes controllers</strong>.</li>
 </ul>
-<h3 id="interview-insight_5">💬 Interview Insight:<a class="headerlink" href="#interview-insight_5" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_5">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We used <em>Zookeeper</em> for leader election to ensure only one scheduler performed batch job dispatching.”</p>
 </blockquote>
@@ -1049,8 +4300,8 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
     → Through leader election, log replication, and majority quorum.</li>
 </ul>
 <hr />
-<h2 id="7-exactly-once-at-least-once-at-most-once-semantics">🔁 7. <strong>Exactly-Once, At-Least-Once, At-Most-Once Semantics</strong><a class="headerlink" href="#7-exactly-once-at-least-once-at-most-once-semantics" title="Permanent link">&para;</a></h2>
-<h3 id="concept_14">🧠 Concept:<a class="headerlink" href="#concept_14" title="Permanent link">&para;</a></h3>
+<h2 id="7-exactly-once-at-least-once-at-most-once-semantics">🔁 7. <strong>Exactly-Once, At-Least-Once, At-Most-Once Semantics</strong></h2>
+<h3 id="concept_14">🧠 Concept:</h3>
 <p>Defines how many times a message might be processed in distributed systems.</p>
 <table>
 <thead>
@@ -1078,7 +4329,7 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
 </tr>
 </tbody>
 </table>
-<h3 id="interview-insight_6">💬 Interview Insight:<a class="headerlink" href="#interview-insight_6" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_6">💬 Interview Insight:</h3>
 <blockquote>
 <p>“Our Kafka consumers ensured <em>exactly-once</em> semantics by combining idempotent producers and transactional offsets.”</p>
 </blockquote>
@@ -1088,10 +4339,10 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
     → Use transactions and idempotency; pure exactly-once is theoretical across distributed systems.</li>
 </ul>
 <hr />
-<h2 id="8-distributed-locking">🧠 8. <strong>Distributed Locking</strong><a class="headerlink" href="#8-distributed-locking" title="Permanent link">&para;</a></h2>
-<h3 id="concept_15">🧠 Concept:<a class="headerlink" href="#concept_15" title="Permanent link">&para;</a></h3>
+<h2 id="8-distributed-locking">🧠 8. <strong>Distributed Locking</strong></h2>
+<h3 id="concept_15">🧠 Concept:</h3>
 <p>A mechanism to coordinate access to shared resources across nodes.</p>
-<h3 id="implementations">💡 Implementations:<a class="headerlink" href="#implementations" title="Permanent link">&para;</a></h3>
+<h3 id="implementations">💡 Implementations:</h3>
 <ul>
 <li>
 <p><strong>Redis RedLock</strong></p>
@@ -1103,7 +4354,7 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
 <p><strong>Database-based advisory locks</strong></p>
 </li>
 </ul>
-<h3 id="interview-insight_7">💬 Interview Insight:<a class="headerlink" href="#interview-insight_7" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_7">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We used <em>Redis-based distributed locks</em> for synchronizing inventory updates across replicas.”</p>
 </blockquote>
@@ -1113,11 +4364,11 @@ There are multiple <strong>consistency models</strong>, each balancing latency v
     → Use <code>SETNX</code> with expiry; use RedLock algorithm for reliability.</li>
 </ul>
 <hr />
-<h2 id="9-event-driven-architecture-message-ordering">🧰 9. <strong>Event-Driven Architecture &amp; Message Ordering</strong><a class="headerlink" href="#9-event-driven-architecture-message-ordering" title="Permanent link">&para;</a></h2>
-<h3 id="concept_16">🧠 Concept:<a class="headerlink" href="#concept_16" title="Permanent link">&para;</a></h3>
+<h2 id="9-event-driven-architecture-message-ordering">🧰 9. <strong>Event-Driven Architecture &amp; Message Ordering</strong></h2>
+<h3 id="concept_16">🧠 Concept:</h3>
 <p>In <strong>event-driven systems</strong>, services communicate asynchronously through <strong>events</strong>.<br />
 The challenge is <strong>message ordering</strong>, <strong>duplication</strong>, and <strong>reprocessing</strong>.</p>
-<h3 id="techniques_1">💡 Techniques:<a class="headerlink" href="#techniques_1" title="Permanent link">&para;</a></h3>
+<h3 id="techniques_1">💡 Techniques:</h3>
 <ul>
 <li>
 <p><strong>Kafka partition key</strong> ensures ordering per key.</p>
@@ -1129,7 +4380,7 @@ The challenge is <strong>message ordering</strong>, <strong>duplication</strong>
 <p><strong>Dead-letter queues (DLQ)</strong> for failed messages.</p>
 </li>
 </ul>
-<h3 id="interview-insight_8">💬 Interview Insight:<a class="headerlink" href="#interview-insight_8" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_8">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We used Kafka’s partition key to maintain ordering per user and a DLQ for failed messages to ensure no data loss.”</p>
 </blockquote>
@@ -1139,8 +4390,8 @@ The challenge is <strong>message ordering</strong>, <strong>duplication</strong>
     → Usually impractical — enforce local ordering within a partition key.</li>
 </ul>
 <hr />
-<h2 id="10-observability-tracing-logging-metrics">📊 10. <strong>Observability: Tracing, Logging, Metrics</strong><a class="headerlink" href="#10-observability-tracing-logging-metrics" title="Permanent link">&para;</a></h2>
-<h3 id="concept_17">🧠 Concept:<a class="headerlink" href="#concept_17" title="Permanent link">&para;</a></h3>
+<h2 id="10-observability-tracing-logging-metrics">📊 10. <strong>Observability: Tracing, Logging, Metrics</strong></h2>
+<h3 id="concept_17">🧠 Concept:</h3>
 <p><strong>Observability</strong> is the system’s ability to let you understand <em>why it’s behaving a certain way</em>.<br />
 It consists of:</p>
 <ul>
@@ -1154,7 +4405,7 @@ It consists of:</p>
 <p><strong>Traces</strong> (cross-service flow)</p>
 </li>
 </ul>
-<h3 id="tools_1">💡 Tools:<a class="headerlink" href="#tools_1" title="Permanent link">&para;</a></h3>
+<h3 id="tools_1">💡 Tools:</h3>
 <ul>
 <li>
 <p><strong>Prometheus</strong> (metrics)</p>
@@ -1169,7 +4420,7 @@ It consists of:</p>
 <p><strong>Jaeger / OpenTelemetry</strong> (tracing)</p>
 </li>
 </ul>
-<h3 id="interview-insight_9">💬 Interview Insight:<a class="headerlink" href="#interview-insight_9" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_9">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We implemented distributed tracing using <em>OpenTelemetry</em> to identify latency bottlenecks across microservices.”</p>
 </blockquote>
@@ -1179,12 +4430,12 @@ It consists of:</p>
     → Monitoring tells you <em>what</em> is wrong; observability helps you find <em>why</em> it’s wrong.</li>
 </ul>
 <hr />
-<h2 id="11-quorum-consensus">🧱 11. <strong>Quorum &amp; Consensus</strong><a class="headerlink" href="#11-quorum-consensus" title="Permanent link">&para;</a></h2>
-<h3 id="concept_18">🧠 Concept:<a class="headerlink" href="#concept_18" title="Permanent link">&para;</a></h3>
+<h2 id="11-quorum-consensus">🧱 11. <strong>Quorum &amp; Consensus</strong></h2>
+<h3 id="concept_18">🧠 Concept:</h3>
 <p>In distributed databases, a <strong>quorum</strong> ensures that a minimum number of nodes must agree before confirming a write or read — guaranteeing consistency.</p>
-<h3 id="formula">💡 Formula:<a class="headerlink" href="#formula" title="Permanent link">&para;</a></h3>
+<h3 id="formula">💡 Formula:</h3>
 <p>For N nodes, require <strong>W + R &gt; N</strong> to ensure overlap (e.g., Cassandra, DynamoDB).</p>
-<h3 id="interview-insight_10">💬 Interview Insight:<a class="headerlink" href="#interview-insight_10" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_10">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We used a quorum of 3 out of 5 replicas in Cassandra to maintain strong read-after-write consistency.”</p>
 </blockquote>
@@ -1194,10 +4445,10 @@ It consists of:</p>
     → Because it increases latency and reduces availability.</li>
 </ul>
 <hr />
-<h2 id="12-graceful-degradation">🧍 12. <strong>Graceful Degradation</strong><a class="headerlink" href="#12-graceful-degradation" title="Permanent link">&para;</a></h2>
-<h3 id="concept_19">🧠 Concept:<a class="headerlink" href="#concept_19" title="Permanent link">&para;</a></h3>
+<h2 id="12-graceful-degradation">🧍 12. <strong>Graceful Degradation</strong></h2>
+<h3 id="concept_19">🧠 Concept:</h3>
 <p>When a system is under partial failure or high load, it should <em>degrade gracefully</em> instead of completely failing.</p>
-<h3 id="examples">💡 Examples:<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h3 id="examples">💡 Examples:</h3>
 <ul>
 <li>
 <p>Disable non-critical features (e.g., recommendations)</p>
@@ -1209,7 +4460,7 @@ It consists of:</p>
 <p>Queue low-priority tasks</p>
 </li>
 </ul>
-<h3 id="interview-insight_11">💬 Interview Insight:<a class="headerlink" href="#interview-insight_11" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insight_11">💬 Interview Insight:</h3>
 <blockquote>
 <p>“We built <em>graceful degradation</em> into our platform so even if the personalization service fails, users still see the base content.”</p>
 </blockquote>
@@ -1219,7 +4470,7 @@ It consists of:</p>
     → Load shedding <em>drops</em> requests; graceful degradation <em>simplifies responses</em>.</li>
 </ul>
 <hr />
-<h1 id="summary-table-block-2">🧱 Summary Table (Block 2)<a class="headerlink" href="#summary-table-block-2" title="Permanent link">&para;</a></h1>
+<h1 id="summary-table-block-2">🧱 Summary Table (Block 2)</h1>
 <table>
 <thead>
 <tr>
