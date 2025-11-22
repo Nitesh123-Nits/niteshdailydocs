@@ -79,24 +79,6 @@ Ideal for:
 
 ---
 
-## 🧭 Quick Links
-
-<div class="grid cards" markdown>
-
-- :fontawesome-solid-diagram-project: **[System Design](system-design/)**  
-  Deep dives, patterns, distributed architecture.
-
-- :fontawesome-solid-code: **[Spring & Java](spring/)**  
-  Best practices, WebFlux, architecture, and frameworks.
-
-- :fontawesome-solid-bolt: **[High Performance](performance/)**  
-  Reactive systems, concurrency, and tuning.
-
-- :fontawesome-solid-list-ol: **[LeetCode Notes](leetcode/)**  
-  Clean explanations for selected problems.
-
-</div>
-
 ---
 
 ## 🛠️ Tools & Methods Used

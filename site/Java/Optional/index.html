@@ -1,0 +1,1151 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Java Optional — a production-grade, expert guide - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#java-optional-a-production-grade-expert-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Java Optional — a production-grade, expert guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="java-optional-a-production-grade-expert-guide">Java <code>Optional</code> — a production-grade, expert guide<a class="headerlink" href="#java-optional-a-production-grade-expert-guide" title="Permanent link">&para;</a></h1>
+<p>This is a complete, practical reference for <code>java.util.Optional</code> targeted at senior Java developers. It covers why <code>Optional</code> exists, method-by-method explanations with real code, production patterns (including Spring Boot + JPA examples), pitfalls, performance notes, and small debug examples that show <strong>when</strong> lambdas are executed. Read it like a checklist you can copy/paste into real projects.</p>
+<hr />
+<h2 id="1-what-is-optional-why-it-was-introduced-and-how-it-helps-prevent-nullpointerexception">1) What is <code>Optional</code>, why it was introduced, and how it helps prevent <code>NullPointerException</code><a class="headerlink" href="#1-what-is-optional-why-it-was-introduced-and-how-it-helps-prevent-nullpointerexception" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><code>Optional&lt;T&gt;</code> is a container object introduced in Java 8 to represent <em>a value that may be present or absent</em>.</p>
+</li>
+<li>
+<p>Motivation:</p>
+<ul>
+<li>
+<p>Make API contracts explicit (method returns “may be missing”).</p>
+</li>
+<li>
+<p>Reduce the prevalence of <code>null</code> as a sentinel and reduce accidental <code>NullPointerException</code> (NPE) by forcing callers to consider absence.</p>
+</li>
+<li>
+<p>Enable functional-style operations on possibly-missing values (<code>map</code>, <code>flatMap</code>, <code>filter</code>).</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Important: <code>Optional</code> is <strong>not</strong> a panacea for NPEs. It's an API-level tool to express optionality of return values and to encourage safer unwrapping patterns.</p>
+</li>
+</ul>
+<hr />
+<h2 id="2-differences-null-checks-vs-optional">2) Differences: <code>null</code> checks vs <code>Optional</code><a class="headerlink" href="#2-differences-null-checks-vs-optional" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th style="text-align: right;"><code>null</code></th>
+<th><code>Optional</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expressiveness</td>
+<td style="text-align: right;">Implicit — caller must know contract</td>
+<td>Explicit — type signals "maybe"</td>
+</tr>
+<tr>
+<td>Error-prone</td>
+<td style="text-align: right;">Easy to forget checks → NPE</td>
+<td>Forces handling (or explicit unwrapping)</td>
+</tr>
+<tr>
+<td>Overhead</td>
+<td style="text-align: right;">Minimal (no extra object)</td>
+<td>Allocation of <code>Optional</code> object (small)</td>
+</tr>
+<tr>
+<td>Suitable for</td>
+<td style="text-align: right;">Fields, parameters, internal storage</td>
+<td>Return values from APIs, method results</td>
+</tr>
+<tr>
+<td>Serialization</td>
+<td style="text-align: right;">Straightforward</td>
+<td>Not ideal for fields/serialization</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule of thumb</strong>: prefer <code>Optional</code> for <em>return types</em> from service/repository methods and avoid for fields/parameters.</p>
+<hr />
+<h2 id="3-important-optional-methods-with-short-examples">3) Important <code>Optional</code> methods (with short examples)<a class="headerlink" href="#3-important-optional-methods-with-short-examples" title="Permanent link">&para;</a></h2>
+<p>I'll list the most used methods and show example usage.</p>
+<h3 id="creation">Creation<a class="headerlink" href="#creation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">o1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">);</span><span class="w">           </span><span class="c1">// non-null, throws NPE if null passed</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">o2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">ofNullable</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span><span class="w">      </span><span class="c1">// empty Optional</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span><span class="w">            </span><span class="c1">// empty Optional</span>
+</code></pre></div>
+<h3 id="presence-checks-side-effects">Presence checks / side-effects<a class="headerlink" href="#presence-checks-side-effects" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">o1</span><span class="p">.</span><span class="na">isPresent</span><span class="p">();</span><span class="w">                   </span><span class="c1">// boolean</span>
+<span class="n">o1</span><span class="p">.</span><span class="na">ifPresent</span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">val</span><span class="p">));</span><span class="w"> </span><span class="c1">// run side-effect if present</span>
+</code></pre></div>
+<h3 id="transformations">Transformations<a class="headerlink" href="#transformations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">String</span><span class="p">::</span><span class="n">length</span><span class="p">);</span><span class="w">      </span><span class="c1">// map transforms value if present</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">nested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;x&quot;</span><span class="p">);</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">flat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nested</span><span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;!&quot;</span><span class="p">));</span><span class="w"> </span><span class="c1">// flatMap returns Optional (avoid nested Optionals)</span>
+</code></pre></div>
+<h3 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">o1</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;v&quot;</span><span class="p">));</span><span class="w"> </span><span class="c1">// returns same Optional if predicate true, otherwise empty</span>
+</code></pre></div>
+<h3 id="unwrapping-defaults-exceptions">Unwrapping / defaults / exceptions<a class="headerlink" href="#unwrapping-defaults-exceptions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">o1</span><span class="p">.</span><span class="na">orElse</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">);</span><span class="w">                       </span><span class="c1">// returns contained value or default</span>
+<span class="n">o1</span><span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">expensiveDefault</span><span class="p">());</span><span class="w">     </span><span class="c1">// default supplier evaluated lazily</span>
+<span class="n">o1</span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NoSuchElementException</span><span class="p">(</span><span class="s">&quot;missing&quot;</span><span class="p">));</span><span class="w"> </span><span class="c1">// throw if empty</span>
+</code></pre></div>
+<hr />
+<h2 id="4-deep-dive-examples-when-how-to-use-each">4) Deep dive examples — when &amp; how to use each<a class="headerlink" href="#4-deep-dive-examples-when-how-to-use-each" title="Permanent link">&para;</a></h2>
+<h3 id="of-vs-ofnullable-vs-empty"><code>of()</code> vs <code>ofNullable()</code> vs <code>empty()</code><a class="headerlink" href="#of-vs-ofnullable-vs-empty" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>Optional.of(null)</code> → <strong>throws <code>NullPointerException</code></strong>.</p>
+</li>
+<li>
+<p><code>Optional.ofNullable(null)</code> → returns <code>Optional.empty()</code>.</p>
+</li>
+<li>
+<p>Use <code>of()</code> when you are sure value is non-null (helps catch bugs early).</p>
+</li>
+<li>
+<p>Use <code>ofNullable()</code> when the source might be null (e.g., interop with legacy code).</p>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">String</span><span class="w"> </span><span class="n">fromDb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchFromDb</span><span class="p">();</span><span class="w"> </span><span class="c1">// may return null</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">ofNullable</span><span class="p">(</span><span class="n">fromDb</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="ispresent-and-ifpresent"><code>isPresent()</code> and <code>ifPresent()</code><a class="headerlink" href="#ispresent-and-ifpresent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>isPresent()</code> is useful only for conditional logic; prefer <code>ifPresent()</code> for side-effects.</p>
+</li>
+<li>
+<p>For branching logic that returns something, prefer <code>map()</code>/<code>orElse()</code> chain instead of <code>isPresent()</code> + <code>get()</code>.</p>
+</li>
+</ul>
+<p><strong>Bad</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="na">isPresent</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">doSomething</span><span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="na">get</span><span class="p">());</span><span class="w"> </span><span class="c1">// prone to mistakes if refactoring</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Better</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">opt</span><span class="p">.</span><span class="na">ifPresent</span><span class="p">(</span><span class="k">this</span><span class="p">::</span><span class="n">doSomething</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="map-vs-flatmap"><code>map()</code> vs <code>flatMap()</code><a class="headerlink" href="#map-vs-flatmap" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>map</code> transforms <code>T -&gt; R</code> and returns <code>Optional&lt;R&gt;</code>.</p>
+</li>
+<li>
+<p><code>flatMap</code> transforms <code>T -&gt; Optional&lt;R&gt;</code> and flattens to <code>Optional&lt;R&gt;</code> (avoid <code>Optional&lt;Optional&lt;R&gt;&gt;</code>).</p>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userRepo</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w"> </span><span class="c1">// Optional&lt;User&gt;</span>
+
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">emailUpperCase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">getEmail</span><span class="p">)</span>
+<span class="w">                                   </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">String</span><span class="p">::</span><span class="n">toUpperCase</span><span class="p">);</span>
+
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Address</span><span class="o">&gt;</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">getAddressOptional</span><span class="p">);</span><span class="w"> </span><span class="c1">// getAddressOptional returns Optional&lt;Address&gt;</span>
+</code></pre></div>
+<h3 id="filter"><code>filter()</code><a class="headerlink" href="#filter" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use <code>filter</code> to keep value only if predicate matches.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">opt</span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span>
+<span class="w">   </span><span class="p">.</span><span class="na">ifPresent</span><span class="p">(...);</span>
+</code></pre></div>
+<h3 id="orelse-vs-orelseget-vs-orelsethrow"><code>orElse()</code> vs <code>orElseGet()</code> vs <code>orElseThrow()</code><a class="headerlink" href="#orelse-vs-orelseget-vs-orelsethrow" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>orElse(value)</code> — <strong>eagerly</strong> evaluates <code>value</code> (it is evaluated whether optional present or not).</p>
+</li>
+<li>
+<p><code>orElseGet(Supplier)</code> — <strong>lazy</strong>; supplier invoked only if needed.</p>
+</li>
+<li>
+<p><code>orElseThrow(Supplier&lt;Throwable&gt;)</code> — throws the provided exception if empty.</p>
+</li>
+</ul>
+<p><strong>Demonstration (see section 5 for full console output)</strong></p>
+<hr />
+<h2 id="5-deep-dive-orelse-vs-orelseget-vs-orelsethrow-execution-flow-console-output">5) Deep dive: <code>orElse()</code> vs <code>orElseGet()</code> vs <code>orElseThrow()</code> — execution flow &amp; console output<a class="headerlink" href="#5-deep-dive-orelse-vs-orelseget-vs-orelsethrow-execution-flow-console-output" title="Permanent link">&para;</a></h2>
+<p>Here's an example that visually demonstrates eager vs lazy evaluation.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OrElseDemo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">defaultValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Computing defaultValue()&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;DEFAULT&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">present</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;VALUE&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;=== orElse with present ===&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">present</span><span class="p">.</span><span class="na">orElse</span><span class="p">(</span><span class="n">defaultValue</span><span class="p">()));</span><span class="w">   </span><span class="c1">// defaultValue() is called eagerly</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;=== orElseGet with present ===&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">present</span><span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">defaultValue</span><span class="p">()));</span><span class="w"> </span><span class="c1">// supplier not executed</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;=== orElse with empty ===&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">empty</span><span class="p">.</span><span class="na">orElse</span><span class="p">(</span><span class="n">defaultValue</span><span class="p">()));</span><span class="w">    </span><span class="c1">// defaultValue() called</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;=== orElseGet with empty ===&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">empty</span><span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">defaultValue</span><span class="p">()));</span><span class="w"> </span><span class="c1">// supplier called</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;=== orElseThrow with empty ===&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">empty</span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;no value&quot;</span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Caught: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Console output</strong></p>
+<div class="highlight"><pre><span></span><code>=== orElse with present ===
+Computing defaultValue()
+VALUE
+=== orElseGet with present ===
+VALUE
+=== orElse with empty ===
+Computing defaultValue()
+DEFAULT
+=== orElseGet with empty ===
+Computing defaultValue()
+DEFAULT
+=== orElseThrow with empty ===
+Caught: java.lang.IllegalStateException: no value
+</code></pre></div>
+<p><strong>Key takeaway</strong></p>
+<ul>
+<li>
+<p>Use <code>orElseGet()</code> if computing the default is <em>expensive</em> or has side effects and should only run when needed.</p>
+</li>
+<li>
+<p>Use <code>orElse()</code> for simple constants.</p>
+</li>
+<li>
+<p>Use <code>orElseThrow()</code> when absence should be treated as an exceptional case.</p>
+</li>
+</ul>
+<hr />
+<h2 id="6-returning-optional-from-service-layer-methods-unwrapping-correctly">6) Returning <code>Optional</code> from service-layer methods &amp; unwrapping correctly<a class="headerlink" href="#6-returning-optional-from-service-layer-methods-unwrapping-correctly" title="Permanent link">&para;</a></h2>
+<p><strong>Repository (JPA)</strong> often returns <code>Optional&lt;T&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">UserRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByEmail</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Service layer approaches</strong></p>
+<h3 id="a-return-optionalt-from-service">A. Return <code>Optional&lt;T&gt;</code> from service<a class="headerlink" href="#a-return-optionalt-from-service" title="Permanent link">&para;</a></h3>
+<p>Let the caller decide what to do:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">UserRepository</span><span class="w"> </span><span class="n">repo</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">UserService</span><span class="p">(</span><span class="n">UserRepository</span><span class="w"> </span><span class="n">repo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">repo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repo</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findById</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span><span class="w"> </span><span class="c1">// propagate Optional</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Caller:</p>
+<div class="highlight"><pre><span></span><code><span class="n">userService</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="w">           </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">toDto</span><span class="p">)</span>
+<span class="w">           </span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NotFoundException</span><span class="p">(</span><span class="s">&quot;User not found: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="p">));</span>
+</code></pre></div>
+<h3 id="b-unwrap-inside-service-and-return-domain-object-or-throw">B. Unwrap inside service and return domain object or throw<a class="headerlink" href="#b-unwrap-inside-service-and-return-domain-object-or-throw" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="nf">getUserOrThrow</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="w">               </span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NotFoundException</span><span class="p">(</span><span class="s">&quot;User not found&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Use this for service methods that MUST return a domain object.</p>
+<hr />
+<h2 id="7-orelsethrow-with-custom-and-built-in-exceptions">7) <code>orElseThrow()</code> with custom and built-in exceptions<a class="headerlink" href="#7-orelsethrow-with-custom-and-built-in-exceptions" title="Permanent link">&para;</a></h2>
+<p><strong>Built-in</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">opt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+<span class="n">User</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">opt</span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">();</span><span class="w"> </span><span class="c1">// (since Java 10) throws NoSuchElementException</span>
+</code></pre></div>
+<p><strong>Custom BusinessException</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BusinessException</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">RuntimeException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">BusinessException</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kd">super</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">User</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="w">             </span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BusinessException</span><span class="p">(</span><span class="s">&quot;User &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; absent&quot;</span><span class="p">));</span>
+</code></pre></div>
+<p><strong>When to use which?</strong></p>
+<ul>
+<li><code>NoSuchElementException</code> is generic; prefer custom exceptions (<code>NotFoundException</code>, <code>BusinessException</code>) for clearer error handling and mapping to HTTP status codes (e.g., Spring <code>@ControllerAdvice</code> maps <code>NotFoundException</code> → 404).</li>
+</ul>
+<hr />
+<h2 id="8-realistic-spring-boot-example-repository-service-controller-production-style">8) Realistic Spring Boot example (Repository + Service + Controller) — production style<a class="headerlink" href="#8-realistic-spring-boot-example-repository-service-controller-production-style" title="Permanent link">&para;</a></h2>
+<p><strong>Entities / DTOs (simplified)</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;users&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Id</span><span class="w"> </span><span class="nd">@GeneratedValue</span><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// getters/setters omitted for brevity</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">UserDto</span><span class="w"> </span><span class="nf">toDto</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UserDto</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">record</span> <span class="nc">UserDto</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+<p><strong>Repository</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">UserRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByEmail</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Service</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">UserRepository</span><span class="w"> </span><span class="n">repo</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nd">@Autowired</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">UserService</span><span class="p">(</span><span class="n">UserRepository</span><span class="w"> </span><span class="n">repo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">repo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repo</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Return Optional — caller may need to do something special</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">UserDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findDtoByEmail</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">findByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">toDto</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Or unwrap in service and throw custom exception</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">UserDto</span><span class="w"> </span><span class="nf">getDtoByIdOrThrow</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="w">                   </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">User</span><span class="p">::</span><span class="n">toDto</span><span class="p">)</span>
+<span class="w">                   </span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NotFoundException</span><span class="p">(</span><span class="s">&quot;User not found: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Transactional</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">UserDto</span><span class="w"> </span><span class="nf">createUser</span><span class="p">(</span><span class="n">CreateUserCommand</span><span class="w"> </span><span class="n">cmd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// validate</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">repo</span><span class="p">.</span><span class="na">findByEmail</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="na">email</span><span class="p">()).</span><span class="na">isPresent</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BusinessException</span><span class="p">(</span><span class="s">&quot;Email already used&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">User</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">();</span>
+<span class="w">        </span><span class="n">u</span><span class="p">.</span><span class="na">setEmail</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="na">email</span><span class="p">());</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="na">setName</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="na">name</span><span class="p">());</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">saved</span><span class="p">.</span><span class="na">toDto</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Transactional</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">UserDto</span><span class="w"> </span><span class="nf">updateUser</span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">UpdateUserCommand</span><span class="w"> </span><span class="n">cmd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">findById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NotFoundException</span><span class="p">(</span><span class="s">&quot;User not found: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="p">));</span>
+<span class="w">        </span><span class="n">user</span><span class="p">.</span><span class="na">setName</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="na">name</span><span class="p">());</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">repo</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="na">toDto</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Controller</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/api/users&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserController</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">UserService</span><span class="w"> </span><span class="n">svc</span><span class="p">;</span>
+<span class="w">    </span><span class="nd">@Autowired</span><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="nf">UserController</span><span class="p">(</span><span class="n">UserService</span><span class="w"> </span><span class="n">svc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">svc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">svc</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&quot;/{id}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">UserDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getById</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">svc</span><span class="p">.</span><span class="na">findDtoById</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="w">                  </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">ResponseEntity</span><span class="p">::</span><span class="n">ok</span><span class="p">)</span>
+<span class="w">                  </span><span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">notFound</span><span class="p">().</span><span class="na">build</span><span class="p">());</span><span class="w"> </span>
+<span class="w">        </span><span class="c1">// OR use svc.getDtoByIdOrThrow(id) and an @ControllerAdvice to map NotFoundException to 404</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>ControllerAdvice (map exceptions to HTTP codes)</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@RestControllerAdvice</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">RestErrorHandler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@ExceptionHandler</span><span class="p">(</span><span class="n">NotFoundException</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="nf">handleNotFound</span><span class="p">(</span><span class="n">NotFoundException</span><span class="w"> </span><span class="n">ex</span><span class="p">){</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">status</span><span class="p">(</span><span class="mi">404</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">Map</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;error&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">()));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nd">@ExceptionHandler</span><span class="p">(</span><span class="n">BusinessException</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="nf">handleBiz</span><span class="p">(</span><span class="n">BusinessException</span><span class="w"> </span><span class="n">ex</span><span class="p">){</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="na">body</span><span class="p">(</span><span class="n">Map</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;error&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">()));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Notes</strong></p>
+<ul>
+<li>
+<p>Prefer mapping <code>Optional</code> -&gt; <code>ResponseEntity</code> in controller or letting service throw to centralize exception handling.</p>
+</li>
+<li>
+<p>Don't return <code>Optional</code> directly from controller methods that become JSON — unwrap to real payload or <code>ResponseEntity</code>.</p>
+</li>
+</ul>
+<hr />
+<h2 id="9-when-not-to-use-optional-pitfalls">9) When <strong>not</strong> to use <code>Optional</code> (pitfalls)<a class="headerlink" href="#9-when-not-to-use-optional-pitfalls" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Fields in entities/DTOs:</strong> avoid <code>Optional</code> as fields (JPA, Jackson don't like it; it complicates serialization and equality/hashing). Use nullable fields or explicit nested DTOs.</p>
+</li>
+<li>
+<p><strong>Method Parameters:</strong> do NOT use <code>Optional</code> for parameters (<code>void foo(Optional&lt;String&gt; p)</code> is awkward). Prefer overloaded methods or <code>@Nullable</code> annotation if absolutely necessary.</p>
+</li>
+<li>
+<p><strong>Collections of Optional:</strong> avoid <code>List&lt;Optional&lt;T&gt;&gt;</code>. Instead, filter out empty values and use <code>List&lt;T&gt;</code>. If <code>Optional</code> semantics needed, reconsider data model.</p>
+</li>
+<li>
+<p><strong>Primitive types:</strong> use <code>OptionalInt</code>, <code>OptionalLong</code>, <code>OptionalDouble</code> if avoiding boxing. But often a primitive sentinel (like <code>-1</code>) is better than frequent boxing.</p>
+</li>
+<li>
+<p><strong>Serialization:</strong> Jackson (by default) may serialize <code>Optional</code> inconsistently. Better to expose plain fields or DTOs.</p>
+</li>
+</ul>
+<hr />
+<h2 id="10-production-grade-best-practices-readability-tips-and-performance-considerations">10) Production-grade best practices, readability tips, and performance considerations<a class="headerlink" href="#10-production-grade-best-practices-readability-tips-and-performance-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Use <code>Optional</code> as return type for methods that may legitimately have no result.</strong> This makes API intent clear.</p>
+</li>
+<li>
+<p><strong>Don’t use <code>Optional</code> for fields or parameters.</strong> Use <code>null</code> or other explicit patterns where appropriate.</p>
+</li>
+<li>
+<p><strong>Prefer <code>map</code>/<code>flatMap</code> pipelines over <code>isPresent()</code>/<code>get()</code> checks.</strong> This yields cleaner, functional code.</p>
+</li>
+<li>
+<p><strong>Use <code>orElseGet()</code> for lazy defaults.</strong> Use <code>orElse()</code> only for cheap constants.</p>
+</li>
+<li>
+<p><strong>Throw domain-specific exceptions from service layer</strong> for clearer error handling (map them in <code>@ControllerAdvice</code>).</p>
+</li>
+<li>
+<p><strong>Document method semantics.</strong> Even though <code>Optional</code> signals optionality, document what absence means (e.g., "returns Optional.empty() when user inactive").</p>
+</li>
+<li>
+<p><strong>Prefer <code>Optional</code> in API boundaries</strong> (service/repository) not deep internals if it complicates flow.</p>
+</li>
+</ol>
+<h3 id="readability-tips">Readability tips<a class="headerlink" href="#readability-tips" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Keep long <code>Optional</code> pipelines readable: break into well-named intermediate variables or helper methods.</p>
+</li>
+<li>
+<p>Avoid chaining many <code>map</code>/<code>filter</code> lambdas inline if they get complex — move to private methods.</p>
+</li>
+</ul>
+<h3 id="performance-considerations">Performance considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>Optional</code> allocates an object (though small). In high-frequency hotspots, this can matter.</p>
+</li>
+<li>
+<p>For streams with many elements, prefer not to wrap/unwarp each element in <code>Optional</code>. Use plain filtering and mapping instead.</p>
+</li>
+<li>
+<p>Use <code>OptionalInt/Long/Double</code> to avoid boxing when working with primitives.</p>
+</li>
+<li>
+<p>Consider micro-benchmarks for critical code paths — <code>Optional</code> overhead might be significant at billions of ops.</p>
+</li>
+</ul>
+<hr />
+<h2 id="11-small-debug-print-examples-showing-when-map-filter-orelsethrow-are-called">11) Small debug-print examples showing when <code>map()</code>, <code>filter()</code>, <code>orElseThrow()</code> are called<a class="headerlink" href="#11-small-debug-print-examples-showing-when-map-filter-orelsethrow-are-called" title="Permanent link">&para;</a></h2>
+<h3 id="example-debug-tracing-in-pipeline">Example: debug tracing in pipeline<a class="headerlink" href="#example-debug-tracing-in-pipeline" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">maybe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span>
+
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">maybe</span>
+<span class="w">    </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;map1 called: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">toUpperCase</span><span class="p">();</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;filter called: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;H&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">    </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;map2 called: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;!&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Result: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">orElse</span><span class="p">(</span><span class="s">&quot;NOPE&quot;</span><span class="p">));</span>
+</code></pre></div>
+<p><strong>Console output</strong></p>
+<div class="highlight"><pre><span></span><code>map1 called: hello
+filter called: HELLO
+map2 called: HELLO
+Result: HELLO!
+</code></pre></div>
+<h3 id="example-orelse-vs-orelseget-debug">Example: <code>orElse()</code> vs <code>orElseGet()</code> debug<a class="headerlink" href="#example-orelse-vs-orelseget-debug" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">present</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;X&quot;</span><span class="p">);</span>
+
+<span class="n">String</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">present</span><span class="p">.</span><span class="na">orElse</span><span class="p">(</span><span class="n">expensive</span><span class="p">(</span><span class="s">&quot;orElse&quot;</span><span class="p">));</span><span class="w">      </span><span class="c1">// expensive() will run</span>
+<span class="n">String</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">present</span><span class="p">.</span><span class="na">orElseGet</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">expensive</span><span class="p">(</span><span class="s">&quot;orElseGet&quot;</span><span class="p">));</span><span class="w"> </span><span class="c1">// supplier not run</span>
+
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;a=&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, b=&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+
+<span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">expensive</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">who</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;expensive called: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">who</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;DEF:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">who</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Console output</strong></p>
+<div class="highlight"><pre><span></span><code>expensive called: orElse
+a=X, b=X
+</code></pre></div>
+<p>(Notice <code>orElseGet</code>'s supplier not invoked when present.)</p>
+<h3 id="example-orelsethrow-debug">Example: <code>orElseThrow()</code> debug<a class="headerlink" href="#example-orelsethrow-debug" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">empty</span><span class="p">();</span>
+<span class="n">empty</span><span class="p">.</span><span class="na">orElseThrow</span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;orElseThrow supplier called&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;missing&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><strong>Console output</strong></p>
+<div class="highlight"><pre><span></span><code>orElseThrow supplier called
+Exception in thread &quot;main&quot; java.lang.IllegalStateException: missing
+  at ...
+</code></pre></div>
+<hr />
+<h2 id="12-summary-table-patterns-recommendations">12) Summary table — patterns &amp; recommendations<a class="headerlink" href="#12-summary-table-patterns-recommendations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Use case</th>
+<th style="text-align: right;">Preferred approach</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Return when value may be missing (service/repo)</td>
+<td style="text-align: right;"><code>Optional&lt;T&gt;</code></td>
+<td>Communicates optionality explicitly; caller must handle absence</td>
+</tr>
+<tr>
+<td>Return when missing is exceptional</td>
+<td style="text-align: right;"><code>T</code> with <code>orElseThrow</code> in service</td>
+<td>Centralizes error handling and preserves method contract</td>
+</tr>
+<tr>
+<td>Map nested optionals</td>
+<td style="text-align: right;"><code>flatMap</code></td>
+<td>Flattens <code>Optional&lt;Optional&lt;T&gt;&gt;</code></td>
+</tr>
+<tr>
+<td>Transform only if present</td>
+<td style="text-align: right;"><code>map</code></td>
+<td>Functional and null-safe</td>
+</tr>
+<tr>
+<td>Conditional keep</td>
+<td style="text-align: right;"><code>filter</code></td>
+<td>Keep value only if predicate true</td>
+</tr>
+<tr>
+<td>Provide expensive default</td>
+<td style="text-align: right;"><code>orElseGet</code></td>
+<td>Lazy evaluation; avoid unnecessary work</td>
+</tr>
+<tr>
+<td>Simple default constant</td>
+<td style="text-align: right;"><code>orElse</code></td>
+<td>Simpler when default is cheap</td>
+</tr>
+<tr>
+<td>Parameter of public API</td>
+<td style="text-align: right;">avoid <code>Optional</code> parameter</td>
+<td>Caller complexity; prefer overloads or explicit null handling</td>
+</tr>
+<tr>
+<td>DTO or Entity field</td>
+<td style="text-align: right;">avoid <code>Optional</code> field</td>
+<td>Serialization/JPA issues; use nullable field and document</td>
+</tr>
+<tr>
+<td>Streaming lots of values</td>
+<td style="text-align: right;">avoid boxing each element into Optional</td>
+<td>Performance: avoid allocation hotspots</td>
+</tr>
+<tr>
+<td>Primitive optional</td>
+<td style="text-align: right;"><code>OptionalInt/Long/Double</code></td>
+<td>Avoid boxing when necessary</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="extra-notes-anti-patterns">Extra notes &amp; anti-patterns<a class="headerlink" href="#extra-notes-anti-patterns" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Don't call <code>get()</code> without checking <code>isPresent()</code></strong> — this defeats the purpose. Prefer <code>orElseThrow()</code> if you expect value.</p>
+</li>
+<li>
+<p><strong>Don't use <code>Optional</code> in <code>equals</code>/<code>hashCode</code> fields</strong> — complicates domain semantics.</p>
+</li>
+<li>
+<p><strong>Don't over-chain Lambdas</strong> where each lambda has side effects — <code>Optional</code> pipelines are best for pure transformations.</p>
+</li>
+<li>
+<p><strong>Avoid <code>Optional</code> for very hot loops</strong> — heap churn may matter.</p>
+</li>
+</ul>
+<hr />
+<h2 id="final-practical-checklist-copypaste-into-reviews">Final practical checklist (copy–paste into reviews)<a class="headerlink" href="#final-practical-checklist-copypaste-into-reviews" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>✅ <code>Optional</code> for repository/service return types where a result may be absent.</p>
+</li>
+<li>
+<p>✅ Use <code>map</code>/<code>flatMap</code>/<code>filter</code> for functional transformations.</p>
+</li>
+<li>
+<p>✅ Use <code>orElseGet</code> when default is expensive.</p>
+</li>
+<li>
+<p>✅ Use <code>orElseThrow(customSupplier)</code> to throw domain exceptions and map them in <code>@ControllerAdvice</code>.</p>
+</li>
+<li>
+<p>❌ Do not use <code>Optional</code> for fields or parameters.</p>
+</li>
+<li>
+<p>❌ Avoid <code>List&lt;Optional&lt;T&gt;&gt;</code> or <code>Optional&lt;Collection&lt;T&gt;&gt;</code> — prefer <code>List&lt;T&gt;</code> and empty list semantics.</p>
+</li>
+<li>
+<p>🔍 Measure performance in hot paths; consider <code>OptionalInt</code> for primitives.</p>
+</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

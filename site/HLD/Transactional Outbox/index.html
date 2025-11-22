@@ -1,0 +1,1152 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Transactional Outbox - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#core-problem-it-solves" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Transactional Outbox
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p>Perfect — this complements your last topic beautifully.<br />
+If the <strong>Transactional Outbox Pattern</strong> ensures <em>reliable publishing</em> of events,<br />
+the <strong>Inbox Pattern</strong> ensures <em>reliable processing</em> of those events on the consumer side.</p>
+<p>Let’s go through it like an architect explaining to a panel in a system design interview.
+https://microservices.io/patterns/data/transactional-outbox.html
+![[Pasted image 20251122165546.png]]</p>
+<hr />
+<h2 id="core-problem-it-solves">🧩 Core Problem It Solves<a class="headerlink" href="#core-problem-it-solves" title="Permanent link">&para;</a></h2>
+<p>When you consume messages (events) from a broker like <strong>Kafka</strong>, <strong>RabbitMQ</strong>, or <strong>SQS</strong>, you need to ensure <strong>idempotent and exactly-once processing</strong> of those events.</p>
+<p>But distributed systems make this hard:</p>
+<ul>
+<li>
+<p>Messages may be <strong>delivered more than once</strong> (at-least-once delivery).</p>
+</li>
+<li>
+<p>Consumers may <strong>crash mid-processing</strong>.</p>
+</li>
+<li>
+<p>Events might <strong>replay</strong> after retries or redelivery.</p>
+</li>
+</ul>
+<p>If your consumer simply processes the message and updates the DB, duplicate deliveries can corrupt data — e.g., double-charging a customer.</p>
+<hr />
+<h2 id="the-inbox-pattern-the-idea">✅ The Inbox Pattern — The Idea<a class="headerlink" href="#the-inbox-pattern-the-idea" title="Permanent link">&para;</a></h2>
+<p>The <strong>Inbox Pattern</strong> ensures that:</p>
+<blockquote>
+<p>Each message (event) is <strong>processed exactly once</strong> by persisting it in an <strong>inbox table</strong> before executing the business logic.</p>
+</blockquote>
+<p>You maintain an <strong>inbox table</strong> in your service’s database to <strong>record all received events</strong>.<br />
+Before processing an event, you check if it’s already recorded — if yes, you skip it.<br />
+If not, you record it and proceed safely.</p>
+<hr />
+<h2 id="step-by-step-flow">🧠 Step-by-Step Flow<a class="headerlink" href="#step-by-step-flow" title="Permanent link">&para;</a></h2>
+<p>Let’s say your <strong>Payment Service</strong> consumes <code>OrderCreatedEvent</code> from Kafka.</p>
+<ol>
+<li>
+<p><strong>Consumer receives event.</strong></p>
+</li>
+<li>
+<p>It starts a <strong>local DB transaction.</strong></p>
+</li>
+<li>
+<p>Checks if the event already exists in the <code>inbox</code> table (by <code>eventId</code>).</p>
+</li>
+<li>
+<p>If not found:</p>
+<ul>
+<li>
+<p>Saves the event metadata in <code>inbox</code>.</p>
+</li>
+<li>
+<p>Processes business logic (e.g., create payment).</p>
+</li>
+<li>
+<p>Commits both together.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>If found → skip (idempotent).</p>
+</li>
+</ol>
+<p>This guarantees:</p>
+<ul>
+<li>
+<p><strong>No duplicate processing.</strong></p>
+</li>
+<li>
+<p><strong>Atomic write + process.</strong></p>
+</li>
+</ul>
+<hr />
+<h2 id="example-spring-boot-consumer-with-inbox-pattern">🧩 Example — Spring Boot Consumer with Inbox Pattern<a class="headerlink" href="#example-spring-boot-consumer-with-inbox-pattern" title="Permanent link">&para;</a></h2>
+<h3 id="entity">Entity<a class="headerlink" href="#entity" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;inbox&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">InboxEvent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Id</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">eventId</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">eventType</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">receivedAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LocalDateTime</span><span class="p">.</span><span class="na">now</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="repository">Repository<a class="headerlink" href="#repository" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">InboxRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">InboxEvent</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+<h3 id="consumer">Consumer<a class="headerlink" href="#consumer" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OrderEventConsumer</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">InboxRepository</span><span class="w"> </span><span class="n">inboxRepository</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">PaymentService</span><span class="w"> </span><span class="n">paymentService</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">OrderEventConsumer</span><span class="p">(</span><span class="n">InboxRepository</span><span class="w"> </span><span class="n">inboxRepository</span><span class="p">,</span><span class="w"> </span><span class="n">PaymentService</span><span class="w"> </span><span class="n">paymentService</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">inboxRepository</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inboxRepository</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">paymentService</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">paymentService</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@KafkaListener</span><span class="p">(</span><span class="n">topics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;order-events&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">groupId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;payment-service&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nd">@Transactional</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">handleOrderCreated</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">OrderCreatedEvent</span><span class="w"> </span><span class="n">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Step 1: Idempotency check</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">inboxRepository</span><span class="p">.</span><span class="na">existsById</span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="na">getEventId</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="c1">// already processed</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Step 2: Save event and process business logic atomically</span>
+<span class="w">        </span><span class="n">inboxRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InboxEvent</span><span class="p">(</span><span class="n">event</span><span class="p">.</span><span class="na">getEventId</span><span class="p">(),</span><span class="w"> </span><span class="n">event</span><span class="p">.</span><span class="na">getType</span><span class="p">()));</span>
+<span class="w">        </span><span class="n">paymentService</span><span class="p">.</span><span class="na">processPayment</span><span class="p">(</span><span class="n">event</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">OrderCreatedEvent</span><span class="w"> </span><span class="nf">parse</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">json</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectMapper</span><span class="p">().</span><span class="na">readValue</span><span class="p">(</span><span class="n">json</span><span class="p">,</span><span class="w"> </span><span class="n">OrderCreatedEvent</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="schema-example">🗄️ Schema Example<a class="headerlink" href="#schema-example" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">inbox</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">event_id</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">event_type</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">    </span><span class="n">received_at</span><span class="w"> </span><span class="k">TIMESTAMP</span>
+<span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="architectural-components">⚙️ Architectural Components<a class="headerlink" href="#architectural-components" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Consumer</strong></td>
+<td>Receives event from broker.</td>
+</tr>
+<tr>
+<td><strong>Inbox Table</strong></td>
+<td>Records processed event IDs.</td>
+</tr>
+<tr>
+<td><strong>DB Transaction</strong></td>
+<td>Guarantees atomicity of recording + business action.</td>
+</tr>
+<tr>
+<td><strong>Business Logic</strong></td>
+<td>Executes domain change (e.g., charge payment).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="guarantees-provided">🔒 Guarantees Provided<a class="headerlink" href="#guarantees-provided" title="Permanent link">&para;</a></h2>
+<p>✅ <strong>Exactly-once processing</strong> (logical level).<br />
+✅ <strong>Idempotency</strong> — duplicates are safely ignored.<br />
+✅ <strong>Atomicity</strong> — event recording and processing happen in one transaction.<br />
+✅ <strong>Auditability</strong> — inbox keeps record of processed events.</p>
+<hr />
+<h2 id="trade-offs">⚠️ Trade-offs<a class="headerlink" href="#trade-offs" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Trade-off</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Extra storage</strong></td>
+<td>Inbox table must be cleaned up periodically.</td>
+</tr>
+<tr>
+<td><strong>Small latency overhead</strong></td>
+<td>One DB insert per event.</td>
+</tr>
+<tr>
+<td><strong>Event replay</strong></td>
+<td>Requires correct event ID in messages.</td>
+</tr>
+<tr>
+<td><strong>Transactional boundary</strong></td>
+<td>Works best when business logic shares same DB.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="real-world-usage">🧩 Real-world Usage<a class="headerlink" href="#real-world-usage" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Producer</th>
+<th>Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Order Service</strong> — uses <strong>Transactional Outbox Pattern</strong> to reliably publish <code>OrderCreatedEvent</code></td>
+<td><strong>Payment Service</strong> — uses <strong>Inbox Pattern</strong> to reliably consume and ensure idempotency</td>
+</tr>
+</tbody>
+</table>
+<p>Together they form the <strong>Outbox–Inbox Pair</strong>, one of the most robust patterns for <strong>event-driven consistency</strong>.</p>
+<hr />
+<h2 id="combined-outboxinbox-workflow">🔄 Combined Outbox–Inbox Workflow<a class="headerlink" href="#combined-outboxinbox-workflow" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Producer service</strong> writes data + event to its DB (Transactional Outbox).</p>
+</li>
+<li>
+<p><strong>CDC or Scheduler</strong> publishes to broker.</p>
+</li>
+<li>
+<p><strong>Consumer service</strong> receives the event, records it in Inbox, and executes logic.</p>
+</li>
+<li>
+<p>If retried or duplicated → Inbox avoids reprocessing.</p>
+</li>
+</ol>
+<p>This achieves <strong>exactly-once semantics without distributed transactions</strong>.</p>
+<hr />
+<h2 id="enhancements">💡 Enhancements<a class="headerlink" href="#enhancements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Inbox cleanup</strong> — schedule a job to purge processed events older than X days.</p>
+</li>
+<li>
+<p><strong>CDC Integration</strong> — combine with Debezium Outbox for near real-time delivery.</p>
+</li>
+<li>
+<p><strong>Retry Mechanism</strong> — track failure states and retry failed event processing.</p>
+</li>
+<li>
+<p><strong>Event correlation</strong> — include <code>traceId</code> or <code>correlationId</code> for debugging cross-service flows.</p>
+</li>
+</ul>
+<hr />
+<h2 id="interview-angle">🧩 Interview Angle<a class="headerlink" href="#interview-angle" title="Permanent link">&para;</a></h2>
+<p><strong>Typical Questions:</strong></p>
+<ol>
+<li>
+<p>What problem does the Inbox pattern solve?</p>
+</li>
+<li>
+<p>How does it complement the Outbox pattern?</p>
+</li>
+<li>
+<p>How do you guarantee exactly-once processing?</p>
+</li>
+<li>
+<p>How do you handle failure mid-processing?</p>
+</li>
+<li>
+<p>What are the cleanup and scaling strategies?</p>
+</li>
+</ol>
+<p><strong>Good answer line:</strong></p>
+<blockquote>
+<p>“The Inbox pattern ensures that a message is processed exactly once by recording it in a local inbox table within the same transaction as the business logic, thus providing idempotency and reliability without distributed transactions.”</p>
+</blockquote>
+<hr />
+<h1 id="cdc-change-data-capture">CDC (Change Data Capture)<a class="headerlink" href="#cdc-change-data-capture" title="Permanent link">&para;</a></h1>
+<p>We’re now touching one of the most powerful and modern techniques used in <strong>distributed systems and microservice integration</strong>:<br />
+<strong>CDC (Change Data Capture)</strong>.</p>
+<p>It’s a foundational building block for <strong>event-driven architecture</strong>, <strong>data streaming</strong>, and <strong>real-time synchronization</strong> between systems like Kafka, Elasticsearch, and microservices — often combined with the <strong>Transactional Outbox pattern</strong> you just learned.</p>
+<p>Let’s go deep like an architect 👇</p>
+<hr />
+<h2 id="what-is-change-data-capture-cdc">🧩 What Is Change Data Capture (CDC)?<a class="headerlink" href="#what-is-change-data-capture-cdc" title="Permanent link">&para;</a></h2>
+<p><strong>Change Data Capture (CDC)</strong> is a pattern for <strong>detecting and capturing data changes</strong> (inserts, updates, deletes) in a database and <strong>publishing them as events</strong> to downstream systems — <em>without modifying the application code.</em></p>
+<p>Think of it as a <strong>listener on your database</strong>: whenever data changes, CDC automatically produces events that other systems can consume.</p>
+<hr />
+<h2 id="why-cdc-exists-the-core-problem">🧠 Why CDC Exists — The Core Problem<a class="headerlink" href="#why-cdc-exists-the-core-problem" title="Permanent link">&para;</a></h2>
+<p>Without CDC, to keep multiple systems (e.g., services, analytics DB, search index) in sync, you’d typically:</p>
+<ul>
+<li>
+<p>Continuously poll the database for changes.</p>
+</li>
+<li>
+<p>Or modify your business logic to send updates manually.</p>
+</li>
+</ul>
+<p>These are <strong>inefficient</strong> and <strong>error-prone</strong>.</p>
+<p>CDC solves this by <strong>listening directly to the database transaction log</strong> — ensuring <strong>reliable, low-latency, event-driven replication</strong>.</p>
+<hr />
+<h2 id="how-it-works-conceptually">⚙️ How It Works (Conceptually)<a class="headerlink" href="#how-it-works-conceptually" title="Permanent link">&para;</a></h2>
+<p>Every relational database (like MySQL, PostgreSQL, Oracle) maintains a <strong>transaction log</strong> internally:</p>
+<ul>
+<li>
+<p><strong>MySQL</strong> → <em>binlog</em></p>
+</li>
+<li>
+<p><strong>PostgreSQL</strong> → <em>WAL (Write-Ahead Log)</em></p>
+</li>
+<li>
+<p><strong>MongoDB</strong> → <em>oplog</em></p>
+</li>
+</ul>
+<p>CDC tools read these logs, interpret each change (INSERT/UPDATE/DELETE), and <strong>stream structured change events</strong> to consumers — e.g., Apache Kafka.</p>
+<h3 id="example-flow">Example Flow<a class="headerlink" href="#example-flow" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Application writes to DB → e.g. <code>INSERT INTO orders (...)</code>.</p>
+</li>
+<li>
+<p>DB writes this change to its transaction log.</p>
+</li>
+<li>
+<p>CDC connector reads this log.</p>
+</li>
+<li>
+<p>CDC tool (like Debezium) transforms the change into a structured event:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;op&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;before&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;after&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;order_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CREATED&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;db&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;orders_db&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;table&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;orders&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ts_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1731123456000</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p>Event is pushed to Kafka topic (e.g., <code>orders.public.orders</code>).</p>
+</li>
+<li>
+<p>Other services consume this topic and react.</p>
+</li>
+</ol>
+<hr />
+<h2 id="common-tools-and-frameworks">🧩 Common Tools and Frameworks<a class="headerlink" href="#common-tools-and-frameworks" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Debezium</strong></td>
+<td>Open-source CDC framework built on Kafka Connect — supports MySQL, PostgreSQL, MongoDB, Oracle, etc.</td>
+</tr>
+<tr>
+<td><strong>Kafka Connect</strong></td>
+<td>Platform for connecting data systems to Kafka — Debezium runs as a connector here.</td>
+</tr>
+<tr>
+<td><strong>AWS DMS (Database Migration Service)</strong></td>
+<td>Supports CDC-based replication.</td>
+</tr>
+<tr>
+<td><strong>Striim / Fivetran / StreamSets</strong></td>
+<td>Commercial CDC solutions for ETL pipelines.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="cdc-event-structure-debezium-example">🧩 CDC Event Structure (Debezium Example)<a class="headerlink" href="#cdc-event-structure-debezium-example" title="Permanent link">&para;</a></h2>
+<p>Each event typically includes:</p>
+<ul>
+<li>
+<p><strong>before</strong>: Record state before the change</p>
+</li>
+<li>
+<p><strong>after</strong>: Record state after the change</p>
+</li>
+<li>
+<p><strong>op</strong>: Operation type — <code>"c"</code> (create), <code>"u"</code> (update), <code>"d"</code> (delete)</p>
+</li>
+<li>
+<p><strong>source</strong>: Metadata (DB, table, transaction ID, timestamp)</p>
+</li>
+</ul>
+<hr />
+<h2 id="cdc-and-the-transactional-outbox-pattern">🔗 CDC and the Transactional Outbox Pattern<a class="headerlink" href="#cdc-and-the-transactional-outbox-pattern" title="Permanent link">&para;</a></h2>
+<p>These two patterns <strong>work perfectly together</strong>.</p>
+<h3 id="problem-without-cdc">❌ Problem without CDC:<a class="headerlink" href="#problem-without-cdc" title="Permanent link">&para;</a></h3>
+<p>If you implement the outbox pattern, you must run a <strong>poller job</strong> or <strong>scheduler</strong> to read the outbox table and publish events — introduces delay and overhead.</p>
+<h3 id="solution-with-cdc">✅ Solution with CDC:<a class="headerlink" href="#solution-with-cdc" title="Permanent link">&para;</a></h3>
+<p>You can <strong>automatically capture outbox table changes</strong> using CDC —<br />
+whenever a new record appears, Debezium immediately streams it to Kafka.</p>
+<p>This gives you <strong>guaranteed delivery</strong> and <strong>real-time propagation</strong>.</p>
+<h3 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Application writes business data + outbox entry atomically.</p>
+</li>
+<li>
+<p>Debezium connector monitors the <code>outbox</code> table.</p>
+</li>
+<li>
+<p>When a new row appears, it emits a message to Kafka topic (e.g., <code>order-events</code>).</p>
+</li>
+<li>
+<p>No extra code or polling required.</p>
+</li>
+</ol>
+<hr />
+<h2 id="example-debezium-outbox-connector">🏗️ Example — Debezium Outbox Connector<a class="headerlink" href="#example-debezium-outbox-connector" title="Permanent link">&para;</a></h2>
+<p>Debezium has a <strong>specialized Outbox Event Router</strong> that transforms outbox table entries into Kafka events.</p>
+<p><strong>Outbox Table Example</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">outbox_event</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="n">UUID</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">  </span><span class="n">aggregate_type</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="n">aggregate_id</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="k">type</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="n">payload</span><span class="w"> </span><span class="n">JSONB</span><span class="p">,</span>
+<span class="w">  </span><span class="k">timestamp</span><span class="w"> </span><span class="k">TIMESTAMP</span>
+<span class="p">);</span>
+</code></pre></div>
+<p><strong>Debezium Connector Configuration</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;outbox-connector&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;connector.class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.debezium.connector.postgresql.PostgresConnector&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;database.hostname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;database.port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;database.user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;database.password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;database.dbname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;orders_db&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;database.server.name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dbserver1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;table.include.list&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public.outbox_event&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tombstones.on.delete&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;transforms&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;outbox&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;transforms.outbox.type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.debezium.transforms.outbox.EventRouter&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;transforms.outbox.table.fields.additional.placement&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type:header:eventType&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;transforms.outbox.route.by.field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aggregate_type&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This automatically routes messages by their <code>aggregate_type</code> to topic names like:</p>
+<div class="highlight"><pre><span></span><code>dbserver1.outbox_event.order
+dbserver1.outbox_event.payment
+</code></pre></div>
+<hr />
+<h2 id="benefits">💡 Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Advantage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅ <strong>Zero application change</strong></td>
+<td>No modification to existing services needed.</td>
+</tr>
+<tr>
+<td>✅ <strong>Real-time streaming</strong></td>
+<td>Low-latency updates from DB to Kafka or others.</td>
+</tr>
+<tr>
+<td>✅ <strong>Scalable</strong></td>
+<td>Handles millions of change events efficiently.</td>
+</tr>
+<tr>
+<td>✅ <strong>Reliable</strong></td>
+<td>Reads from DB logs, ensuring no data loss.</td>
+</tr>
+<tr>
+<td>✅ <strong>Outbox integration</strong></td>
+<td>Perfect for reliable event-driven microservices.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="trade-offs-challenges">⚠️ Trade-offs / Challenges<a class="headerlink" href="#trade-offs-challenges" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Challenge</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Schema evolution</strong></td>
+<td>Changing DB schema requires CDC config updates.</td>
+</tr>
+<tr>
+<td><strong>High write volumes</strong></td>
+<td>Can generate massive event streams — requires scaling.</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Access to DB logs must be restricted.</td>
+</tr>
+<tr>
+<td><strong>Idempotency</strong></td>
+<td>Consumers must handle potential replayed events.</td>
+</tr>
+<tr>
+<td><strong>Operational complexity</strong></td>
+<td>Needs Kafka Connect, Debezium, etc., properly deployed and monitored.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="real-world-example-scenario">🧩 Real-World Example Scenario<a class="headerlink" href="#real-world-example-scenario" title="Permanent link">&para;</a></h2>
+<h3 id="use-case">Use Case:<a class="headerlink" href="#use-case" title="Permanent link">&para;</a></h3>
+<p>You have:</p>
+<ul>
+<li>
+<p><strong>Order Service</strong> → PostgreSQL DB</p>
+</li>
+<li>
+<p><strong>Payment Service</strong>, <strong>Analytics Service</strong>, <strong>Notification Service</strong> all depend on order updates.</p>
+</li>
+</ul>
+<p>Instead of each polling or receiving HTTP calls:</p>
+<ul>
+<li>
+<p>You add a <strong>Debezium connector</strong> on the Order DB.</p>
+</li>
+<li>
+<p>Whenever an order row changes, Debezium publishes an event to Kafka.</p>
+</li>
+<li>
+<p>Each consumer service subscribes to its respective topic and updates its local DB or cache.</p>
+</li>
+</ul>
+<p>Result:</p>
+<ul>
+<li>
+<p>Real-time event-driven synchronization.</p>
+</li>
+<li>
+<p>No coupling between services.</p>
+</li>
+<li>
+<p>Full traceability through Kafka.</p>
+</li>
+</ul>
+<hr />
+<h2 id="interview-insights">🧠 Interview Insights<a class="headerlink" href="#interview-insights" title="Permanent link">&para;</a></h2>
+<p><strong>Typical Questions:</strong></p>
+<ol>
+<li>
+<p>What is CDC, and why is it useful in microservices?</p>
+</li>
+<li>
+<p>How does CDC differ from event sourcing?</p>
+</li>
+<li>
+<p>How does CDC integrate with the transactional outbox pattern?</p>
+</li>
+<li>
+<p>How do you ensure exactly-once delivery with CDC?</p>
+</li>
+<li>
+<p>What happens when schema changes?</p>
+</li>
+<li>
+<p>How does Debezium guarantee ordering and consistency?</p>
+</li>
+</ol>
+<p><strong>Sample Strong Answer:</strong></p>
+<blockquote>
+<p>“Change Data Capture enables event-driven systems to react to database changes in real-time by reading transaction logs. When combined with the transactional outbox pattern, it guarantees reliable, atomic, and asynchronous event propagation from one service’s database to Kafka — without dual-write problems or distributed transactions.”</p>
+</blockquote>
+<hr />
+<h2 id="comparison-summary">🧩 Comparison Summary<a class="headerlink" href="#comparison-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Outbox Pattern</th>
+<th>CDC Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Implemented in</strong></td>
+<td>Application code</td>
+<td>External system (Debezium, Kafka Connect)</td>
+</tr>
+<tr>
+<td><strong>Writes events</strong></td>
+<td>App writes to outbox table</td>
+<td>DB log captures all changes</td>
+</tr>
+<tr>
+<td><strong>Delivery</strong></td>
+<td>App or scheduler publishes events</td>
+<td>CDC connector streams automatically</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Slight (polling interval)</td>
+<td>Near real-time</td>
+</tr>
+<tr>
+<td><strong>Control</strong></td>
+<td>Full app-level control</td>
+<td>Externalized control</td>
+</tr>
+<tr>
+<td><strong>Best combo</strong></td>
+<td>Outbox + CDC = reliable &amp; real-time event publishing</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

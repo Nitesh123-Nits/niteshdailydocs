@@ -1,0 +1,890 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>1. Introduction — what HTTP is and why it changed - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction-what-http-is-and-why-it-changed" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Introduction — what HTTP is and why it changed
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="1-introduction-what-http-is-and-why-it-changed">1. Introduction — what HTTP is and why it changed<a class="headerlink" href="#1-introduction-what-http-is-and-why-it-changed" title="Permanent link">&para;</a></h1>
+<p>HTTP (HyperText Transfer Protocol) is the application-layer protocol that web clients (browsers, crawlers, mobile apps) use to request resources from servers (HTML, CSS, JS, images, API responses). It defines <em>message formats</em>, <em>request/response semantics</em>, and (across versions) how those messages get carried over the network.</p>
+<p>Why newer HTTP versions were needed: the web grew from simple pages to rich, asset-heavy applications. Latency and bandwidth became dominant user-experience factors. Each HTTP revision attempted to reduce latency, make better use of network/bandwidth, and avoid inefficiencies (extra handshakes, redundant connections, and head-of-line blocking) that slowed page loads.</p>
+<hr />
+<h1 id="2-http10-http11-architecture-mechanics-and-pain-points">2. HTTP/1.0 → HTTP/1.1 — architecture, mechanics, and pain points<a class="headerlink" href="#2-http10-http11-architecture-mechanics-and-pain-points" title="Permanent link">&para;</a></h1>
+<h2 id="architecture-and-working-mechanism-http1x">Architecture and working mechanism (HTTP/1.x)<a class="headerlink" href="#architecture-and-working-mechanism-http1x" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Textual protocol</strong>: Requests and responses are plain text (start-line, headers, blank line, body).</p>
+</li>
+<li>
+<p><strong>Request/response model</strong>: Client opens a TCP connection, sends a request, waits for response.</p>
+</li>
+<li>
+<p><strong>HTTP/1.0</strong> (early web): commonly used one TCP connection per request (though servers/clients sometimes allowed keep-alive as an extension).</p>
+</li>
+</ul>
+<h2 id="key-limitations-in-http10-and-11">Key limitations in HTTP/1.0 and 1.1<a class="headerlink" href="#key-limitations-in-http10-and-11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>One request per connection (originally)</strong> → lots of TCP connections for pages with many resources (images, scripts, CSS).</p>
+</li>
+<li>
+<p><strong>Head-of-line (HOL) at application level</strong>: if only one request/response can be in flight on a connection, a slow resource stalls other resources.</p>
+</li>
+<li>
+<p><strong>High handshake cost</strong>: TCP 3-way handshake + TLS (if used) for each connection caused latency.</p>
+</li>
+<li>
+<p><strong>Inefficient use of bandwidth</strong>: repeated congestion control slow-start for many short connections.</p>
+</li>
+<li>
+<p><strong>Blocking/parsing complexity</strong>: chunked or unknown-length responses were awkward in early implementations.</p>
+</li>
+</ul>
+<h2 id="what-http11-added">What HTTP/1.1 added<a class="headerlink" href="#what-http11-added" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Persistent connections by default (Connection: keep-alive)</strong> — reuse TCP connections for multiple requests/responses, removing the need to re-establish TCP for every resource.</p>
+</li>
+<li>
+<p><strong>Pipelining</strong> (rarely used reliably): client can send multiple requests without waiting for previous responses — but responses must come back in order, so a slow response still stalls subsequent ones (application-level HOL). Pipelining also had interoperability problems with intermediaries and servers.</p>
+</li>
+<li>
+<p><strong>Chunked Transfer Encoding</strong>: allow streaming response bodies of unknown size (useful for dynamic content).</p>
+</li>
+<li>
+<p><strong>Host header requirement</strong>, range requests, better caching semantics, and more header fields for robust behavior.</p>
+</li>
+</ul>
+<h2 id="remaining-problems-after-http11">Remaining problems after HTTP/1.1<a class="headerlink" href="#remaining-problems-after-http11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>No true multiplexing</strong>: either one request at a time per connection, or pipelining which still enforced ordered responses → still blocked by the slow resource.</p>
+</li>
+<li>
+<p><strong>Browsers opened multiple parallel TCP connections per origin</strong> (usually 6–8) as a practical workaround to get resources in parallel — this reduced some latency but created many concurrent TCP handshakes and extra congestion slow-starts.</p>
+</li>
+<li>
+<p><strong>Inefficient header verbosity</strong>: repeated headers on each request (cookies, user agent) were wasteful, particularly for many small resources.</p>
+</li>
+</ul>
+<p><strong>Real-world impact:</strong> pages with dozens/hundreds of assets were slow because of connection churn and serialized transfers; mobile and high-latency networks suffered most.</p>
+<hr />
+<h1 id="3-http2-how-it-addressed-http1x-problems">3. HTTP/2 — how it addressed HTTP/1.x problems<a class="headerlink" href="#3-http2-how-it-addressed-http1x-problems" title="Permanent link">&para;</a></h1>
+<p>HTTP/2 is an evolution that keeps application semantics (methods, status codes, URIs, headers) but changes how bytes flow on the wire.</p>
+<h2 id="core-technical-features">Core technical features<a class="headerlink" href="#core-technical-features" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Binary framing layer</strong></p>
+<ul>
+<li>Messages are split into frames (binary) rather than textual lines. This isolates concerns and simplifies parsing and intermediaries.</li>
+</ul>
+</li>
+<li>
+<p><strong>Multiplexing</strong></p>
+<ul>
+<li>Multiple logical <em>streams</em> (requests/responses) share a single TCP connection concurrently. Frames for different streams interleave and are reassembled at endpoints. This <em>eliminates the need for multiple TCP connections per origin</em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Header compression (HPACK)</strong></p>
+<ul>
+<li>Efficient compression of headers using a static/dynamic table and Huffman coding—reduces repeated header overhead and saves bandwidth.</li>
+</ul>
+</li>
+<li>
+<p><strong>Server Push</strong></p>
+<ul>
+<li>Server can proactively send resources (PUSH_PROMISE + pushed response) it expects the client will need, before the client asks.</li>
+</ul>
+</li>
+<li>
+<p><strong>Stream prioritization</strong></p>
+<ul>
+<li>Clients can indicate priority/dependency hints to help the server schedule responses.</li>
+</ul>
+</li>
+</ol>
+<h2 id="how-multiplexing-solved-application-level-hol">How multiplexing solved application-level HOL<a class="headerlink" href="#how-multiplexing-solved-application-level-hol" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Under HTTP/1.x, a single connection served one request at a time — a slow response blocked the next. HTTP/2 multiplexes many streams on the same TCP connection so one stream’s delay (waiting for a resource) does <em>not</em> block concurrent streams at the <em>application framing</em> level.</li>
+</ul>
+<h2 id="why-http2-still-experienced-hol-blocking-transport-level">Why HTTP/2 still experienced HOL blocking (transport-level)<a class="headerlink" href="#why-http2-still-experienced-hol-blocking-transport-level" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Because HTTP/2 multiplexes over <strong>TCP</strong>, which guarantees <em>in-order delivery</em> of bytes, TCP will hold back later packets until missing earlier packets are retransmitted and received. So if packet loss occurs, all streams using that TCP connection can experience delay until the lost packet(s) are recovered. This is <strong>transport-layer HOL blocking</strong> (distinct from the earlier application-level HOL that multiplexing removed).</li>
+</ul>
+<h2 id="benefits-of-http2">Benefits of HTTP/2<a class="headerlink" href="#benefits-of-http2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Lower latency for pages</strong> (fewer connections, multiplexing).</p>
+</li>
+<li>
+<p><strong>Better bandwidth utilization</strong> (single TCP connection benefits from a sustained congestion window).</p>
+</li>
+<li>
+<p><strong>Fewer TCP handshakes</strong> and less TLS renegotiation when TLS used.</p>
+</li>
+<li>
+<p><strong>Smaller headers on the wire</strong> (HPACK).</p>
+</li>
+</ul>
+<h2 id="practical-caveats-and-adoption-notes">Practical caveats and adoption notes<a class="headerlink" href="#practical-caveats-and-adoption-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Server push had theory appeal but practical complexity (cache management, wasted pushes) led to mixed adoption and eventual deprecation in browsers (see Section 6). (<a href="https://developer.chrome.com/blog/removing-push?utm_source=chatgpt.com" title="Remove HTTP/2 Server Push from Chrome | Blog">Chrome for Developers</a>)</li>
+</ul>
+<hr />
+<h1 id="4-http3-the-quic-revolution">4. HTTP/3 — the QUIC revolution<a class="headerlink" href="#4-http3-the-quic-revolution" title="Permanent link">&para;</a></h1>
+<p>HTTP/3 rethinks the transport. Instead of riding over TCP, HTTP/3 uses <strong>QUIC</strong>, a transport built on top of UDP that incorporates many features traditionally provided by TCP + TLS but redesigned for modern needs.</p>
+<h2 id="what-is-quic">What is QUIC?<a class="headerlink" href="#what-is-quic" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>QUIC is a UDP-based transport protocol that implements:</p>
+<ul>
+<li>
+<p>Reliable, ordered delivery <em>within individual streams</em> but <strong>independent</strong> streams across the same connection.</p>
+</li>
+<li>
+<p>Built-in encryption using TLS 1.3 integrated in the handshake.</p>
+</li>
+<li>
+<p>Connection identifiers that survive IP/port changes to support <strong>connection migration</strong> (hand-offs between networks).</p>
+</li>
+<li>
+<p>Faster handshake semantics (1-RTT typical, and 0-RTT when resuming).</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-quic-eliminates-transport-level-hol-blocking">How QUIC eliminates transport-level HOL blocking<a class="headerlink" href="#how-quic-eliminates-transport-level-hol-blocking" title="Permanent link">&para;</a></h2>
+<ul>
+<li>QUIC provides <strong>per-stream framing and delivery</strong>: packet loss for a frame on stream A does <em>not</em> block progress on stream B — streams are independent. Retransmissions occur only for lost data on the affected stream. This eliminates TCP’s global in-order delivery HOL blocking for multiplexed HTTP traffic.</li>
+</ul>
+<h2 id="handshake-0-rtt-and-1-rtt">Handshake: 0-RTT and 1-RTT<a class="headerlink" href="#handshake-0-rtt-and-1-rtt" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>1-RTT</strong>: Initial QUIC handshake (with TLS 1.3 integrated) typically completes in one round-trip (client → server → client), faster than separate TCP 3-way + TLS 1.3 which often needs 1–2 RTTs.</p>
+</li>
+<li>
+<p><strong>0-RTT</strong>: With credentials cached from prior connections (session resumption), a client can send early application data immediately (0-RTT). This gives a huge latency improvement but has replay-risk considerations (application must accept potential replays for idempotent requests).</p>
+</li>
+</ul>
+<p>Cloudflare’s and other operators’ analyses document QUIC’s handshake benefits and 0-RTT results. (<a href="https://blog.cloudflare.com/even-faster-connection-establishment-with-quic-0-rtt-resumption/?utm_source=chatgpt.com" title="Even faster connection establishment with QUIC 0-RTT ...">The Cloudflare Blog</a>)</p>
+<h2 id="benefits-specifically-enabled-by-quichttp3">Benefits specifically enabled by QUIC/HTTP/3<a class="headerlink" href="#benefits-specifically-enabled-by-quichttp3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>True stream independence</strong> → removes transport HOL blocking.</p>
+</li>
+<li>
+<p><strong>Faster connection setup</strong> and resume (0-RTT) → lower first-byte times.</p>
+</li>
+<li>
+<p><strong>Connection migration</strong> (e.g., mobile switching from cellular to Wi-Fi) without tearing down the connection.</p>
+</li>
+<li>
+<p><strong>Always encrypted</strong>: QUIC mandates encryption (TLS 1.3).</p>
+</li>
+<li>
+<p><strong>Better performance on lossy networks</strong> (less penalty per packet loss because loss only affects the stream with lost packets), improving mobile and long-fat networks.</p>
+</li>
+</ul>
+<h2 id="quic-vs-tcp-retransmission-behavior">QUIC vs TCP retransmission behavior<a class="headerlink" href="#quic-vs-tcp-retransmission-behavior" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>TCP</strong>: In-order delivery globally on the connection. Lost packet causes blocking until retransmitted and received — affects <em>all</em> streams sharing the connection.</p>
+</li>
+<li>
+<p><strong>QUIC</strong>: Each stream has its own sequence space — lost packets are retransmitted but do not block delivery of data for other streams. QUIC also has more flexible ACK and loss recovery mechanisms because it runs in user space and evolves faster than kernel TCP.</p>
+</li>
+</ul>
+<hr />
+<h1 id="5-comparative-summary-table">5. Comparative summary table<a class="headerlink" href="#5-comparative-summary-table" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Feature / Version</th>
+<th style="text-align: right;">HTTP/1.0</th>
+<th style="text-align: right;">HTTP/1.1</th>
+<th style="text-align: right;">HTTP/2</th>
+<th style="text-align: right;">HTTP/3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transport protocol</strong></td>
+<td style="text-align: right;">TCP</td>
+<td style="text-align: right;">TCP</td>
+<td style="text-align: right;">TCP</td>
+<td style="text-align: right;">QUIC over UDP</td>
+</tr>
+<tr>
+<td><strong>Multiplexing of requests</strong></td>
+<td style="text-align: right;">No (1 req/conn)</td>
+<td style="text-align: right;">Limited (pipelining — problematic)</td>
+<td style="text-align: right;">Yes — multiple streams on single TCP conn</td>
+<td style="text-align: right;">Yes — multiple independent streams on QUIC</td>
+</tr>
+<tr>
+<td><strong>Where HOL blocking can occur</strong></td>
+<td style="text-align: right;">App level (one request)</td>
+<td style="text-align: right;">App level (pipelining) + many TCP conns</td>
+<td style="text-align: right;">Transport level (TCP in-order) — app-level removed</td>
+<td style="text-align: right;"><strong>None at transport level</strong> (stream-level independence)</td>
+</tr>
+<tr>
+<td><strong>Header compression</strong></td>
+<td style="text-align: right;">None</td>
+<td style="text-align: right;">None (verbose)</td>
+<td style="text-align: right;">HPACK (efficient, but with head-of-line caveats)</td>
+<td style="text-align: right;">QPACK (designed to avoid blocking issues across streams)</td>
+</tr>
+<tr>
+<td><strong>Encryption</strong></td>
+<td style="text-align: right;">Optional</td>
+<td style="text-align: right;">Optional</td>
+<td style="text-align: right;">Optional (widely used with TLS)</td>
+<td style="text-align: right;"><strong>Integrated TLS 1.3 (mandatory)</strong></td>
+</tr>
+<tr>
+<td><strong>Connection setup latency</strong></td>
+<td style="text-align: right;">High (TCP handshake per conn)</td>
+<td style="text-align: right;">Improved (keep-alive)</td>
+<td style="text-align: right;">Lower (fewer TCP handshakes)</td>
+<td style="text-align: right;">Much lower (1-RTT, optional 0-RTT resume)</td>
+</tr>
+<tr>
+<td><strong>Server push</strong></td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">N/A</td>
+<td style="text-align: right;">Yes (PUSH_PROMISE) — practical issues</td>
+<td style="text-align: right;">Server push exists in protocol, but browser support is limited / deprecated in many implementations. (<a href="https://en.wikipedia.org/wiki/HTTP/2_Server_Push?utm_source=chatgpt.com" title="HTTP/2 Server Push">Wikipedia</a>)</td>
+</tr>
+<tr>
+<td><strong>Performance on lossy networks</strong></td>
+<td style="text-align: right;">Poor (many small TCP conns suffer slow-start)</td>
+<td style="text-align: right;">Poor to moderate</td>
+<td style="text-align: right;">Better than 1.x (single TCP conn), but packet loss hurts all streams</td>
+<td style="text-align: right;">Best — packet loss affects only the stream(s) with lost packets; connection migration helps mobile reliability. (<a href="https://www.catchpoint.com/http2-vs-http3/quic-vs-tcp?utm_source=chatgpt.com" title="QUIC vs. TCP—Development and Monitoring Guide">Catchpoint</a>)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="6-real-world-impact-adoption-and-practical-notes">6. Real-world impact, adoption, and practical notes<a class="headerlink" href="#6-real-world-impact-adoption-and-practical-notes" title="Permanent link">&para;</a></h1>
+<h2 id="how-upgrades-improved-web-performance-ux">How upgrades improved web performance / UX<a class="headerlink" href="#how-upgrades-improved-web-performance-ux" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Faster page loads</strong>: multiplexing (HTTP/2) and reduced handshake/0-RTT (HTTP/3) lower time-to-first-byte and time-to-interactive for many pages.</p>
+</li>
+<li>
+<p><strong>Fewer connections</strong>: reduces CPU and memory load on servers and removes many redundant TCP slow-starts.</p>
+</li>
+<li>
+<p><strong>Mobile gains</strong>: HTTP/3’s connection migration and resilience to packet loss help mobile users switching networks or on lossy cellular links.</p>
+</li>
+<li>
+<p><strong>Bandwidth efficiency</strong>: header compression and fewer redundant retransmissions reduce bytes sent.</p>
+</li>
+</ul>
+<h2 id="adoption-status-broad-overview">Adoption status (broad overview)<a class="headerlink" href="#adoption-status-broad-overview" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>HTTP/2</strong>: Widely adopted by browsers, CDNs, and servers for several years — de facto standard for encrypted HTTP traffic.</p>
+</li>
+<li>
+<p><strong>HTTP/3</strong>: Rapid adoption across browsers and CDNs. Major browsers have shipped HTTP/3 support (Chromium-based browsers, Firefox, Safari) and many large CDNs (Cloudflare, Fastly, Akamai, Cloud providers) support HTTP/3 on their edges. Browser and CDN support has grown steeply from 2020 onward and by the mid-2020s HTTP/3 is supported by the majority of modern clients and a growing share of origin/edge servers. (<a href="https://caniuse.com/http3?utm_source=chatgpt.com" title="HTTP/3 protocol | Can I use... Support tables for HTML5, ...">caniuse.com</a>)</p>
+</li>
+</ul>
+<h2 id="server-push-reality">Server push reality<a class="headerlink" href="#server-push-reality" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Server Push looked promising in HTTP/2 but in practice caused correctness and caching complexities. Major browser vendors moved to disable or remove push support (Chrome disabled by default; Firefox removed push support), and many operators recommend using alternatives like <strong>103 Early Hints</strong> to inform clients about resources to fetch. (<a href="https://developer.chrome.com/blog/removing-push?utm_source=chatgpt.com" title="Remove HTTP/2 Server Push from Chrome | Blog">Chrome for Developers</a>)</li>
+</ul>
+<h2 id="cdns-and-http3">CDNs and HTTP/3<a class="headerlink" href="#cdns-and-http3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Many leading CDNs and edge providers support HTTP/3 today (Cloudflare, Akamai, Fastly, major cloud CDNs) and it’s available as an option or enabled by default in their offerings — enabling servers to serve clients over QUIC/HTTP/3 from the edge. (<a href="https://www.willshall.com/top-20-cdn-providers-in-2025/?utm_source=chatgpt.com" title="Top 20 CDN Providers in 2025">WillShall</a>)</li>
+</ul>
+<h2 id="future-trends">Future trends<a class="headerlink" href="#future-trends" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>HTTP/3 adoption will continue to rise</strong> and likely become the default for encrypted web traffic where QUIC is allowed on the network path.</p>
+</li>
+<li>
+<p>Expect <strong>more user-space transport innovation</strong> (because QUIC enables faster iteration than kernel TCP).</p>
+</li>
+<li>
+<p>Improved observability and middlebox handling are active areas: tooling for inspecting QUIC/HTTP-3 streams and for enterprise traffic inspection is developing. (<a href="https://developers.cloudflare.com/cloudflare-one/traffic-policies/http-policies/http3/?utm_source=chatgpt.com" title="HTTP/3 inspection · Cloudflare One docs">Cloudflare Docs</a>)</p>
+</li>
+</ul>
+<hr />
+<h1 id="7-concise-conclusion-one-line-per-version">7. Concise conclusion (one-line per version)<a class="headerlink" href="#7-concise-conclusion-one-line-per-version" title="Permanent link">&para;</a></h1>
+<ul>
+<li>
+<p><strong>HTTP/1.x →</strong> Simplistic request-response textual protocol that worked for small pages but suffered from many connections and serialized requests.</p>
+</li>
+<li>
+<p><strong>HTTP/2 →</strong> Introduced binary framing, multiplexing and header compression — solved application-level inefficiencies but still limited by TCP’s in-order delivery.</p>
+</li>
+<li>
+<p><strong>HTTP/3 →</strong> Replaces TCP with QUIC (over UDP), achieving true stream independence, faster handshakes (0/1-RTT), and better performance on lossy/mobile networks.</p>
+</li>
+</ul>
+<p>Each step built on the previous: HTTP/1.1 fixed obvious inefficiencies; HTTP/2 changed the framing and concurrency model; HTTP/3 rethought the transport to eliminate remaining transport-level limitations.</p>
+<hr />
+<h1 id="8-optional-visuals-quick-ascii-diagrams-conceptual-timeline">8. (Optional visuals — quick ASCII diagrams &amp; conceptual timeline)<a class="headerlink" href="#8-optional-visuals-quick-ascii-diagrams-conceptual-timeline" title="Permanent link">&para;</a></h1>
+<h2 id="timeline-simple">Timeline (simple)<a class="headerlink" href="#timeline-simple" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>HTTP/1.0 (text)  →  HTTP/1.1 (persistent conn, pipelining, chunked)  →  HTTP/2 (binary frames, multiplexing, HPACK)  →  HTTP/3 (QUIC over UDP, QPACK, 0/1-RTT)
+</code></pre></div>
+<h2 id="packetstream-conceptual-difference-very-simplified">Packet/stream conceptual difference (very simplified)<a class="headerlink" href="#packetstream-conceptual-difference-very-simplified" title="Permanent link">&para;</a></h2>
+<p><strong>HTTP/2 over TCP (multiplexed streams but single byte-stream):</strong></p>
+<div class="highlight"><pre><span></span><code>TCP stream: [ bytes in-order ]  &lt;- one TCP flow
+Frames for Stream A, B interleaved → if a packet with Stream A bytes lost, TCP blocks delivery of later bytes (affects Stream B)
+</code></pre></div>
+<p><strong>HTTP/3 over QUIC (multiplexed, per-stream):</strong></p>
+<div class="highlight"><pre><span></span><code>QUIC connection:
+  Stream A frames  --&gt; retransmit only A&#39;s lost packets
+  Stream B frames  --&gt; unaffected by A&#39;s loss
+Packets carry stream frames with independent flow control and loss recovery.
+</code></pre></div>
+<h2 id="http2-frame-multiplexing-concept">HTTP/2 frame multiplexing (concept)<a class="headerlink" href="#http2-frame-multiplexing-concept" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Client opens TCP
+Client: [HEADERS(stream1)] [DATA(stream1-part1)]
+Client: [HEADERS(stream2)]
+Server: [DATA(stream2)] [DATA(stream1-part2)]
+(Frames interleaved; client/server reassembles by stream id)
+</code></pre></div>
+<h2 id="quic-stream-independence-concept">QUIC stream independence (concept)<a class="headerlink" href="#quic-stream-independence-concept" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Client sends QUIC packet 1 (stream 1 parts)
+Client sends QUIC packet 2 (stream 2 parts)
+Packet 1 lost =&gt; retransmit stream 1 frames only
+Stream 2 data in packet 2 still delivered to application
+</code></pre></div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

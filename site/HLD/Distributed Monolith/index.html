@@ -1,0 +1,1050 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Distributed Monolith - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-is-a-distributed-monolith" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Distributed Monolith
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p><strong>Distributed Monolith</strong>—what it is, why it happens, the problems it creates, and how to fix it. This is exactly the kind of depth an interviewer expects from a strong backend/microservices engineer.</p>
+<hr />
+<h1 id="what-is-a-distributed-monolith">🔥 <strong>What Is a Distributed Monolith?</strong><a class="headerlink" href="#what-is-a-distributed-monolith" title="Permanent link">&para;</a></h1>
+<p>A <strong>distributed monolith</strong> is a system where:</p>
+<ul>
+<li>
+<p>You have <strong>multiple services</strong> deployed independently (looks like microservices)</p>
+</li>
+<li>
+<p>BUT they behave like <strong>one tightly coupled monolith</strong> behind the scenes</p>
+</li>
+<li>
+<p>Because services depend heavily on each other for correctness, consistency, and availability</p>
+</li>
+</ul>
+<p>➡️ So it’s <em>technically distributed</em> but <em>architecturally monolithic</em>.</p>
+<p><strong>Core idea:</strong></p>
+<blockquote>
+<p>“If one service cannot function without another service being up, and deployments require coordination, you have a distributed monolith.”</p>
+</blockquote>
+<hr />
+<h1 id="why-does-a-distributed-monolith-happen">🧩 Why Does a Distributed Monolith Happen?<a class="headerlink" href="#why-does-a-distributed-monolith-happen" title="Permanent link">&para;</a></h1>
+<p>This situation usually emerges when teams move from monolith → microservices without redesigning the business boundaries.</p>
+<p>Typical causes:</p>
+<h3 id="1-wrong-service-boundaries-bad-ddd"><strong>1. Wrong service boundaries (bad DDD)</strong><a class="headerlink" href="#1-wrong-service-boundaries-bad-ddd" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Splitting CRUD tables into separate services</p>
+</li>
+<li>
+<p>A “User service”, “Order service”, “Payment service” that call each other 10 times to complete one request</p>
+</li>
+<li>
+<p>Business capability split across teams incorrectly</p>
+</li>
+</ul>
+<h3 id="2-excessive-synchronous-communication"><strong>2. Excessive synchronous communication</strong><a class="headerlink" href="#2-excessive-synchronous-communication" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Service A → Service B → Service C → DB</p>
+</li>
+<li>
+<p>A becomes unavailable if B or C is slow or down</p>
+</li>
+<li>
+<p>A ≠ microservice anymore, it’s just a remote module</p>
+</li>
+</ul>
+<h3 id="3-shared-database"><strong>3. Shared database</strong><a class="headerlink" href="#3-shared-database" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Multiple services read/write the same DB</p>
+</li>
+<li>
+<p>Schema changes break multiple teams</p>
+</li>
+<li>
+<p>Tight coupling at the persistence layer</p>
+</li>
+</ul>
+<h3 id="4-centralized-code-reuse"><strong>4. Centralized code reuse</strong><a class="headerlink" href="#4-centralized-code-reuse" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>“Common Utils” package that all 10 services depend on</p>
+</li>
+<li>
+<p>A change in the shared module forces coordinated deployments</p>
+</li>
+</ul>
+<h3 id="5-uibackend-coupling"><strong>5. UI/Backend coupling</strong><a class="headerlink" href="#5-uibackend-coupling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Frontend makes cross-service composite calls</p>
+</li>
+<li>
+<p>Backend is forced to expose cross-domain APIs</p>
+</li>
+</ul>
+<hr />
+<h1 id="core-problems-distributed-monoliths-create">⚠️ Core Problems Distributed Monoliths Create<a class="headerlink" href="#core-problems-distributed-monoliths-create" title="Permanent link">&para;</a></h1>
+<p>Below are the typical pain points—interviewers love hearing these:</p>
+<hr />
+<h2 id="1-deployment-is-not-independent"><strong>1. Deployment Is Not Independent</strong><a class="headerlink" href="#1-deployment-is-not-independent" title="Permanent link">&para;</a></h2>
+<p>Even though services are separate:</p>
+<ul>
+<li>
+<p>A change in service A requires updates in B and C</p>
+</li>
+<li>
+<p>Multiple services need to be deployed together</p>
+</li>
+<li>
+<p>CI/CD complexity increases</p>
+</li>
+</ul>
+<p>✔ <strong>Microservices goal</strong> = independent deployability<br />
+✖ <strong>Distributed monolith</strong> = dependent deployability</p>
+<hr />
+<h2 id="2-high-latency-due-to-chatty-services"><strong>2. High Latency Due to Chatty Services</strong><a class="headerlink" href="#2-high-latency-due-to-chatty-services" title="Permanent link">&para;</a></h2>
+<p>For every request:</p>
+<ul>
+<li>
+<p>1 call → 5 downstream calls</p>
+</li>
+<li>
+<p>Performance degrades</p>
+</li>
+<li>
+<p>Timeouts, retries, cascading failures</p>
+</li>
+</ul>
+<hr />
+<h2 id="3-reliability-crisis"><strong>3. Reliability Crisis</strong><a class="headerlink" href="#3-reliability-crisis" title="Permanent link">&para;</a></h2>
+<p>One service down → entire system down<br />
+Why?<br />
+Because of <strong>tight synchronous chains</strong>.</p>
+<p>This kills resilience.</p>
+<hr />
+<h2 id="4-hard-to-scale-correctly"><strong>4. Hard to Scale Correctly</strong><a class="headerlink" href="#4-hard-to-scale-correctly" title="Permanent link">&para;</a></h2>
+<p>You want to scale the “checkout” logic…<br />
+But it internally calls:</p>
+<ul>
+<li>
+<p>Pricing</p>
+</li>
+<li>
+<p>Inventory</p>
+</li>
+<li>
+<p>Offers</p>
+</li>
+<li>
+<p>Tax</p>
+</li>
+<li>
+<p>Payment</p>
+</li>
+</ul>
+<p>You end up scaling all of them → cost explosion.</p>
+<hr />
+<h2 id="5-data-consistency-becomes-a-nightmare"><strong>5. Data Consistency Becomes a Nightmare</strong><a class="headerlink" href="#5-data-consistency-becomes-a-nightmare" title="Permanent link">&para;</a></h2>
+<p>Because services don’t own their data:</p>
+<ul>
+<li>
+<p>Shared tables</p>
+</li>
+<li>
+<p>Cross-service transactions</p>
+</li>
+<li>
+<p>Reliance on distributed locks</p>
+</li>
+</ul>
+<p>Eventually:</p>
+<blockquote>
+<p>teams introduce distributed transactions (2PC, Saga) to fix mistakes that shouldn’t exist.</p>
+</blockquote>
+<hr />
+<h2 id="6-no-real-autonomy-between-teams"><strong>6. No Real Autonomy Between Teams</strong><a class="headerlink" href="#6-no-real-autonomy-between-teams" title="Permanent link">&para;</a></h2>
+<p>Teams cannot move fast:</p>
+<ul>
+<li>
+<p>Schema changes break other teams</p>
+</li>
+<li>
+<p>Versioning becomes painful</p>
+</li>
+<li>
+<p>Merge conflicts everywhere</p>
+</li>
+</ul>
+<hr />
+<h1 id="how-to-identify-a-distributed-monolith-interview-trick">🎯 How To Identify a Distributed Monolith (interview trick)<a class="headerlink" href="#how-to-identify-a-distributed-monolith-interview-trick" title="Permanent link">&para;</a></h1>
+<p>You can simply ask:</p>
+<h3 id="can-service-x-be-deployed-without-coordinating-with-service-y"><strong>“Can service X be deployed without coordinating with service Y?”</strong><a class="headerlink" href="#can-service-x-be-deployed-without-coordinating-with-service-y" title="Permanent link">&para;</a></h3>
+<p>If the answer is <strong>no</strong>, it’s a distributed monolith.</p>
+<hr />
+<h1 id="how-to-explain-this-in-an-interview">🎯 How To Explain This In an Interview<a class="headerlink" href="#how-to-explain-this-in-an-interview" title="Permanent link">&para;</a></h1>
+<p>Use this structure:</p>
+<h3 id="1-definition"><strong>1. Definition</strong><a class="headerlink" href="#1-definition" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“A distributed monolith looks like microservices from the outside, but internally they behave like a single tightly-coupled monolith.”</p>
+</blockquote>
+<h3 id="2-symptoms"><strong>2. Symptoms</strong><a class="headerlink" href="#2-symptoms" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Synchronous dependency chains</p>
+</li>
+<li>
+<p>Shared database</p>
+</li>
+<li>
+<p>No independent deployability</p>
+</li>
+<li>
+<p>Services cannot function if another is down</p>
+</li>
+</ul>
+<h3 id="3-impact"><strong>3. Impact</strong><a class="headerlink" href="#3-impact" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Slow development</p>
+</li>
+<li>
+<p>Higher latency</p>
+</li>
+<li>
+<p>Frequent outages</p>
+</li>
+<li>
+<p>High operational cost</p>
+</li>
+</ul>
+<h3 id="4-root-cause"><strong>4. Root Cause</strong><a class="headerlink" href="#4-root-cause" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Poor domain decomposition</p>
+</li>
+<li>
+<p>Incorrect service boundaries</p>
+</li>
+</ul>
+<h3 id="5-solutions"><strong>5. Solutions</strong><a class="headerlink" href="#5-solutions" title="Permanent link">&para;</a></h3>
+<p>Then mention how to fix it (below).</p>
+<hr />
+<h1 id="how-to-fix-or-prevent-a-distributed-monolith">✔️ How To Fix or Prevent a Distributed Monolith<a class="headerlink" href="#how-to-fix-or-prevent-a-distributed-monolith" title="Permanent link">&para;</a></h1>
+<p>Here is the expert-level breakdown:</p>
+<hr />
+<h2 id="1-redesign-service-boundaries-based-on-domain-capabilities"><strong>1. Redesign Service Boundaries Based on Domain Capabilities</strong><a class="headerlink" href="#1-redesign-service-boundaries-based-on-domain-capabilities" title="Permanent link">&para;</a></h2>
+<p>Use <strong>Domain-Driven Design (DDD)</strong>:</p>
+<ul>
+<li>
+<p>Aggregate</p>
+</li>
+<li>
+<p>Bounded context</p>
+</li>
+<li>
+<p>Domain events</p>
+</li>
+<li>
+<p>Ownership of data</p>
+</li>
+</ul>
+<p>Each service must represent a <strong>business capability</strong>, not a table.</p>
+<hr />
+<h2 id="2-shift-from-sync-async-communication"><strong>2. Shift From Sync → Async Communication</strong><a class="headerlink" href="#2-shift-from-sync-async-communication" title="Permanent link">&para;</a></h2>
+<p>Replace REST sync chains with:</p>
+<ul>
+<li>
+<p>Kafka</p>
+</li>
+<li>
+<p>RabbitMQ</p>
+</li>
+<li>
+<p>Event-driven design</p>
+</li>
+<li>
+<p>Pub/Sub</p>
+</li>
+<li>
+<p>Domain events</p>
+</li>
+<li>
+<p>Event sourcing (where applicable)</p>
+</li>
+</ul>
+<p>Goal:</p>
+<blockquote>
+<p>Reduce direct request → response dependency.</p>
+</blockquote>
+<hr />
+<h2 id="3-each-service-owns-its-data"><strong>3. Each Service Owns Its Data</strong><a class="headerlink" href="#3-each-service-owns-its-data" title="Permanent link">&para;</a></h2>
+<p>Do <strong>not share</strong> DB tables across services.<br />
+Use:</p>
+<ul>
+<li>
+<p>Private schema per service</p>
+</li>
+<li>
+<p>Database-per-service pattern</p>
+</li>
+<li>
+<p>Events to replicate reference data</p>
+</li>
+</ul>
+<hr />
+<h2 id="4-introduce-api-gateway-backend-for-frontend-bff"><strong>4. Introduce API Gateway + Backend for Frontend (BFF)</strong><a class="headerlink" href="#4-introduce-api-gateway-backend-for-frontend-bff" title="Permanent link">&para;</a></h2>
+<p>Stop the frontend from calling 10 backend services directly.</p>
+<hr />
+<h2 id="5-apply-resilience-patterns"><strong>5. Apply Resilience Patterns</strong><a class="headerlink" href="#5-apply-resilience-patterns" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Circuit breaker (Resilience4j)</p>
+</li>
+<li>
+<p>Bulkheads</p>
+</li>
+<li>
+<p>Timeouts + retries</p>
+</li>
+<li>
+<p>Saga orchestration</p>
+</li>
+</ul>
+<hr />
+<h2 id="6-decouple-release-pipelines"><strong>6. Decouple release pipelines</strong><a class="headerlink" href="#6-decouple-release-pipelines" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Versioned contracts (OpenAPI / schema registry)</p>
+</li>
+<li>
+<p>Consumer-driven contract testing (CDC)</p>
+</li>
+<li>
+<p>Feature flags</p>
+</li>
+</ul>
+<hr />
+<h1 id="interview-ready-answer-final-form">📝 Interview-ready Answer (Final Form)<a class="headerlink" href="#interview-ready-answer-final-form" title="Permanent link">&para;</a></h1>
+<p>You can answer like this:</p>
+<hr />
+<h3 id="q-what-is-a-distributed-monolith"><strong>Q: What is a distributed monolith?</strong><a class="headerlink" href="#q-what-is-a-distributed-monolith" title="Permanent link">&para;</a></h3>
+<p>“A distributed monolith is a system composed of multiple services that should behave independently, but in reality they are tightly coupled—typically due to shared databases, synchronous dependency chains, or improperly defined boundaries. Even though deployment units are separate, their runtime and release behavior is monolithic.”</p>
+<hr />
+<h3 id="q-why-is-it-a-problem"><strong>Q: Why is it a problem?</strong><a class="headerlink" href="#q-why-is-it-a-problem" title="Permanent link">&para;</a></h3>
+<p>“It defeats the purpose of microservices. You lose independent deployability, increase latency, reduce reliability, and make scaling and team autonomy extremely difficult. Outages become more frequent due to cascading failures.”</p>
+<hr />
+<h3 id="q-what-causes-a-distributed-monolith"><strong>Q: What causes a distributed monolith?</strong><a class="headerlink" href="#q-what-causes-a-distributed-monolith" title="Permanent link">&para;</a></h3>
+<p>“Wrong domain decomposition, excessive synchronous calls, shared DB tables, and centralized shared modules.”</p>
+<hr />
+<h3 id="q-how-do-you-solve-or-prevent-it"><strong>Q: How do you solve or prevent it?</strong><a class="headerlink" href="#q-how-do-you-solve-or-prevent-it" title="Permanent link">&para;</a></h3>
+<p>“Redesign boundaries using DDD, move to event-driven async communication, enforce data ownership per service, implement resilience patterns, use API gateways/BFFs, and decouple CI/CD using contract testing and versioned APIs.”</p>
+<hr />
+<h1 id="want-a-diagram-based-explanation-or-an-example-architecture-before-vs-after-refactor">Want a diagram-based explanation or an example architecture (before vs after refactor)?<a class="headerlink" href="#want-a-diagram-based-explanation-or-an-example-architecture-before-vs-after-refactor" title="Permanent link">&para;</a></h1>
+<p>Below is a <strong>diagram-based, architecture-level explanation</strong> showing:</p>
+<ol>
+<li>
+<p><strong>How a distributed monolith looks</strong></p>
+</li>
+<li>
+<p><strong>Why it causes problems</strong></p>
+</li>
+<li>
+<p><strong>How to refactor it into proper microservices</strong></p>
+</li>
+<li>
+<p><strong>Interview-ready narratives + diagrams</strong></p>
+</li>
+</ol>
+<p>I will express the diagrams using clean ASCII architecture visuals (interview-friendly).</p>
+<hr />
+<h1 id="1-how-a-distributed-monolith-looks-diagram">✅ <strong>1. How a Distributed Monolith Looks (Diagram)</strong><a class="headerlink" href="#1-how-a-distributed-monolith-looks-diagram" title="Permanent link">&para;</a></h1>
+<h3 id="distributed-monolith-architecture">❌ <strong>Distributed Monolith Architecture</strong><a class="headerlink" href="#distributed-monolith-architecture" title="Permanent link">&para;</a></h3>
+<p>Even though services are separate, they behave like a single tightly coupled system.</p>
+<div class="highlight"><pre><span></span><code>             ┌──────────────────────────────┐
+             │           API Gateway         │
+             └──────────────┬───────────────┘
+                            │
+          ┌─────────────────┴──────────────────┐
+          │                                     │
+  ┌─────────────┐                      ┌─────────────┐
+  │ Order Svc    │───(sync REST)──────▶│ Product Svc  │
+  └─────┬────────┘                      └──────┬──────┘
+        │                                      │
+        │ (sync REST)                           │ (sync REST)
+        ▼                                      ▼
+  ┌─────────────┐                      ┌───────────────┐
+  │ Payment Svc  │◀──(sync REST)───────│ Inventory Svc  │
+  └──────┬──────┘                      └──────┬────────┘
+         │                                     │
+         ▼                                     ▼
+       SHARED DATABASE (single schema)
+</code></pre></div>
+<h3 id="key-symptoms-in-this-diagram">🔥 Key Symptoms in This Diagram<a class="headerlink" href="#key-symptoms-in-this-diagram" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Circular synchronous dependencies</p>
+</li>
+<li>
+<p>Service-to-service chaining</p>
+</li>
+<li>
+<p>Shared database</p>
+</li>
+<li>
+<p>If one service goes down → all break</p>
+</li>
+<li>
+<p>Deployment coupling</p>
+</li>
+</ul>
+<p>This is the <strong>classic distributed monolith</strong>.</p>
+<hr />
+<h1 id="2-why-this-system-fails-in-real-life">❌ <strong>2. Why This System Fails in Real Life</strong><a class="headerlink" href="#2-why-this-system-fails-in-real-life" title="Permanent link">&para;</a></h1>
+<h3 id="a-high-latency"><strong>a) High Latency</strong><a class="headerlink" href="#a-high-latency" title="Permanent link">&para;</a></h3>
+<p>One call → chain of 10 synchronous calls<br />
+Any slow service → everything slow</p>
+<h3 id="b-cascading-failures"><strong>b) Cascading Failures</strong><a class="headerlink" href="#b-cascading-failures" title="Permanent link">&para;</a></h3>
+<p>Inventory down → Product down → Order down → Payment down</p>
+<h3 id="c-no-independent-deployability"><strong>c) No Independent Deployability</strong><a class="headerlink" href="#c-no-independent-deployability" title="Permanent link">&para;</a></h3>
+<p>Change in Product schema → break Order, Payment, Inventory</p>
+<h3 id="d-data-ownership-lost"><strong>d) Data Ownership Lost</strong><a class="headerlink" href="#d-data-ownership-lost" title="Permanent link">&para;</a></h3>
+<p>All services rely on the same DB tables<br />
+Schema tightly couples them</p>
+<h3 id="e-teams-cant-work-independently"><strong>e) Teams Can’t Work Independently</strong><a class="headerlink" href="#e-teams-cant-work-independently" title="Permanent link">&para;</a></h3>
+<p>Frontend forces backend to create composite APIs<br />
+Backend forces deployment synchronization</p>
+<hr />
+<h1 id="3-how-to-fix-the-distributed-monolith">🔥 <strong>3. How to Fix the Distributed Monolith</strong><a class="headerlink" href="#3-how-to-fix-the-distributed-monolith" title="Permanent link">&para;</a></h1>
+<p>Below is the refactored architecture with <strong>proper microservices boundaries</strong>.</p>
+<hr />
+<h1 id="4-correct-microservices-architecture-diagram">✔️ <strong>4. Correct Microservices Architecture (Diagram)</strong><a class="headerlink" href="#4-correct-microservices-architecture-diagram" title="Permanent link">&para;</a></h1>
+<h3 id="event-driven-independent-loosely-coupled"><strong>Event-Driven, Independent, Loosely Coupled</strong><a class="headerlink" href="#event-driven-independent-loosely-coupled" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>                    ┌─────────────────────────┐
+                    │       API Gateway        │
+                    └───────┬─────────┬────────┘
+                            │         │
+                      (REST APIs)   (REST APIs)
+                            │         │
+         ┌──────────────────┘         └───────────────────┐
+         │                                                │
+ ┌─────────────┐                                   ┌──────────────┐
+ │ Order Svc    │                                   │ Product Svc  │
+ └─────────────┬┘                                   └────┬────────┘
+               │                                          │
+               │ (publishes events)                       │ (publishes events)
+               ▼                                          ▼
+        ┌────────────────┐                       ┌───────────────────┐
+        │   Kafka Topic   │&lt;──── events ────────▶│ Kafka Topic        │
+        └───────┬────────┘                       └─────────┬────────┘
+                │                                            │
+                ▼                                            ▼
+       ┌───────────────┐                         ┌────────────────┐
+       │ Inventory Svc │                         │ Payment Svc    │
+       └─────┬────────┘                         └────────┬───────┘
+             │                                            │
+             ▼                                            ▼
+       PRIVATE DB                                 PRIVATE DB
+</code></pre></div>
+<hr />
+<h1 id="key-fixes-demonstrated-in-this-diagram">🏆 <strong>Key Fixes Demonstrated in This Diagram</strong><a class="headerlink" href="#key-fixes-demonstrated-in-this-diagram" title="Permanent link">&para;</a></h1>
+<h3 id="1-event-driven-instead-of-synchronous"><strong>1. Event-Driven Instead of Synchronous</strong><a class="headerlink" href="#1-event-driven-instead-of-synchronous" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Order publishes events (<code>OrderCreated</code>)</p>
+</li>
+<li>
+<p>Inventory listens</p>
+</li>
+<li>
+<p>Payment listens</p>
+</li>
+<li>
+<p>No tight dependency chain</p>
+</li>
+</ul>
+<h3 id="2-each-service-owns-its-data"><strong>2. Each Service Owns Its Data</strong><a class="headerlink" href="#2-each-service-owns-its-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Product DB</p>
+</li>
+<li>
+<p>Inventory DB</p>
+</li>
+<li>
+<p>Order DB</p>
+</li>
+<li>
+<p>Payment DB</p>
+</li>
+</ul>
+<p>No shared schema → no coupling.</p>
+<h3 id="3-failures-are-isolated"><strong>3. Failures Are Isolated</strong><a class="headerlink" href="#3-failures-are-isolated" title="Permanent link">&para;</a></h3>
+<p>If Inventory goes down, Product still works<br />
+If Payment goes down, Order still accepts orders and retries later</p>
+<h3 id="4-deployments-are-truly-independent"><strong>4. Deployments Are Truly Independent</strong><a class="headerlink" href="#4-deployments-are-truly-independent" title="Permanent link">&para;</a></h3>
+<p>Versioned events + backward compatibility = safe CI/CD.</p>
+<h3 id="5-teams-get-true-autonomy"><strong>5. Teams Get True Autonomy</strong><a class="headerlink" href="#5-teams-get-true-autonomy" title="Permanent link">&para;</a></h3>
+<p>Each team owns:</p>
+<ul>
+<li>
+<p>Business logic</p>
+</li>
+<li>
+<p>Data</p>
+</li>
+<li>
+<p>Deployments</p>
+</li>
+<li>
+<p>Evolution of service</p>
+</li>
+</ul>
+<hr />
+<h1 id="5-interview-ready-explanation-full-flow">🧠 <strong>5. Interview-Ready Explanation (Full Flow)</strong><a class="headerlink" href="#5-interview-ready-explanation-full-flow" title="Permanent link">&para;</a></h1>
+<p>Use this when interviewer asks:</p>
+<hr />
+<h2 id="q-what-is-a-distributed-monolith_1"><strong>Q: What is a distributed monolith?</strong><a class="headerlink" href="#q-what-is-a-distributed-monolith_1" title="Permanent link">&para;</a></h2>
+<p>“A distributed monolith is a system that appears to be microservices but behaves like a monolith due to tight coupling—typically through synchronous calls, shared databases, and lack of domain boundaries. Services cannot function or deploy independently.”</p>
+<hr />
+<h2 id="q-what-problems-does-it-create"><strong>Q: What problems does it create?</strong><a class="headerlink" href="#q-what-problems-does-it-create" title="Permanent link">&para;</a></h2>
+<p>“It causes cascading failures, high latency, deployment synchronization, data coupling, lack of team autonomy, and operational complexity. Essentially, you get the disadvantages of both monoliths and microservices.”</p>
+<hr />
+<h2 id="q-how-do-you-identify-one"><strong>Q: How do you identify one?</strong><a class="headerlink" href="#q-how-do-you-identify-one" title="Permanent link">&para;</a></h2>
+<p>“If a service cannot be deployed, changed, or function independently—it's a distributed monolith.”</p>
+<hr />
+<h2 id="q-how-to-solve-it"><strong>Q: How to solve it?</strong><a class="headerlink" href="#q-how-to-solve-it" title="Permanent link">&para;</a></h2>
+<p>“By re-drawing domain boundaries using DDD, enforcing independent data ownership, adopting event-driven communication for critical flows, removing shared DBs, introducing resilience patterns (circuit breakers, retries, timeouts), and creating clear API contracts. This reduces coupling and restores microservice autonomy.”</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
