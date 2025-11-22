@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../Optional/">
+      
+      
+        <link rel="next" href="../Stream%20API/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
@@ -322,14 +336,2120 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Distributed System/load-balancer.md" class="md-nav__link">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background-why-were-default-and-static-methods-introduced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Background — Why Were Default and Static Methods Introduced?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Background — Why Were Default and Static Methods Introduced?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-1-default-methods-java-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Solution 1: Default Methods (Java 8)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Solution 1: Default Methods (Java 8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✔️ Key Benefits:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-2-static-methods-in-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Solution 2: Static Methods in Interfaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ Solution 2: Static Methods in Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Usage:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-benefits_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✔️ Key Benefits:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#difference-between-default-and-static-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚖️ Difference Between Default and Static Methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-showing-both-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Example Showing Both Together
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-methods-in-classes-key-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Static Methods in Classes — Key Rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔹 Static Methods in Classes — Key Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-static-methods-belong-to-the-class-not-to-the-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Static methods belong to the class, not to the object
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-static-methods-are-not-inherited-in-the-usual-sense" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Static methods are not inherited in the usual sense
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-static-method-hiding-not-overriding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Example: Static Method Hiding (not Overriding)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Explanation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cannot-be-overridden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cannot be overridden
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-you-can-still-call-parents-static-method-explicitly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. You can still call parent’s static method explicitly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔸 Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -374,32 +2494,32 @@
 
 <p>This topic goes to the heart of <strong>Java 8’s design evolution</strong>, especially around <strong>interfaces and backward compatibility</strong>. Let’s break it down step by step 👇</p>
 <hr />
-<h2 id="background-why-were-default-and-static-methods-introduced">🧠 Background — Why Were Default and Static Methods Introduced?<a class="headerlink" href="#background-why-were-default-and-static-methods-introduced" title="Permanent link">&para;</a></h2>
+<h2 id="background-why-were-default-and-static-methods-introduced">🧠 Background — Why Were Default and Static Methods Introduced?</h2>
 <p>Before Java 8, interfaces could <strong>only contain abstract methods</strong>.<br />
 That created a <strong>problem</strong> when Java wanted to <strong>evolve</strong> its core interfaces (like <code>Collection</code>, <code>List</code>, etc.) without <strong>breaking millions of existing implementations</strong>.</p>
-<h3 id="example-problem">Example Problem<a class="headerlink" href="#example-problem" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Vehicle</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+<h3 id="example-problem">Example Problem</h3>
+<pre><code class="language-java">interface Vehicle {
+    void start();
+}
+</code></pre>
 <p>Now suppose Java designers want to add a new method:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">();</span>
-</code></pre></div>
+<pre><code class="language-java">void stop();
+</code></pre>
 <p>Every existing class implementing <code>Vehicle</code> would break because it doesn’t yet define <code>stop()</code>.</p>
 <hr />
-<h2 id="solution-1-default-methods-java-8">✅ Solution 1: Default Methods (Java 8)<a class="headerlink" href="#solution-1-default-methods-java-8" title="Permanent link">&para;</a></h2>
+<h2 id="solution-1-default-methods-java-8">✅ Solution 1: Default Methods (Java 8)</h2>
 <p>Java 8 introduced <strong>default methods</strong> to solve this backward compatibility problem.</p>
 <p>A <strong>default method</strong> is a method in an interface that has a <strong>default implementation</strong>.</p>
-<h3 id="syntax">Syntax:<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Vehicle</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">();</span>
+<h3 id="syntax">Syntax:</h3>
+<pre><code class="language-java">interface Vehicle {
+    void start();
 
-<span class="w">    </span><span class="k">default</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Vehicle stopped&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="key-benefits">✔️ Key Benefits:<a class="headerlink" href="#key-benefits" title="Permanent link">&para;</a></h3>
+    default void stop() {
+        System.out.println(&quot;Vehicle stopped&quot;);
+    }
+}
+</code></pre>
+<h3 id="key-benefits">✔️ Key Benefits:</h3>
 <ol>
 <li>
 <p><strong>Backward Compatibility:</strong><br />
@@ -414,30 +2534,30 @@ That created a <strong>problem</strong> when Java wanted to <strong>evolve</stro
     Implementing classes can <strong>override</strong> a default method.</p>
 </li>
 </ol>
-<h3 id="example">Example:<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">Car</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Vehicle</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Car started&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<h3 id="example">Example:</h3>
+<pre><code class="language-java">class Car implements Vehicle {
+    public void start() {
+        System.out.println(&quot;Car started&quot;);
+    }
 
-<span class="w">    </span><span class="c1">// Optional: override stop()</span>
-<span class="p">}</span>
-</code></pre></div>
+    // Optional: override stop()
+}
+</code></pre>
 <hr />
-<h2 id="solution-2-static-methods-in-interfaces">✅ Solution 2: Static Methods in Interfaces<a class="headerlink" href="#solution-2-static-methods-in-interfaces" title="Permanent link">&para;</a></h2>
+<h2 id="solution-2-static-methods-in-interfaces">✅ Solution 2: Static Methods in Interfaces</h2>
 <p><strong>Static methods</strong> in interfaces were also introduced in Java 8, but for a <strong>different reason</strong>.</p>
 <p>They provide <strong>utility methods related to the interface itself</strong>, <strong>not behavior of instances</strong>.</p>
-<h3 id="syntax_1">Syntax:<a class="headerlink" href="#syntax_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Vehicle</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">printInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Vehicle interface - general info&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="example-usage">Example Usage:<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">Vehicle</span><span class="p">.</span><span class="na">printInfo</span><span class="p">();</span><span class="w">  </span><span class="c1">// ✅ Access via interface name, not via object</span>
-</code></pre></div>
-<h3 id="key-benefits_1">✔️ Key Benefits:<a class="headerlink" href="#key-benefits_1" title="Permanent link">&para;</a></h3>
+<h3 id="syntax_1">Syntax:</h3>
+<pre><code class="language-java">interface Vehicle {
+    static void printInfo() {
+        System.out.println(&quot;Vehicle interface - general info&quot;);
+    }
+}
+</code></pre>
+<h3 id="example-usage">Example Usage:</h3>
+<pre><code class="language-java">Vehicle.printInfo();  // ✅ Access via interface name, not via object
+</code></pre>
+<h3 id="key-benefits_1">✔️ Key Benefits:</h3>
 <ol>
 <li>
 <p><strong>Encapsulation of Utility Logic:</strong><br />
@@ -453,7 +2573,7 @@ That created a <strong>problem</strong> when Java wanted to <strong>evolve</stro
 </li>
 </ol>
 <hr />
-<h2 id="difference-between-default-and-static-methods">⚖️ Difference Between Default and Static Methods<a class="headerlink" href="#difference-between-default-and-static-methods" title="Permanent link">&para;</a></h2>
+<h2 id="difference-between-default-and-static-methods">⚖️ Difference Between Default and Static Methods</h2>
 <table>
 <thead>
 <tr>
@@ -496,36 +2616,36 @@ That created a <strong>problem</strong> when Java wanted to <strong>evolve</stro
 </tbody>
 </table>
 <hr />
-<h2 id="example-showing-both-together">🧩 Example Showing Both Together<a class="headerlink" href="#example-showing-both-together" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Logger</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">default</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Log: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">message</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+<h2 id="example-showing-both-together">🧩 Example Showing Both Together</h2>
+<pre><code class="language-java">interface Logger {
+    default void log(String message) {
+        System.out.println(&quot;Log: &quot; + message);
+    }
 
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">msg</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+    static boolean validate(String msg) {
+        return msg != null &amp;&amp; !msg.isEmpty();
+    }
+}
 
-<span class="kd">class</span> <span class="nc">AppLogger</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Logger</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nd">@Override</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Logger</span><span class="p">.</span><span class="na">validate</span><span class="p">(</span><span class="n">message</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// static method from interface</span>
-<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;AppLogger: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">message</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+class AppLogger implements Logger {
+    @Override
+    public void log(String message) {
+        if (Logger.validate(message)) { // static method from interface
+            System.out.println(&quot;AppLogger: &quot; + message);
+        }
+    }
+}
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">AppLogger</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AppLogger</span><span class="p">();</span>
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">&quot;System started&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// uses default &amp; static combo</span>
-<span class="w">        </span><span class="n">Logger</span><span class="p">.</span><span class="na">printInfo</span><span class="p">();</span><span class="w">             </span><span class="c1">// ❌ error — not defined here</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+public class Main {
+    public static void main(String[] args) {
+        AppLogger logger = new AppLogger();
+        logger.log(&quot;System started&quot;);   // uses default &amp; static combo
+        Logger.printInfo();             // ❌ error — not defined here
+    }
+}
+</code></pre>
 <hr />
-<h2 id="summary">🧭 Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<h2 id="summary">🧭 Summary</h2>
 <table>
 <thead>
 <tr>
@@ -549,53 +2669,53 @@ That created a <strong>problem</strong> when Java wanted to <strong>evolve</stro
 </table>
 <p><strong>In class we have a static method it is not inherited by the child class and it cannot be overwritten in the child class</strong></p>
 <hr />
-<h2 id="static-methods-in-classes-key-rules">🔹 Static Methods in Classes — Key Rules<a class="headerlink" href="#static-methods-in-classes-key-rules" title="Permanent link">&para;</a></h2>
-<h3 id="1-static-methods-belong-to-the-class-not-to-the-object">1. <strong>Static methods belong to the class, not to the object</strong><a class="headerlink" href="#1-static-methods-belong-to-the-class-not-to-the-object" title="Permanent link">&para;</a></h3>
+<h2 id="static-methods-in-classes-key-rules">🔹 Static Methods in Classes — Key Rules</h2>
+<h3 id="1-static-methods-belong-to-the-class-not-to-the-object">1. <strong>Static methods belong to the class, not to the object</strong></h3>
 <p>When you mark a method as <code>static</code>, it is associated with the <strong>class definition itself</strong>, not with any instance.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">Parent</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">greet</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Hello from Parent&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-java">class Parent {
+    static void greet() {
+        System.out.println(&quot;Hello from Parent&quot;);
+    }
+}
+</code></pre>
 <p>You can call it as:</p>
-<div class="highlight"><pre><span></span><code><span class="n">Parent</span><span class="p">.</span><span class="na">greet</span><span class="p">();</span>
-</code></pre></div>
+<pre><code class="language-java">Parent.greet();
+</code></pre>
 <p>Even if you create an object:</p>
-<div class="highlight"><pre><span></span><code><span class="n">Parent</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Parent</span><span class="p">();</span>
-<span class="n">p</span><span class="p">.</span><span class="na">greet</span><span class="p">();</span><span class="w">  </span><span class="c1">// Works, but not recommended — it’s still a class method.</span>
-</code></pre></div>
+<pre><code class="language-java">Parent p = new Parent();
+p.greet();  // Works, but not recommended — it’s still a class method.
+</code></pre>
 <hr />
-<h3 id="2-static-methods-are-not-inherited-in-the-usual-sense">2. <strong>Static methods are <em>not inherited</em> in the usual sense</strong><a class="headerlink" href="#2-static-methods-are-not-inherited-in-the-usual-sense" title="Permanent link">&para;</a></h3>
+<h3 id="2-static-methods-are-not-inherited-in-the-usual-sense">2. <strong>Static methods are <em>not inherited</em> in the usual sense</strong></h3>
 <p>They are <strong>accessible</strong> by the subclass, but <strong>not truly inherited</strong> or polymorphic.</p>
 <p>That means they <strong>don’t participate in overriding</strong> — they are <strong>hidden</strong>, not overridden.</p>
 <p>Let’s see an example 👇</p>
 <hr />
-<h3 id="example-static-method-hiding-not-overriding">🧩 Example: Static Method Hiding (not Overriding)<a class="headerlink" href="#example-static-method-hiding-not-overriding" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">Parent</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">greet</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Hello from Parent&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+<h3 id="example-static-method-hiding-not-overriding">🧩 Example: Static Method Hiding (not Overriding)</h3>
+<pre><code class="language-java">class Parent {
+    static void greet() {
+        System.out.println(&quot;Hello from Parent&quot;);
+    }
+}
 
-<span class="kd">class</span> <span class="nc">Child</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Parent</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">greet</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// this hides Parent.greet()</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Hello from Child&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+class Child extends Parent {
+    static void greet() {  // this hides Parent.greet()
+        System.out.println(&quot;Hello from Child&quot;);
+    }
+}
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Parent</span><span class="p">.</span><span class="na">greet</span><span class="p">();</span><span class="w">  </span><span class="c1">// prints: Hello from Parent</span>
-<span class="w">        </span><span class="n">Child</span><span class="p">.</span><span class="na">greet</span><span class="p">();</span><span class="w">   </span><span class="c1">// prints: Hello from Child</span>
+public class Main {
+    public static void main(String[] args) {
+        Parent.greet();  // prints: Hello from Parent
+        Child.greet();   // prints: Hello from Child
 
-<span class="w">        </span><span class="n">Parent</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Child</span><span class="p">();</span>
-<span class="w">        </span><span class="n">p</span><span class="p">.</span><span class="na">greet</span><span class="p">();</span><span class="w">       </span><span class="c1">// prints: Hello from Parent ❗ NOT Hello from Child</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+        Parent p = new Child();
+        p.greet();       // prints: Hello from Parent ❗ NOT Hello from Child
+    }
+}
+</code></pre>
 <hr />
-<h3 id="explanation">🔍 Explanation<a class="headerlink" href="#explanation" title="Permanent link">&para;</a></h3>
+<h3 id="explanation">🔍 Explanation</h3>
 <ul>
 <li>
 <p><code>p.greet()</code> prints <strong>Parent’s version</strong>, even though <code>p</code> refers to a <code>Child</code> object.</p>
@@ -606,17 +2726,17 @@ That created a <strong>problem</strong> when Java wanted to <strong>evolve</stro
 </ul>
 <p>This is called <strong>method hiding</strong>, not <strong>overriding</strong>.</p>
 <hr />
-<h3 id="3-cannot-be-overridden">3. <strong>Cannot be overridden</strong><a class="headerlink" href="#3-cannot-be-overridden" title="Permanent link">&para;</a></h3>
+<h3 id="3-cannot-be-overridden">3. <strong>Cannot be overridden</strong></h3>
 <p>✅ Instance methods → can be overridden (polymorphic).<br />
 ❌ Static methods → cannot be overridden, only hidden.</p>
 <hr />
-<h3 id="4-you-can-still-call-parents-static-method-explicitly">4. <strong>You can still call parent’s static method explicitly</strong><a class="headerlink" href="#4-you-can-still-call-parents-static-method-explicitly" title="Permanent link">&para;</a></h3>
+<h3 id="4-you-can-still-call-parents-static-method-explicitly">4. <strong>You can still call parent’s static method explicitly</strong></h3>
 <p>You can always refer to it directly by class name:</p>
-<div class="highlight"><pre><span></span><code><span class="n">Child</span><span class="p">.</span><span class="na">greet</span><span class="p">();</span><span class="w">      </span><span class="c1">// Child version</span>
-<span class="n">Parent</span><span class="p">.</span><span class="na">greet</span><span class="p">();</span><span class="w">     </span><span class="c1">// Parent version</span>
-</code></pre></div>
+<pre><code class="language-java">Child.greet();      // Child version
+Parent.greet();     // Parent version
+</code></pre>
 <hr />
-<h2 id="summary-table">🔸 Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h2>
+<h2 id="summary-table">🔸 Summary Table</h2>
 <table>
 <thead>
 <tr>

@@ -6,19 +6,21 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../Reactive%20Programming/">
+      
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +67,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +94,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +125,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +232,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +267,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +305,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,7 +321,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
@@ -322,14 +334,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Distributed System/load-balancer.md" class="md-nav__link">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Containerization Evolution
   
 
     
@@ -338,6 +350,1872 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#focus-pointcuts-expression-writing-internals-use-cases-snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (Focus: Pointcuts, Expression Writing, Internals, Use Cases, Snippets)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -372,12 +2250,12 @@
 
 <p>Clean, production-focused, engineer-level guide<strong> on </strong>Spring Boot AOP<strong>, with special emphasis on </strong>pointcuts, expressions, how they work internally, and crisp code snippets** that match real microservices use cases.</p>
 <hr />
-<h1 id="spring-boot-aop-complete-guide">🚀 Spring Boot AOP — Complete Guide<a class="headerlink" href="#spring-boot-aop-complete-guide" title="Permanent link">&para;</a></h1>
-<h3 id="focus-pointcuts-expression-writing-internals-use-cases-snippets">(Focus: Pointcuts, Expression Writing, Internals, Use Cases, Snippets)<a class="headerlink" href="#focus-pointcuts-expression-writing-internals-use-cases-snippets" title="Permanent link">&para;</a></h3>
+<h1 id="spring-boot-aop-complete-guide">🚀 Spring Boot AOP — Complete Guide</h1>
+<h3 id="focus-pointcuts-expression-writing-internals-use-cases-snippets">(Focus: Pointcuts, Expression Writing, Internals, Use Cases, Snippets)</h3>
 <p>Spring AOP is a <strong>proxy-based AOP</strong> implementation used to apply cross-cutting concerns (logging, security, caching, metrics, validation, auditing) <strong>without touching business logic</strong>.</p>
 <p>Spring uses <strong>dynamic proxies (JDK/Interface-based)</strong> or <strong>CGLIB subclass proxies (class-based)</strong>.</p>
 <hr />
-<h1 id="1-core-aop-terminologies-short-precise">1️⃣ Core AOP Terminologies (Short &amp; Precise)<a class="headerlink" href="#1-core-aop-terminologies-short-precise" title="Permanent link">&para;</a></h1>
+<h1 id="1-core-aop-terminologies-short-precise">1️⃣ Core AOP Terminologies (Short &amp; Precise)</h1>
 <table>
 <thead>
 <tr>
@@ -409,142 +2287,142 @@
 </tbody>
 </table>
 <hr />
-<h1 id="2-enable-aop-in-spring-boot">2️⃣ Enable AOP in Spring Boot<a class="headerlink" href="#2-enable-aop-in-spring-boot" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nd">@Configuration</span>
-<span class="nd">@EnableAspectJAutoProxy</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AopConfig</span><span class="w"> </span><span class="p">{</span>
-<span class="p">}</span>
-</code></pre></div>
+<h1 id="2-enable-aop-in-spring-boot">2️⃣ Enable AOP in Spring Boot</h1>
+<pre><code class="language-java">@Configuration
+@EnableAspectJAutoProxy
+public class AopConfig {
+}
+</code></pre>
 <p>Spring Boot auto-configures it, but adding explicitly is good practice in modular codebases.</p>
 <hr />
-<h1 id="3-create-an-aspect-class">3️⃣ Create an Aspect Class<a class="headerlink" href="#3-create-an-aspect-class" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nd">@Aspect</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LoggingAspect</span><span class="w"> </span><span class="p">{</span>
+<h1 id="3-create-an-aspect-class">3️⃣ Create an Aspect Class</h1>
+<pre><code class="language-java">@Aspect
+@Component
+public class LoggingAspect {
 
-<span class="w">    </span><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;execution(* com.example.service.*.*(..))&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">logBefore</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Before -&gt; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getSignature</span><span class="p">());</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    @Before(&quot;execution(* com.example.service.*.*(..))&quot;)
+    public void logBefore(JoinPoint joinPoint) {
+        System.out.println(&quot;Before -&gt; &quot; + joinPoint.getSignature());
+    }
+}
+</code></pre>
 <hr />
-<h1 id="4-understanding-pointcut-expressions-deeply">4️⃣ Understanding <strong>Pointcut Expressions Deeply</strong><a class="headerlink" href="#4-understanding-pointcut-expressions-deeply" title="Permanent link">&para;</a></h1>
+<h1 id="4-understanding-pointcut-expressions-deeply">4️⃣ Understanding <strong>Pointcut Expressions Deeply</strong></h1>
 <p>Spring uses <strong>AspectJ expression syntax</strong>, but applies it only on <strong>method execution join points</strong>.</p>
-<h2 id="41-execution-expression-most-important">✔ 4.1 execution() Expression — MOST IMPORTANT<a class="headerlink" href="#41-execution-expression-most-important" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>execution(modifiers-pattern? return-type-pattern declaring-type-pattern? method-name-pattern(param-pattern) throws-pattern?)
-</code></pre></div>
-<h3 id="examples-most-practical">Examples (Most Practical):<a class="headerlink" href="#examples-most-practical" title="Permanent link">&para;</a></h3>
-<h3 id="match-all-methods-in-package">📌 Match All Methods in Package<a class="headerlink" href="#match-all-methods-in-package" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">execution</span><span class="p">(</span><span class="o">*</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">example</span><span class="p">.</span><span class="na">service</span><span class="p">.</span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="p">(..))</span>
-</code></pre></div>
-<h3 id="match-specific-class">📌 Match Specific Class<a class="headerlink" href="#match-specific-class" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">execution</span><span class="p">(</span><span class="o">*</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">example</span><span class="p">.</span><span class="na">service</span><span class="p">.</span><span class="na">OrderService</span><span class="p">.</span><span class="o">*</span><span class="p">(..))</span>
-</code></pre></div>
-<h3 id="match-specific-method">📌 Match Specific Method<a class="headerlink" href="#match-specific-method" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">execution</span><span class="p">(</span><span class="o">*</span><span class="w"> </span><span class="n">com</span><span class="p">.</span><span class="na">example</span><span class="p">.</span><span class="na">service</span><span class="p">.</span><span class="na">OrderService</span><span class="p">.</span><span class="na">placeOrder</span><span class="p">(..))</span>
-</code></pre></div>
-<h3 id="match-method-by-return-type">📌 Match Method by Return Type<a class="headerlink" href="#match-method-by-return-type" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="n">execution</span><span class="p">(</span><span class="n">com</span><span class="p">.</span><span class="na">example</span><span class="p">.</span><span class="na">dto</span><span class="p">.</span><span class="na">OrderResponse</span><span class="w"> </span><span class="n">com</span><span class="p">..</span><span class="o">*</span><span class="p">.</span><span class="na">get</span><span class="o">*</span><span class="p">(..))</span>
-</code></pre></div>
-<h3 id="match-methods-with-arguments">📌 Match Methods With Arguments<a class="headerlink" href="#match-methods-with-arguments" title="Permanent link">&para;</a></h3>
+<h2 id="41-execution-expression-most-important">✔ 4.1 execution() Expression — MOST IMPORTANT</h2>
+<pre><code>execution(modifiers-pattern? return-type-pattern declaring-type-pattern? method-name-pattern(param-pattern) throws-pattern?)
+</code></pre>
+<h3 id="examples-most-practical">Examples (Most Practical):</h3>
+<h3 id="match-all-methods-in-package">📌 Match All Methods in Package</h3>
+<pre><code class="language-java">execution(* com.example.service.*.*(..))
+</code></pre>
+<h3 id="match-specific-class">📌 Match Specific Class</h3>
+<pre><code class="language-java">execution(* com.example.service.OrderService.*(..))
+</code></pre>
+<h3 id="match-specific-method">📌 Match Specific Method</h3>
+<pre><code class="language-java">execution(* com.example.service.OrderService.placeOrder(..))
+</code></pre>
+<h3 id="match-method-by-return-type">📌 Match Method by Return Type</h3>
+<pre><code class="language-java">execution(com.example.dto.OrderResponse com..*.get*(..))
+</code></pre>
+<h3 id="match-methods-with-arguments">📌 Match Methods With Arguments</h3>
 <p>Only String argument:</p>
-<div class="highlight"><pre><span></span><code><span class="n">execution</span><span class="p">(</span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="p">(</span><span class="n">String</span><span class="p">))</span>
-</code></pre></div>
+<pre><code class="language-java">execution(* *.*(String))
+</code></pre>
 <p>Any number of args but first arg String:</p>
-<div class="highlight"><pre><span></span><code><span class="n">execution</span><span class="p">(</span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="p">..))</span>
-</code></pre></div>
+<pre><code class="language-java">execution(* *(String, ..))
+</code></pre>
 <hr />
-<h2 id="42-within-class-level-filtering">✔ 4.2 within() — Class-level filtering<a class="headerlink" href="#42-within-class-level-filtering" title="Permanent link">&para;</a></h2>
+<h2 id="42-within-class-level-filtering">✔ 4.2 within() — Class-level filtering</h2>
 <p>Match everything inside class:</p>
-<div class="highlight"><pre><span></span><code><span class="n">within</span><span class="p">(</span><span class="n">com</span><span class="p">.</span><span class="na">example</span><span class="p">.</span><span class="na">service</span><span class="p">.</span><span class="na">OrderService</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-java">within(com.example.service.OrderService)
+</code></pre>
 <p>Match all inside package:</p>
-<div class="highlight"><pre><span></span><code><span class="n">within</span><span class="p">(</span><span class="n">com</span><span class="p">.</span><span class="na">example</span><span class="p">.</span><span class="na">service</span><span class="p">..</span><span class="o">*</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-java">within(com.example.service..*)
+</code></pre>
 <hr />
-<h2 id="43-annotation-methods-with-annotation">✔ 4.3 @annotation() — Methods with Annotation<a class="headerlink" href="#43-annotation-methods-with-annotation" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;@annotation(com.example.annotations.TrackExecution)&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">track</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div>
+<h2 id="43-annotation-methods-with-annotation">✔ 4.3 @annotation() — Methods with Annotation</h2>
+<pre><code class="language-java">@Before(&quot;@annotation(com.example.annotations.TrackExecution)&quot;)
+public void track() { }
+</code></pre>
 <p>Use-case: <strong>custom validators, audit markers, idempotency, rate-limiting</strong>.</p>
 <hr />
-<h2 id="44-within-class-marked-with-annotation">✔ 4.4 @within() — Class marked with annotation<a class="headerlink" href="#44-within-class-marked-with-annotation" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;@within(org.springframework.stereotype.Service)&quot;</span><span class="p">)</span>
-</code></pre></div>
+<h2 id="44-within-class-marked-with-annotation">✔ 4.4 @within() — Class marked with annotation</h2>
+<pre><code class="language-java">@Before(&quot;@within(org.springframework.stereotype.Service)&quot;)
+</code></pre>
 <hr />
-<h2 id="45-args-based-on-runtime-argument-type">✔ 4.5 args() — Based on runtime argument type<a class="headerlink" href="#45-args-based-on-runtime-argument-type" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;args(java.lang.String,..)&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">beforeStringMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
-</code></pre></div>
+<h2 id="45-args-based-on-runtime-argument-type">✔ 4.5 args() — Based on runtime argument type</h2>
+<pre><code class="language-java">@Before(&quot;args(java.lang.String,..)&quot;)
+public void beforeStringMethod() {}
+</code></pre>
 <hr />
-<h2 id="46-args-method-where-parameter-type-has-annotation">✔ 4.6 @args() — Method where parameter type has annotation<a class="headerlink" href="#46-args-method-where-parameter-type-has-annotation" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;@args(javax.validation.Valid)&quot;</span><span class="p">)</span>
-</code></pre></div>
+<h2 id="46-args-method-where-parameter-type-has-annotation">✔ 4.6 @args() — Method where parameter type has annotation</h2>
+<pre><code class="language-java">@Before(&quot;@args(javax.validation.Valid)&quot;)
+</code></pre>
 <p>Used in <strong>DTO validation triggers</strong>.</p>
 <hr />
-<h2 id="47-this-vs-target">✔ 4.7 this() vs target()<a class="headerlink" href="#47-this-vs-target" title="Permanent link">&para;</a></h2>
-<h3 id="this-proxy-type"><code>this</code> → proxy type<a class="headerlink" href="#this-proxy-type" title="Permanent link">&para;</a></h3>
-<h3 id="target-actual-class-type"><code>target</code> → actual class type<a class="headerlink" href="#target-actual-class-type" title="Permanent link">&para;</a></h3>
+<h2 id="47-this-vs-target">✔ 4.7 this() vs target()</h2>
+<h3 id="this-proxy-type"><code>this</code> → proxy type</h3>
+<h3 id="target-actual-class-type"><code>target</code> → actual class type</h3>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;this(com.example.service.PaymentService)&quot;</span><span class="p">)</span>
-</code></pre></div>
+<pre><code class="language-java">@Before(&quot;this(com.example.service.PaymentService)&quot;)
+</code></pre>
 <hr />
-<h1 id="5-reusing-pointcuts-enterprise-style">5️⃣ Reusing Pointcuts (Enterprise Style)<a class="headerlink" href="#5-reusing-pointcuts-enterprise-style" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nd">@Aspect</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CommonPointcuts</span><span class="w"> </span><span class="p">{</span>
+<h1 id="5-reusing-pointcuts-enterprise-style">5️⃣ Reusing Pointcuts (Enterprise Style)</h1>
+<pre><code class="language-java">@Aspect
+@Component
+public class CommonPointcuts {
 
-<span class="w">    </span><span class="nd">@Pointcut</span><span class="p">(</span><span class="s">&quot;execution(* com.example.service.*.*(..))&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">serviceMethods</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+    @Pointcut(&quot;execution(* com.example.service.*.*(..))&quot;)
+    public void serviceMethods() {}
 
-<span class="w">    </span><span class="nd">@Pointcut</span><span class="p">(</span><span class="s">&quot;@annotation(com.example.annotations.Track)&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">trackAnnotation</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
-<span class="p">}</span>
-</code></pre></div>
+    @Pointcut(&quot;@annotation(com.example.annotations.Track)&quot;)
+    public void trackAnnotation() {}
+}
+</code></pre>
 <p>Using:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;CommonPointcuts.serviceMethods()&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">beforeService</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
-</code></pre></div>
+<pre><code class="language-java">@Before(&quot;CommonPointcuts.serviceMethods()&quot;)
+public void beforeService() {}
+</code></pre>
 <hr />
-<h1 id="6-full-aspect-with-all-advice-types">6️⃣ Full Aspect With All Advice Types<a class="headerlink" href="#6-full-aspect-with-all-advice-types" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nd">@Aspect</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OrderAspect</span><span class="w"> </span><span class="p">{</span>
+<h1 id="6-full-aspect-with-all-advice-types">6️⃣ Full Aspect With All Advice Types</h1>
+<pre><code class="language-java">@Aspect
+@Component
+public class OrderAspect {
 
-<span class="w">    </span><span class="nd">@Pointcut</span><span class="p">(</span><span class="s">&quot;execution(* com.example.service.OrderService.*(..))&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">orderServiceMethods</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+    @Pointcut(&quot;execution(* com.example.service.OrderService.*(..))&quot;)
+    public void orderServiceMethods() {}
 
-<span class="w">    </span><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;orderServiceMethods()&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">beforeAdvice</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">jp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Before -&gt; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">jp</span><span class="p">.</span><span class="na">getSignature</span><span class="p">());</span>
-<span class="w">    </span><span class="p">}</span>
+    @Before(&quot;orderServiceMethods()&quot;)
+    public void beforeAdvice(JoinPoint jp) {
+        System.out.println(&quot;Before -&gt; &quot; + jp.getSignature());
+    }
 
-<span class="w">    </span><span class="nd">@AfterReturning</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;orderServiceMethods()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">returning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;result&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">afterReturning</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Response -&gt; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+    @AfterReturning(value = &quot;orderServiceMethods()&quot;, returning = &quot;result&quot;)
+    public void afterReturning(Object result) {
+        System.out.println(&quot;Response -&gt; &quot; + result);
+    }
 
-<span class="w">    </span><span class="nd">@AfterThrowing</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;orderServiceMethods()&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">throwing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ex&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">afterThrowing</span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Error -&gt; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
-<span class="w">    </span><span class="p">}</span>
+    @AfterThrowing(value = &quot;orderServiceMethods()&quot;, throwing = &quot;ex&quot;)
+    public void afterThrowing(Exception ex) {
+        System.out.println(&quot;Error -&gt; &quot; + ex.getMessage());
+    }
 
-<span class="w">    </span><span class="nd">@Around</span><span class="p">(</span><span class="s">&quot;orderServiceMethods()&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">around</span><span class="p">(</span><span class="n">ProceedingJoinPoint</span><span class="w"> </span><span class="n">pjp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
-<span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
-<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Execution Time: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">));</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    @Around(&quot;orderServiceMethods()&quot;)
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
+        long start = System.currentTimeMillis();
+        Object value = pjp.proceed();
+        long end = System.currentTimeMillis();
+        System.out.println(&quot;Execution Time: &quot; + (end - start));
+        return value;
+    }
+}
+</code></pre>
 <hr />
-<h1 id="7-how-aop-actually-works-internally-spring-mechanism">7️⃣ How AOP Actually Works Internally (Spring Mechanism)<a class="headerlink" href="#7-how-aop-actually-works-internally-spring-mechanism" title="Permanent link">&para;</a></h1>
-<h3 id="1-container-starts">1. Container starts<a class="headerlink" href="#1-container-starts" title="Permanent link">&para;</a></h3>
-<h3 id="2-detects-aspect-classes-using-beanpostprocessor">2. Detects @Aspect classes (using BeanPostProcessor)<a class="headerlink" href="#2-detects-aspect-classes-using-beanpostprocessor" title="Permanent link">&para;</a></h3>
-<h3 id="3-creates-a-proxy-around-beans-matching-pointcuts">3. Creates a <strong>proxy</strong> around beans matching pointcuts<a class="headerlink" href="#3-creates-a-proxy-around-beans-matching-pointcuts" title="Permanent link">&para;</a></h3>
+<h1 id="7-how-aop-actually-works-internally-spring-mechanism">7️⃣ How AOP Actually Works Internally (Spring Mechanism)</h1>
+<h3 id="1-container-starts">1. Container starts</h3>
+<h3 id="2-detects-aspect-classes-using-beanpostprocessor">2. Detects @Aspect classes (using BeanPostProcessor)</h3>
+<h3 id="3-creates-a-proxy-around-beans-matching-pointcuts">3. Creates a <strong>proxy</strong> around beans matching pointcuts</h3>
 <ul>
 <li>
 <p>If bean has interfaces → <strong>JDK dynamic proxy</strong></p>
@@ -553,11 +2431,11 @@
 <p>Else → <strong>CGLIB subclass proxy</strong></p>
 </li>
 </ul>
-<h3 id="4-when-a-method-is-called-proxy-intercepts">4. When a method is called → proxy intercepts<a class="headerlink" href="#4-when-a-method-is-called-proxy-intercepts" title="Permanent link">&para;</a></h3>
-<h3 id="5-proxy-decides-which-advice-to-run-based-on-pointcut-matches">5. Proxy decides which advice to run based on pointcut matches<a class="headerlink" href="#5-proxy-decides-which-advice-to-run-based-on-pointcut-matches" title="Permanent link">&para;</a></h3>
+<h3 id="4-when-a-method-is-called-proxy-intercepts">4. When a method is called → proxy intercepts</h3>
+<h3 id="5-proxy-decides-which-advice-to-run-based-on-pointcut-matches">5. Proxy decides which advice to run based on pointcut matches</h3>
 <p>No bytecode manipulation. No class weaving. Only <strong>runtime proxy chain</strong>.</p>
 <hr />
-<h1 id="8-best-real-world-use-cases-in-microservices">8️⃣ Best Real-World Use Cases in Microservices<a class="headerlink" href="#8-best-real-world-use-cases-in-microservices" title="Permanent link">&para;</a></h1>
+<h1 id="8-best-real-world-use-cases-in-microservices">8️⃣ Best Real-World Use Cases in Microservices</h1>
 <table>
 <thead>
 <tr>
@@ -597,216 +2475,216 @@
 </tbody>
 </table>
 <hr />
-<h1 id="9-debugging-pointcut-matching">9️⃣ Debugging Pointcut Matching<a class="headerlink" href="#9-debugging-pointcut-matching" title="Permanent link">&para;</a></h1>
+<h1 id="9-debugging-pointcut-matching">9️⃣ Debugging Pointcut Matching</h1>
 <p>Add:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">logging</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">level</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">org.springframework.aop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span>
-<span class="w">    </span><span class="nt">org.springframework.aop.interceptor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TRACE</span>
-</code></pre></div>
+<pre><code class="language-yaml">logging:
+  level:
+    org.springframework.aop: DEBUG
+    org.springframework.aop.interceptor: TRACE
+</code></pre>
 <hr />
-<h1 id="advanced-example-custom-annotation-pointcut">🔟 Advanced Example — Custom Annotation + Pointcut<a class="headerlink" href="#advanced-example-custom-annotation-pointcut" title="Permanent link">&para;</a></h1>
-<h3 id="step-1-create-annotation">Step 1: Create annotation<a class="headerlink" href="#step-1-create-annotation" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
-<span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">METHOD</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="nd">@interface</span><span class="w"> </span><span class="n">LogExecutionTime</span><span class="w"> </span><span class="p">{}</span>
-</code></pre></div>
-<h3 id="step-2-use-on-a-method">Step 2: Use on a method<a class="headerlink" href="#step-2-use-on-a-method" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nd">@LogExecutionTime</span>
-<span class="kd">public</span><span class="w"> </span><span class="n">Response</span><span class="w"> </span><span class="nf">updateOrder</span><span class="p">(</span><span class="n">OrderRequest</span><span class="w"> </span><span class="n">req</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div>
-<h3 id="step-3-aspect">Step 3: Aspect<a class="headerlink" href="#step-3-aspect" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nd">@Around</span><span class="p">(</span><span class="s">&quot;@annotation(com.example.annotations.LogExecutionTime)&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">measure</span><span class="p">(</span><span class="n">ProceedingJoinPoint</span><span class="w"> </span><span class="n">pjp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">nanoTime</span><span class="p">();</span>
-<span class="w">    </span><span class="n">Object</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
-<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">nanoTime</span><span class="p">();</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Took &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; ns&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<h1 id="advanced-example-custom-annotation-pointcut">🔟 Advanced Example — Custom Annotation + Pointcut</h1>
+<h3 id="step-1-create-annotation">Step 1: Create annotation</h3>
+<pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface LogExecutionTime {}
+</code></pre>
+<h3 id="step-2-use-on-a-method">Step 2: Use on a method</h3>
+<pre><code class="language-java">@LogExecutionTime
+public Response updateOrder(OrderRequest req) { ... }
+</code></pre>
+<h3 id="step-3-aspect">Step 3: Aspect</h3>
+<pre><code class="language-java">@Around(&quot;@annotation(com.example.annotations.LogExecutionTime)&quot;)
+public Object measure(ProceedingJoinPoint pjp) throws Throwable {
+    long start = System.nanoTime();
+    Object result = pjp.proceed();
+    long end = System.nanoTime();
+    System.out.println(&quot;Took &quot; + (end - start) + &quot; ns&quot;);
+    return result;
+}
+</code></pre>
 <hr />
-<h2 id="question">Question<a class="headerlink" href="#question" title="Permanent link">&para;</a></h2>
+<h2 id="question">Question</h2>
 <p>You can access <strong>parameters</strong>, <strong>return values</strong>, <strong>exceptions</strong>, and even <strong>method metadata</strong> directly using <code>JoinPoint</code>, <code>ProceedingJoinPoint</code>, and advice-specific arguments.</p>
 <p>Here is the <strong>cleanest, production-grade, Spring-AOP engineer-level explanation</strong> with exact APIs and fully working snippets.</p>
 <hr />
-<h1 id="1-accessing-method-parameters">✅ 1. Accessing Method Parameters<a class="headerlink" href="#1-accessing-method-parameters" title="Permanent link">&para;</a></h1>
-<h2 id="using-joinpoint-before-after-afterthrowing-afterreturning">✔ Using <code>JoinPoint</code> (Before, After, AfterThrowing, AfterReturning)<a class="headerlink" href="#using-joinpoint-before-after-afterthrowing-afterreturning" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;execution(* com.example.service.OrderService.placeOrder(..))&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">beforeAdvice</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">jp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jp</span><span class="p">.</span><span class="na">getArgs</span><span class="p">();</span><span class="w">     </span><span class="c1">// All parameters</span>
-<span class="w">    </span><span class="n">Signature</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jp</span><span class="p">.</span><span class="na">getSignature</span><span class="p">();</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">methodName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signature</span><span class="p">.</span><span class="na">getName</span><span class="p">();</span>
+<h1 id="1-accessing-method-parameters">✅ 1. Accessing Method Parameters</h1>
+<h2 id="using-joinpoint-before-after-afterthrowing-afterreturning">✔ Using <code>JoinPoint</code> (Before, After, AfterThrowing, AfterReturning)</h2>
+<pre><code class="language-java">@Before(&quot;execution(* com.example.service.OrderService.placeOrder(..))&quot;)
+public void beforeAdvice(JoinPoint jp) {
+    Object[] args = jp.getArgs();     // All parameters
+    Signature signature = jp.getSignature();
+    String methodName = signature.getName();
 
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Method: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">methodName</span><span class="p">);</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Args: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">args</span><span class="p">));</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="output-example">Output Example:<a class="headerlink" href="#output-example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Method: placeOrder
+    System.out.println(&quot;Method: &quot; + methodName);
+    System.out.println(&quot;Args: &quot; + Arrays.toString(args));
+}
+</code></pre>
+<h3 id="output-example">Output Example:</h3>
+<pre><code>Method: placeOrder
 Args: [OrderRequest(id=10, qty=3), true]
-</code></pre></div>
-<h2 id="access-a-specific-parameter-type">✔ Access a Specific Parameter Type<a class="headerlink" href="#access-a-specific-parameter-type" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;execution(* com.example.service.OrderService.placeOrder(..)) &amp;&amp; args(orderRequest, flag)&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">beforeAdvice</span><span class="p">(</span><span class="n">OrderRequest</span><span class="w"> </span><span class="n">orderRequest</span><span class="p">,</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">flag</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">orderRequest</span><span class="p">);</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">flag</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+</code></pre>
+<h2 id="access-a-specific-parameter-type">✔ Access a Specific Parameter Type</h2>
+<pre><code class="language-java">@Before(&quot;execution(* com.example.service.OrderService.placeOrder(..)) &amp;&amp; args(orderRequest, flag)&quot;)
+public void beforeAdvice(OrderRequest orderRequest, boolean flag) {
+    System.out.println(orderRequest);
+    System.out.println(flag);
+}
+</code></pre>
 <p>Spring automatically binds args to method parameters.</p>
 <hr />
-<h1 id="2-accessing-return-value">✅ 2. Accessing Return Value<a class="headerlink" href="#2-accessing-return-value" title="Permanent link">&para;</a></h1>
+<h1 id="2-accessing-return-value">✅ 2. Accessing Return Value</h1>
 <p>Use <code>@AfterReturning</code> and add a <code>returning</code> variable.</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@AfterReturning</span><span class="p">(</span>
-<span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;execution(* com.example.service.OrderService.placeOrder(..))&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">returning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;result&quot;</span>
-<span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">afterReturningAdvice</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Returned: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-java">@AfterReturning(
+    value = &quot;execution(* com.example.service.OrderService.placeOrder(..))&quot;,
+    returning = &quot;result&quot;
+)
+public void afterReturningAdvice(Object result) {
+    System.out.println(&quot;Returned: &quot; + result);
+}
+</code></pre>
 <p>If you know the exact type:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@AfterReturning</span><span class="p">(</span>
-<span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;execution(* com.example.service.OrderService.placeOrder(..))&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">returning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;response&quot;</span>
-<span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">afterReturningAdvice</span><span class="p">(</span><span class="n">OrderResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Order Response: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-java">@AfterReturning(
+    value = &quot;execution(* com.example.service.OrderService.placeOrder(..))&quot;,
+    returning = &quot;response&quot;
+)
+public void afterReturningAdvice(OrderResponse response) {
+    System.out.println(&quot;Order Response: &quot; + response);
+}
+</code></pre>
 <hr />
-<h1 id="3-accessing-exceptions">✅ 3. Accessing Exceptions<a class="headerlink" href="#3-accessing-exceptions" title="Permanent link">&para;</a></h1>
+<h1 id="3-accessing-exceptions">✅ 3. Accessing Exceptions</h1>
 <p>Use <code>@AfterThrowing</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@AfterThrowing</span><span class="p">(</span>
-<span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;execution(* com.example.service.OrderService.placeOrder(..))&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">throwing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ex&quot;</span>
-<span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">afterThrowingAdvice</span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Exception: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-java">@AfterThrowing(
+    value = &quot;execution(* com.example.service.OrderService.placeOrder(..))&quot;,
+    throwing = &quot;ex&quot;
+)
+public void afterThrowingAdvice(Exception ex) {
+    System.out.println(&quot;Exception: &quot; + ex.getMessage());
+}
+</code></pre>
 <p>Or more specific:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@AfterThrowing</span><span class="p">(</span>
-<span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;execution(* com.example.service.PaymentService.makePayment(..))&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="n">throwing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ex&quot;</span>
-<span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">handlePaymentException</span><span class="p">(</span><span class="n">PaymentFailedException</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Payment Failure: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getErrorCode</span><span class="p">());</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-java">@AfterThrowing(
+    value = &quot;execution(* com.example.service.PaymentService.makePayment(..))&quot;,
+    throwing = &quot;ex&quot;
+)
+public void handlePaymentException(PaymentFailedException ex) {
+    System.out.println(&quot;Payment Failure: &quot; + ex.getErrorCode());
+}
+</code></pre>
 <hr />
-<h1 id="4-access-method-name-class-name-parameter-names">✅ 4. Access Method Name, Class Name, Parameter Names<a class="headerlink" href="#4-access-method-name-class-name-parameter-names" title="Permanent link">&para;</a></h1>
+<h1 id="4-access-method-name-class-name-parameter-names">✅ 4. Access Method Name, Class Name, Parameter Names</h1>
 <p>Use:</p>
-<div class="highlight"><pre><span></span><code><span class="n">MethodSignature</span><span class="w"> </span><span class="n">methodSignature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MethodSignature</span><span class="p">)</span><span class="w"> </span><span class="n">jp</span><span class="p">.</span><span class="na">getSignature</span><span class="p">();</span>
-<span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">methodSignature</span><span class="p">.</span><span class="na">getMethod</span><span class="p">();</span>
+<pre><code class="language-java">MethodSignature methodSignature = (MethodSignature) jp.getSignature();
+Method method = methodSignature.getMethod();
 
-<span class="n">String</span><span class="w"> </span><span class="n">methodName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">();</span>
-<span class="n">String</span><span class="w"> </span><span class="n">className</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jp</span><span class="p">.</span><span class="na">getTarget</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getSimpleName</span><span class="p">();</span>
-<span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">paramNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">methodSignature</span><span class="p">.</span><span class="na">getParameterNames</span><span class="p">();</span>
-<span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">paramValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jp</span><span class="p">.</span><span class="na">getArgs</span><span class="p">();</span>
-</code></pre></div>
+String methodName = method.getName();
+String className = jp.getTarget().getClass().getSimpleName();
+String[] paramNames = methodSignature.getParameterNames();
+Object[] paramValues = jp.getArgs();
+</code></pre>
 <hr />
-<h1 id="5-access-everything-params-return-exception-time-metadata-using-around">✅ 5. Access Everything (Params, Return, Exception, Time, Metadata) Using @Around<a class="headerlink" href="#5-access-everything-params-return-exception-time-metadata-using-around" title="Permanent link">&para;</a></h1>
+<h1 id="5-access-everything-params-return-exception-time-metadata-using-around">✅ 5. Access Everything (Params, Return, Exception, Time, Metadata) Using @Around</h1>
 <p>This is the <strong>most powerful advice</strong>.</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Around</span><span class="p">(</span><span class="s">&quot;execution(* com.example.service.OrderService.*(..))&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">aroundAdvice</span><span class="p">(</span><span class="n">ProceedingJoinPoint</span><span class="w"> </span><span class="n">pjp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
+<pre><code class="language-java">@Around(&quot;execution(* com.example.service.OrderService.*(..))&quot;)
+public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
 
-<span class="w">    </span><span class="n">MethodSignature</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MethodSignature</span><span class="p">)</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">getSignature</span><span class="p">();</span>
-<span class="w">    </span><span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signature</span><span class="p">.</span><span class="na">getMethod</span><span class="p">();</span>
+    MethodSignature signature = (MethodSignature) pjp.getSignature();
+    Method method = signature.getMethod();
 
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">className</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">getTarget</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getSimpleName</span><span class="p">();</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">methodName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">();</span>
+    String className = pjp.getTarget().getClass().getSimpleName();
+    String methodName = method.getName();
 
-<span class="w">    </span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">getArgs</span><span class="p">();</span>
+    Object[] args = pjp.getArgs();
 
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Executing &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">className</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;.&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">methodName</span><span class="p">);</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Args: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">args</span><span class="p">));</span>
+    System.out.println(&quot;Executing &quot; + className + &quot;.&quot; + methodName);
+    System.out.println(&quot;Args: &quot; + Arrays.toString(args));
 
-<span class="w">    </span><span class="n">Object</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
-<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span><span class="w">     </span><span class="c1">// Execute the actual method</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Returned: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Exception: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
-<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">ex</span><span class="p">;</span><span class="w"> </span><span class="c1">// Always rethrow unless you have special handling</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    Object response = null;
+    try {
+        response = pjp.proceed();     // Execute the actual method
+        System.out.println(&quot;Returned: &quot; + response);
+        return response;
+    } catch (Exception ex) {
+        System.out.println(&quot;Exception: &quot; + ex.getMessage());
+        throw ex; // Always rethrow unless you have special handling
+    }
+}
+</code></pre>
 <hr />
-<h1 id="6-accessing-parameter-annotation-values-advanced">🔥 6. Accessing Parameter Annotation Values (Advanced)<a class="headerlink" href="#6-accessing-parameter-annotation-values-advanced" title="Permanent link">&para;</a></h1>
+<h1 id="6-accessing-parameter-annotation-values-advanced">🔥 6. Accessing Parameter Annotation Values (Advanced)</h1>
 <p>Example: method parameter annotated with <code>@RequestHeader("token")</code></p>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">someMethod</span><span class="p">(</span><span class="nd">@RequestHeader</span><span class="p">(</span><span class="s">&quot;token&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">token</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
-</code></pre></div>
+<pre><code class="language-java">public void someMethod(@RequestHeader(&quot;token&quot;) String token) {}
+</code></pre>
 <p>Aspect:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Around</span><span class="p">(</span><span class="s">&quot;execution(* com.example..*.*(..))&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">around</span><span class="p">(</span><span class="n">ProceedingJoinPoint</span><span class="w"> </span><span class="n">pjp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">MethodSignature</span><span class="w"> </span><span class="n">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MethodSignature</span><span class="p">)</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">getSignature</span><span class="p">();</span>
-<span class="w">    </span><span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">signature</span><span class="p">.</span><span class="na">getMethod</span><span class="p">();</span>
+<pre><code class="language-java">@Around(&quot;execution(* com.example..*.*(..))&quot;)
+public Object around(ProceedingJoinPoint pjp) throws Throwable {
+    MethodSignature signature = (MethodSignature) pjp.getSignature();
+    Method method = signature.getMethod();
 
-<span class="w">    </span><span class="n">Annotation</span><span class="o">[][]</span><span class="w"> </span><span class="n">paramAnnotations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">method</span><span class="p">.</span><span class="na">getParameterAnnotations</span><span class="p">();</span>
-<span class="w">    </span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">getArgs</span><span class="p">();</span>
+    Annotation[][] paramAnnotations = method.getParameterAnnotations();
+    Object[] args = pjp.getArgs();
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">paramAnnotations</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Annotation</span><span class="w"> </span><span class="n">ann</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">paramAnnotations</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ann</span><span class="w"> </span><span class="k">instanceof</span><span class="w"> </span><span class="n">RequestHeader</span><span class="w"> </span><span class="n">header</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Header Name: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">header</span><span class="p">.</span><span class="na">value</span><span class="p">());</span>
-<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Header Value: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+    for (int i = 0; i &lt; paramAnnotations.length; i++) {
+        for (Annotation ann : paramAnnotations[i]) {
+            if (ann instanceof RequestHeader header) {
+                System.out.println(&quot;Header Name: &quot; + header.value());
+                System.out.println(&quot;Header Value: &quot; + args[i]);
+            }
+        }
+    }
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+    return pjp.proceed();
+}
+</code></pre>
 <hr />
-<h1 id="7-accessing-method-level-annotation-values">🔥 7. Accessing Method-Level Annotation Values<a class="headerlink" href="#7-accessing-method-level-annotation-values" title="Permanent link">&para;</a></h1>
+<h1 id="7-accessing-method-level-annotation-values">🔥 7. Accessing Method-Level Annotation Values</h1>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Track</span><span class="p">(</span><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SAVE_ORDER&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="n">OrderResponse</span><span class="w"> </span><span class="nf">placeOrder</span><span class="p">(</span><span class="n">OrderRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
-</code></pre></div>
+<pre><code class="language-java">@Track(action = &quot;SAVE_ORDER&quot;)
+public OrderResponse placeOrder(OrderRequest request) {}
+</code></pre>
 <p>Aspect:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Around</span><span class="p">(</span><span class="s">&quot;@annotation(track)&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">around</span><span class="p">(</span><span class="n">ProceedingJoinPoint</span><span class="w"> </span><span class="n">pjp</span><span class="p">,</span><span class="w"> </span><span class="n">Track</span><span class="w"> </span><span class="n">track</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Action: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">track</span><span class="p">.</span><span class="na">action</span><span class="p">());</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-java">@Around(&quot;@annotation(track)&quot;)
+public Object around(ProceedingJoinPoint pjp, Track track) throws Throwable {
+    System.out.println(&quot;Action: &quot; + track.action());
+    return pjp.proceed();
+}
+</code></pre>
 <hr />
-<h1 id="8-full-production-grade-logging-aspect">🔥 8. Full Production-Grade Logging Aspect<a class="headerlink" href="#8-full-production-grade-logging-aspect" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nd">@Aspect</span>
-<span class="nd">@Component</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LoggingAspect</span><span class="w"> </span><span class="p">{</span>
+<h1 id="8-full-production-grade-logging-aspect">🔥 8. Full Production-Grade Logging Aspect</h1>
+<pre><code class="language-java">@Aspect
+@Component
+public class LoggingAspect {
 
-<span class="w">    </span><span class="nd">@Around</span><span class="p">(</span><span class="s">&quot;execution(* com.example..*.*(..))&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">ProceedingJoinPoint</span><span class="w"> </span><span class="n">pjp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+    @Around(&quot;execution(* com.example..*.*(..))&quot;)
+    public Object log(ProceedingJoinPoint pjp) throws Throwable {
+        long start = System.currentTimeMillis();
 
-<span class="w">        </span><span class="n">MethodSignature</span><span class="w"> </span><span class="n">sig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MethodSignature</span><span class="p">)</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">getSignature</span><span class="p">();</span>
-<span class="w">        </span><span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sig</span><span class="p">.</span><span class="na">getMethod</span><span class="p">();</span>
-<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">methodName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">();</span>
-<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">className</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">getTarget</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getSimpleName</span><span class="p">();</span>
-<span class="w">        </span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">getArgs</span><span class="p">();</span>
+        MethodSignature sig = (MethodSignature) pjp.getSignature();
+        Method method = sig.getMethod();
+        String methodName = method.getName();
+        String className = pjp.getTarget().getClass().getSimpleName();
+        Object[] args = pjp.getArgs();
 
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Start: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">className</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;.&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">methodName</span><span class="p">);</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Params: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Arrays</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">args</span><span class="p">));</span>
+        System.out.println(&quot;Start: &quot; + className + &quot;.&quot; + methodName);
+        System.out.println(&quot;Params: &quot; + Arrays.toString(args));
 
-<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Object</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pjp</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
-<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Result: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
-<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Error: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
-<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">ex</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
-<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Time: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;ms&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+        try {
+            Object result = pjp.proceed();
+            System.out.println(&quot;Result: &quot; + result);
+            return result;
+        } catch (Exception ex) {
+            System.out.println(&quot;Error: &quot; + ex.getMessage());
+            throw ex;
+        } finally {
+            long end = System.currentTimeMillis();
+            System.out.println(&quot;Time: &quot; + (end - start) + &quot;ms&quot;);
+        }
+    }
+}
+</code></pre>
 <hr />
-<h1 id="quick-summary-what-you-can-access-how">🎯 Quick Summary — What You Can Access &amp; How<a class="headerlink" href="#quick-summary-what-you-can-access-how" title="Permanent link">&para;</a></h1>
+<h1 id="quick-summary-what-you-can-access-how">🎯 Quick Summary — What You Can Access &amp; How</h1>
 <table>
 <thead>
 <tr>

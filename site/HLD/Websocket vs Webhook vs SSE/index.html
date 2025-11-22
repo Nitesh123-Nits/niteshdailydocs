@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../Transactional%20Outbox/">
+      
+      
+        <link rel="next" href="../load-balancer/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
@@ -322,14 +336,2208 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Distributed System/load-balancer.md" class="md-nav__link">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction-the-problem-they-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 1. Introduction — The Problem They Solve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-websocket-full-duplex-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 2. WebSocket — Full Duplex Communication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 2. WebSocket — Full Duplex Communication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ What It Is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 How It Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏢 Real-World Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-webhook-server-to-server-callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📬 3. Webhook — Server-to-Server Callbacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📬 3. Webhook — Server-to-Server Callbacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-is_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ What It Is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 How It Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏢 Real-World Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trade-offs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-server-sent-events-sse-one-way-stream-from-server-to-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📡 4. Server-Sent Events (SSE) — One-Way Stream from Server to Client
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📡 4. Server-Sent Events (SSE) — One-Way Stream from Server to Client">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-is_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ What It Is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 How It Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏢 Real-World Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trade-offs_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Trade-offs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-websocket-vs-webhook-vs-sse-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚖️ 5. WebSocket vs Webhook vs SSE — Comparison Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-interview-questions-commonly-asked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 6. Interview Questions — Commonly Asked
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 6. Interview Questions — Commonly Asked">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conceptual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#follow-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Follow-ups
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-summary-when-to-use-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 7. Summary — When to Use What
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Real-World Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -374,7 +2582,7 @@
 
 <p>Complete, structured interview guide<strong> covering </strong>WebSocket<strong>, </strong>Webhook<strong>, and </strong>Server-Sent Events (SSE)** — including fundamentals, architecture, use cases, comparisons, and real-world interview questions with examples.</p>
 <hr />
-<h2 id="1-introduction-the-problem-they-solve">🧩 1. Introduction — The Problem They Solve<a class="headerlink" href="#1-introduction-the-problem-they-solve" title="Permanent link">&para;</a></h2>
+<h2 id="1-introduction-the-problem-they-solve">🧩 1. Introduction — The Problem They Solve</h2>
 <p>HTTP is <strong>request-response</strong>, i.e., <strong>client always initiates</strong>. But in modern systems, we often need <strong>real-time or near-real-time communication</strong> — for example:</p>
 <ul>
 <li>
@@ -393,19 +2601,18 @@
 <p>To solve this, we use <strong>push-based or event-driven communication</strong>:<br />
 👉 <strong>WebSockets</strong>, <strong>Webhooks</strong>, and <strong>Server-Sent Events (SSE)</strong>.</p>
 <hr />
-<h2 id="2-websocket-full-duplex-communication">🔌 2. WebSocket — Full Duplex Communication<a class="headerlink" href="#2-websocket-full-duplex-communication" title="Permanent link">&para;</a></h2>
-<h3 id="what-it-is">⚙️ What It Is<a class="headerlink" href="#what-it-is" title="Permanent link">&para;</a></h3>
+<h2 id="2-websocket-full-duplex-communication">🔌 2. WebSocket — Full Duplex Communication</h2>
+<h3 id="what-it-is">⚙️ What It Is</h3>
 <p>WebSocket is a <strong>bi-directional, full-duplex</strong> communication protocol over a <strong>single TCP connection</strong>.<br />
 It starts as an HTTP handshake and then <strong>upgrades</strong> to the WebSocket protocol (<code>ws://</code> or <code>wss://</code>).</p>
-<h3 id="how-it-works">🔄 How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
+<h3 id="how-it-works">🔄 How It Works</h3>
 <ol>
 <li>
 <p>Client sends an HTTP request with an <code>Upgrade</code> header:</p>
-<div class="highlight"><pre><span></span><code>GET /chat HTTP/1.1
+<p><code>GET /chat HTTP/1.1
 Host: example.com
 Upgrade: websocket
-Connection: Upgrade
-</code></pre></div>
+Connection: Upgrade</code></p>
 </li>
 <li>
 <p>Server accepts and switches protocol.</p>
@@ -414,7 +2621,7 @@ Connection: Upgrade
 <p>Now both can send messages <strong>anytime</strong> without re-establishing a connection.</p>
 </li>
 </ol>
-<h3 id="use-cases">⚡ Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<h3 id="use-cases">⚡ Use Cases</h3>
 <ul>
 <li>
 <p>Real-time chat (WhatsApp, Slack)</p>
@@ -429,7 +2636,7 @@ Connection: Upgrade
 <p>Trading dashboards / live scoreboards</p>
 </li>
 </ul>
-<h3 id="real-world-example">🏢 Real-World Example<a class="headerlink" href="#real-world-example" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example">🏢 Real-World Example</h3>
 <ul>
 <li>
 <p><strong>Slack / Discord / Zoom</strong>: use WebSockets for bidirectional messaging and presence updates.</p>
@@ -438,20 +2645,20 @@ Connection: Upgrade
 <p><strong>Binance / Coinbase</strong>: use WebSocket APIs for live order-book streaming.</p>
 </li>
 </ul>
-<h3 id="when-to-use">💡 When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
+<h3 id="when-to-use">💡 When to Use</h3>
 <p>✅ Need <em>bi-directional</em> communication (client ↔ server both push data)<br />
 ✅ Low latency and high frequency of updates<br />
 ✅ Persistent connection is feasible</p>
-<h3 id="trade-offs">⚠️ Trade-offs<a class="headerlink" href="#trade-offs" title="Permanent link">&para;</a></h3>
+<h3 id="trade-offs">⚠️ Trade-offs</h3>
 <p>❌ Connection overhead (each client keeps socket open)<br />
 ❌ Harder to scale (sticky sessions, connection pooling)<br />
 ❌ Needs load balancer &amp; scaling support for long-lived connections (e.g., via Redis pub/sub)</p>
 <hr />
-<h2 id="3-webhook-server-to-server-callbacks">📬 3. Webhook — Server-to-Server Callbacks<a class="headerlink" href="#3-webhook-server-to-server-callbacks" title="Permanent link">&para;</a></h2>
-<h3 id="what-it-is_1">⚙️ What It Is<a class="headerlink" href="#what-it-is_1" title="Permanent link">&para;</a></h3>
+<h2 id="3-webhook-server-to-server-callbacks">📬 3. Webhook — Server-to-Server Callbacks</h2>
+<h3 id="what-it-is_1">⚙️ What It Is</h3>
 <p>Webhook is <strong>one-way server-to-server communication</strong> via <strong>HTTP POST callbacks</strong>.<br />
 Instead of the client polling the server, the <strong>server calls your endpoint</strong> when an event occurs.</p>
-<h3 id="how-it-works_1">🔄 How It Works<a class="headerlink" href="#how-it-works_1" title="Permanent link">&para;</a></h3>
+<h3 id="how-it-works_1">🔄 How It Works</h3>
 <ol>
 <li>
 <p>You register a webhook URL (e.g., <code>https://yourapp.com/payment/callback</code>).</p>
@@ -464,7 +2671,7 @@ Instead of the client polling the server, the <strong>server calls your endpoint
 <p>Your service receives, validates, and processes the data.</p>
 </li>
 </ol>
-<h3 id="use-cases_1">⚡ Use Cases<a class="headerlink" href="#use-cases_1" title="Permanent link">&para;</a></h3>
+<h3 id="use-cases_1">⚡ Use Cases</h3>
 <ul>
 <li>
 <p>Payment processing (Stripe, Razorpay, PayPal)</p>
@@ -479,7 +2686,7 @@ Instead of the client polling the server, the <strong>server calls your endpoint
 <p>Event-driven automation (Zapier)</p>
 </li>
 </ul>
-<h3 id="real-world-example_1">🏢 Real-World Example<a class="headerlink" href="#real-world-example_1" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_1">🏢 Real-World Example</h3>
 <ul>
 <li>
 <p><strong>Stripe / Razorpay</strong>: send <code>payment_succeeded</code> events via webhooks.</p>
@@ -488,37 +2695,35 @@ Instead of the client polling the server, the <strong>server calls your endpoint
 <p><strong>GitHub Webhooks</strong>: trigger builds or deployments on code pushes.</p>
 </li>
 </ul>
-<h3 id="when-to-use_1">💡 When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h3>
+<h3 id="when-to-use_1">💡 When to Use</h3>
 <p>✅ Event-based async communication between servers<br />
 ✅ Reliable callbacks without maintaining a live connection<br />
 ✅ Client doesn’t need instant (&lt;1s) updates</p>
-<h3 id="trade-offs_1">⚠️ Trade-offs<a class="headerlink" href="#trade-offs_1" title="Permanent link">&para;</a></h3>
+<h3 id="trade-offs_1">⚠️ Trade-offs</h3>
 <p>❌ One-directional (source → destination only)<br />
 ❌ Requires endpoint security (signatures, retries)<br />
 ❌ Not suitable for frequent or low-latency communication</p>
 <hr />
-<h2 id="4-server-sent-events-sse-one-way-stream-from-server-to-client">📡 4. Server-Sent Events (SSE) — One-Way Stream from Server to Client<a class="headerlink" href="#4-server-sent-events-sse-one-way-stream-from-server-to-client" title="Permanent link">&para;</a></h2>
-<h3 id="what-it-is_2">⚙️ What It Is<a class="headerlink" href="#what-it-is_2" title="Permanent link">&para;</a></h3>
+<h2 id="4-server-sent-events-sse-one-way-stream-from-server-to-client">📡 4. Server-Sent Events (SSE) — One-Way Stream from Server to Client</h2>
+<h3 id="what-it-is_2">⚙️ What It Is</h3>
 <p>SSE allows <strong>server-to-client streaming</strong> over <strong>HTTP</strong>.<br />
 It’s <strong>unidirectional</strong> (server → client) and built on top of HTTP using <code>text/event-stream</code>.</p>
-<h3 id="how-it-works_2">🔄 How It Works<a class="headerlink" href="#how-it-works_2" title="Permanent link">&para;</a></h3>
+<h3 id="how-it-works_2">🔄 How It Works</h3>
 <ol>
 <li>
 <p>Client sends an HTTP request with header:</p>
-<div class="highlight"><pre><span></span><code>Accept: text/event-stream
-</code></pre></div>
+<p><code>Accept: text/event-stream</code></p>
 </li>
 <li>
 <p>Server keeps the connection open and <strong>pushes events</strong> as text lines.</p>
-<div class="highlight"><pre><span></span><code>event: message
-data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
-</code></pre></div>
+<p><code>event: message
+data: {"user":"John","msg":"Hello!"}</code></p>
 </li>
 <li>
 <p>Client receives events continuously without polling.</p>
 </li>
 </ol>
-<h3 id="use-cases_2">⚡ Use Cases<a class="headerlink" href="#use-cases_2" title="Permanent link">&para;</a></h3>
+<h3 id="use-cases_2">⚡ Use Cases</h3>
 <ul>
 <li>
 <p>Live score updates</p>
@@ -533,7 +2738,7 @@ data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
 <p>Streaming logs or metrics</p>
 </li>
 </ul>
-<h3 id="real-world-example_2">🏢 Real-World Example<a class="headerlink" href="#real-world-example_2" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-example_2">🏢 Real-World Example</h3>
 <ul>
 <li>
 <p><strong>Twitter / Facebook Notifications</strong></p>
@@ -545,16 +2750,16 @@ data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
 <p><strong>Server monitoring UI streaming</strong></p>
 </li>
 </ul>
-<h3 id="when-to-use_2">💡 When to Use<a class="headerlink" href="#when-to-use_2" title="Permanent link">&para;</a></h3>
+<h3 id="when-to-use_2">💡 When to Use</h3>
 <p>✅ One-way real-time updates<br />
 ✅ Lightweight streaming without WebSocket overhead<br />
 ✅ Works natively over HTTP (no special protocol upgrade)</p>
-<h3 id="trade-offs_2">⚠️ Trade-offs<a class="headerlink" href="#trade-offs_2" title="Permanent link">&para;</a></h3>
+<h3 id="trade-offs_2">⚠️ Trade-offs</h3>
 <p>❌ Unidirectional only (server → client)<br />
 ❌ Limited browser support for some environments<br />
 ❌ TCP connection limit can be an issue on mobile</p>
 <hr />
-<h2 id="5-websocket-vs-webhook-vs-sse-comparison-table">⚖️ 5. WebSocket vs Webhook vs SSE — Comparison Table<a class="headerlink" href="#5-websocket-vs-webhook-vs-sse-comparison-table" title="Permanent link">&para;</a></h2>
+<h2 id="5-websocket-vs-webhook-vs-sse-comparison-table">⚖️ 5. WebSocket vs Webhook vs SSE — Comparison Table</h2>
 <table>
 <thead>
 <tr>
@@ -622,8 +2827,8 @@ data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
 </tbody>
 </table>
 <hr />
-<h2 id="6-interview-questions-commonly-asked">🧠 6. Interview Questions — Commonly Asked<a class="headerlink" href="#6-interview-questions-commonly-asked" title="Permanent link">&para;</a></h2>
-<h3 id="conceptual"><strong>Conceptual</strong><a class="headerlink" href="#conceptual" title="Permanent link">&para;</a></h3>
+<h2 id="6-interview-questions-commonly-asked">🧠 6. Interview Questions — Commonly Asked</h2>
+<h3 id="conceptual"><strong>Conceptual</strong></h3>
 <ol>
 <li>
 <p>What are the differences between WebSocket, Webhook, and SSE?</p>
@@ -650,7 +2855,7 @@ data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
 <p>Can SSE handle millions of users? How to scale it?</p>
 </li>
 </ol>
-<h3 id="design-scenarios"><strong>Design Scenarios</strong><a class="headerlink" href="#design-scenarios" title="Permanent link">&para;</a></h3>
+<h3 id="design-scenarios"><strong>Design Scenarios</strong></h3>
 <ol>
 <li>
 <p><strong>Design a stock trading dashboard</strong> – which protocol and why?<br />
@@ -673,7 +2878,7 @@ data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
     → Webhook (reliable async events)</p>
 </li>
 </ol>
-<h3 id="follow-ups"><strong>Follow-ups</strong><a class="headerlink" href="#follow-ups" title="Permanent link">&para;</a></h3>
+<h3 id="follow-ups"><strong>Follow-ups</strong></h3>
 <ul>
 <li>
 <p>How to ensure message ordering and reliability in WebSockets?</p>
@@ -689,7 +2894,7 @@ data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
 </li>
 </ul>
 <hr />
-<h2 id="7-summary-when-to-use-what">🚀 7. Summary — When to Use What<a class="headerlink" href="#7-summary-when-to-use-what" title="Permanent link">&para;</a></h2>
+<h2 id="7-summary-when-to-use-what">🚀 7. Summary — When to Use What</h2>
 <table>
 <thead>
 <tr>
@@ -721,7 +2926,7 @@ data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
 </tbody>
 </table>
 <hr />
-<h2 id="real-world-summary">🎯 Real-World Summary<a class="headerlink" href="#real-world-summary" title="Permanent link">&para;</a></h2>
+<h2 id="real-world-summary">🎯 Real-World Summary</h2>
 <ul>
 <li>
 <p><strong>WebSocket</strong> → Real-time UX (Slack, TradingView, Games)</p>

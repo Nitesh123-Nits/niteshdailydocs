@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../../Java/Virtual%20Thread/">
+      
+      
+        <link rel="next" href="../LLD%20Cache%20System/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
@@ -322,14 +336,2040 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Distributed System/load-balancer.md" class="md-nav__link">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-core-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Core Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-domain-modeling-classes-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Domain Modeling (Classes &amp; Objects)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-services-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Services &amp; Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-design-patterns-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Design Patterns Used
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Design Patterns Used">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-singleton-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        a) Singleton Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-factory-pattern-abstract-factory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        b) Factory Pattern / Abstract Factory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-strategy-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        c) Strategy Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-observer-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        d) Observer Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-decorator-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        e) Decorator Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-command-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        f) Command Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#g-facade-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        g) Facade Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-concurrency-scalability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Concurrency &amp; Scalability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-extensibility-maintainability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Extensibility &amp; Maintainability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-advantages-of-this-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Advantages of this Design
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -371,10 +2411,10 @@
 
 
 <hr />
-<h1 id="low-level-design-of-a-bookmyshow-like-ticket-booking-system">Low-Level Design of a BookMyShow-like Ticket Booking System<a class="headerlink" href="#low-level-design-of-a-bookmyshow-like-ticket-booking-system" title="Permanent link">&para;</a></h1>
+<h1 id="low-level-design-of-a-bookmyshow-like-ticket-booking-system">Low-Level Design of a BookMyShow-like Ticket Booking System</h1>
 <p>A BookMyShow-like platform allows users to search for movies, view showtimes, book tickets, and manage payments. Designing such a system requires careful modeling of <strong>domain objects, services, and interactions</strong>, keeping scalability and flexibility in mind.</p>
 <hr />
-<h2 id="1-core-requirements">1. <strong>Core Requirements</strong><a class="headerlink" href="#1-core-requirements" title="Permanent link">&para;</a></h2>
+<h2 id="1-core-requirements">1. <strong>Core Requirements</strong></h2>
 <p><strong>Functional Requirements:</strong></p>
 <ol>
 <li>
@@ -412,65 +2452,65 @@
 </li>
 </ul>
 <hr />
-<h2 id="2-domain-modeling-classes-objects">2. <strong>Domain Modeling (Classes &amp; Objects)</strong><a class="headerlink" href="#2-domain-modeling-classes-objects" title="Permanent link">&para;</a></h2>
+<h2 id="2-domain-modeling-classes-objects">2. <strong>Domain Modeling (Classes &amp; Objects)</strong></h2>
 <p>Here are the key domain entities:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">userId</span><span class="p">;</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">email</span><span class="p">;</span>
-<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Booking</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bookings</span><span class="p">;</span>
-<span class="p">}</span>
+<pre><code class="language-java">class User {
+    String userId;
+    String name;
+    String email;
+    List&lt;Booking&gt; bookings;
+}
 
-<span class="kd">class</span> <span class="nc">Movie</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">movieId</span><span class="p">;</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">genre</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Duration</span><span class="w"> </span><span class="n">duration</span><span class="p">;</span>
-<span class="p">}</span>
+class Movie {
+    String movieId;
+    String name;
+    String genre;
+    Duration duration;
+}
 
-<span class="kd">class</span> <span class="nc">Theater</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">theaterId</span><span class="p">;</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Screen</span><span class="o">&gt;</span><span class="w"> </span><span class="n">screens</span><span class="p">;</span>
-<span class="p">}</span>
+class Theater {
+    String theaterId;
+    String name;
+    List&lt;Screen&gt; screens;
+}
 
-<span class="kd">class</span> <span class="nc">Screen</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">screenId</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">totalSeats</span><span class="p">;</span>
-<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Seat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seats</span><span class="p">;</span>
-<span class="p">}</span>
+class Screen {
+    String screenId;
+    int totalSeats;
+    List&lt;Seat&gt; seats;
+}
 
-<span class="kd">class</span> <span class="nc">Seat</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">seatId</span><span class="p">;</span>
-<span class="w">    </span><span class="n">SeatType</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"> </span><span class="c1">// REGULAR, PREMIUM, VIP</span>
-<span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="n">isBooked</span><span class="p">;</span>
-<span class="p">}</span>
+class Seat {
+    String seatId;
+    SeatType type; // REGULAR, PREMIUM, VIP
+    boolean isBooked;
+}
 
-<span class="kd">class</span> <span class="nc">Show</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">showId</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Movie</span><span class="w"> </span><span class="n">movie</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Screen</span><span class="w"> </span><span class="n">screen</span><span class="p">;</span>
-<span class="w">    </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">startTime</span><span class="p">;</span>
-<span class="w">    </span><span class="n">LocalDateTime</span><span class="w"> </span><span class="n">endTime</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Seat</span><span class="p">,</span><span class="w"> </span><span class="n">Boolean</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seatAvailability</span><span class="p">;</span>
-<span class="p">}</span>
+class Show {
+    String showId;
+    Movie movie;
+    Screen screen;
+    LocalDateTime startTime;
+    LocalDateTime endTime;
+    Map&lt;Seat, Boolean&gt; seatAvailability;
+}
 
-<span class="kd">class</span> <span class="nc">Booking</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">bookingId</span><span class="p">;</span>
-<span class="w">    </span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Show</span><span class="w"> </span><span class="n">show</span><span class="p">;</span>
-<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Seat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bookedSeats</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Payment</span><span class="w"> </span><span class="n">payment</span><span class="p">;</span>
-<span class="w">    </span><span class="n">BookingStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
-<span class="p">}</span>
+class Booking {
+    String bookingId;
+    User user;
+    Show show;
+    List&lt;Seat&gt; bookedSeats;
+    Payment payment;
+    BookingStatus status;
+}
 
-<span class="kd">class</span> <span class="nc">Payment</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">paymentId</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">amount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">PaymentStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
-<span class="w">    </span><span class="n">PaymentMethod</span><span class="w"> </span><span class="n">method</span><span class="p">;</span><span class="w"> </span><span class="c1">// CARD, UPI, WALLET</span>
-<span class="p">}</span>
-</code></pre></div>
+class Payment {
+    String paymentId;
+    double amount;
+    PaymentStatus status;
+    PaymentMethod method; // CARD, UPI, WALLET
+}
+</code></pre>
 <blockquote>
 <p>This domain model adheres to <strong>OOP principles</strong>:</p>
 <ul>
@@ -490,20 +2530,20 @@
 </ul>
 </blockquote>
 <hr />
-<h2 id="3-services-interfaces">3. <strong>Services &amp; Interfaces</strong><a class="headerlink" href="#3-services-interfaces" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nc">BookingService</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">Booking</span><span class="w"> </span><span class="nf">bookTickets</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">Show</span><span class="w"> </span><span class="n">show</span><span class="p">,</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Seat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seats</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">cancelBooking</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">bookingId</span><span class="p">);</span>
-<span class="p">}</span>
+<h2 id="3-services-interfaces">3. <strong>Services &amp; Interfaces</strong></h2>
+<pre><code class="language-java">interface BookingService {
+    Booking bookTickets(User user, Show show, List&lt;Seat&gt; seats);
+    void cancelBooking(String bookingId);
+}
 
-<span class="kd">interface</span> <span class="nc">PaymentService</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">PaymentStatus</span><span class="w"> </span><span class="nf">processPayment</span><span class="p">(</span><span class="n">Payment</span><span class="w"> </span><span class="n">payment</span><span class="p">);</span>
-<span class="p">}</span>
+interface PaymentService {
+    PaymentStatus processPayment(Payment payment);
+}
 
-<span class="kd">interface</span> <span class="nc">NotificationService</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">notifyUser</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+interface NotificationService {
+    void notifyUser(User user, String message);
+}
+</code></pre>
 <ul>
 <li>
 <p>Using <strong>interfaces</strong> ensures <strong>Dependency Inversion (DIP)</strong> and <strong>OCP</strong>.</p>
@@ -513,8 +2553,8 @@
 </li>
 </ul>
 <hr />
-<h2 id="4-design-patterns-used">4. <strong>Design Patterns Used</strong><a class="headerlink" href="#4-design-patterns-used" title="Permanent link">&para;</a></h2>
-<h3 id="a-singleton-pattern">a) <strong>Singleton Pattern</strong><a class="headerlink" href="#a-singleton-pattern" title="Permanent link">&para;</a></h3>
+<h2 id="4-design-patterns-used">4. <strong>Design Patterns Used</strong></h2>
+<h3 id="a-singleton-pattern">a) <strong>Singleton Pattern</strong></h3>
 <ul>
 <li>
 <p><strong>Use Case:</strong> Payment gateway handler, Notification service.</p>
@@ -526,19 +2566,19 @@
 <p><strong>Advantage:</strong> Resource optimization and global access.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PaymentGateway</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">PaymentGateway</span><span class="w"> </span><span class="n">instance</span><span class="p">;</span>
+<pre><code class="language-java">public class PaymentGateway {
+    private static PaymentGateway instance;
 
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">PaymentGateway</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+    private PaymentGateway() {}
 
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">PaymentGateway</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">instance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PaymentGateway</span><span class="p">();</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">instance</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    public static PaymentGateway getInstance() {
+        if(instance == null) instance = new PaymentGateway();
+        return instance;
+    }
+}
+</code></pre>
 <hr />
-<h3 id="b-factory-pattern-abstract-factory">b) <strong>Factory Pattern / Abstract Factory</strong><a class="headerlink" href="#b-factory-pattern-abstract-factory" title="Permanent link">&para;</a></h3>
+<h3 id="b-factory-pattern-abstract-factory">b) <strong>Factory Pattern / Abstract Factory</strong></h3>
 <ul>
 <li>
 <p><strong>Use Case:</strong> Creating Payment objects or Booking objects based on type.</p>
@@ -550,18 +2590,18 @@
 <p><strong>Advantage:</strong> OCP – easy to add new payment types or booking types without changing client code.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">PaymentFactory</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">Payment</span><span class="w"> </span><span class="nf">createPayment</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">amount</span><span class="p">);</span>
-<span class="p">}</span>
+<pre><code class="language-java">public interface PaymentFactory {
+    Payment createPayment(double amount);
+}
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CardPaymentFactory</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">PaymentFactory</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="nf">createPayment</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CardPayment</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+public class CardPaymentFactory implements PaymentFactory {
+    public Payment createPayment(double amount) {
+        return new CardPayment(amount);
+    }
+}
+</code></pre>
 <hr />
-<h3 id="c-strategy-pattern">c) <strong>Strategy Pattern</strong><a class="headerlink" href="#c-strategy-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="c-strategy-pattern">c) <strong>Strategy Pattern</strong></h3>
 <ul>
 <li>
 <p><strong>Use Case:</strong> Different payment methods (Card, UPI, Wallet), seat selection algorithms.</p>
@@ -573,20 +2613,20 @@
 <p><strong>Advantage:</strong> Extensible; easy to add new payment strategies without modifying existing logic.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nc">PaymentStrategy</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">PaymentStatus</span><span class="w"> </span><span class="nf">pay</span><span class="p">(</span><span class="n">Payment</span><span class="w"> </span><span class="n">payment</span><span class="p">);</span>
-<span class="p">}</span>
+<pre><code class="language-java">interface PaymentStrategy {
+    PaymentStatus pay(Payment payment);
+}
 
-<span class="kd">class</span> <span class="nc">CardPaymentStrategy</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">PaymentStrategy</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">PaymentStatus</span><span class="w"> </span><span class="nf">pay</span><span class="p">(</span><span class="n">Payment</span><span class="w"> </span><span class="n">payment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* logic */</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
+class CardPaymentStrategy implements PaymentStrategy {
+    public PaymentStatus pay(Payment payment) { /* logic */ }
+}
 
-<span class="kd">class</span> <span class="nc">UpiPaymentStrategy</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">PaymentStrategy</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">PaymentStatus</span><span class="w"> </span><span class="nf">pay</span><span class="p">(</span><span class="n">Payment</span><span class="w"> </span><span class="n">payment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* logic */</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+class UpiPaymentStrategy implements PaymentStrategy {
+    public PaymentStatus pay(Payment payment) { /* logic */ }
+}
+</code></pre>
 <hr />
-<h3 id="d-observer-pattern">d) <strong>Observer Pattern</strong><a class="headerlink" href="#d-observer-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="d-observer-pattern">d) <strong>Observer Pattern</strong></h3>
 <ul>
 <li>
 <p><strong>Use Case:</strong> Notify users about booking confirmation, seat availability.</p>
@@ -598,16 +2638,16 @@
 <p><strong>Advantage:</strong> Adding new notification channels is easy.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nc">Observer</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<span class="kd">class</span> <span class="nc">EmailNotification</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Observer</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* implement update */</span><span class="w"> </span><span class="p">}</span>
-<span class="kd">class</span> <span class="nc">BookingServiceSubject</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">observers</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">addObserver</span><span class="p">(</span><span class="n">Observer</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">observers</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">notifyAll</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">for</span><span class="p">(</span><span class="n">Observer</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">observers</span><span class="p">)</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">message</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-java">interface Observer { void update(String message); }
+class EmailNotification implements Observer { /* implement update */ }
+class BookingServiceSubject {
+    List&lt;Observer&gt; observers;
+    void addObserver(Observer o) { observers.add(o); }
+    void notifyAll(String message) { for(Observer o : observers) o.update(message); }
+}
+</code></pre>
 <hr />
-<h3 id="e-decorator-pattern">e) <strong>Decorator Pattern</strong><a class="headerlink" href="#e-decorator-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="e-decorator-pattern">e) <strong>Decorator Pattern</strong></h3>
 <ul>
 <li>
 <p><strong>Use Case:</strong> Adding extra services to bookings (e.g., snacks, premium seating).</p>
@@ -619,16 +2659,16 @@
 <p><strong>Advantage:</strong> Flexible feature addition, adheres to OCP.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookingDecorator</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Booking</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">Booking</span><span class="w"> </span><span class="n">booking</span><span class="p">;</span>
-<span class="p">}</span>
+<pre><code class="language-java">abstract class BookingDecorator extends Booking {
+    protected Booking booking;
+}
 
-<span class="kd">class</span> <span class="nc">SnackBookingDecorator</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">BookingDecorator</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getCost</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">booking</span><span class="p">.</span><span class="na">getCost</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+class SnackBookingDecorator extends BookingDecorator {
+    public double getCost() { return booking.getCost() + 100; }
+}
+</code></pre>
 <hr />
-<h3 id="f-command-pattern">f) <strong>Command Pattern</strong><a class="headerlink" href="#f-command-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="f-command-pattern">f) <strong>Command Pattern</strong></h3>
 <ul>
 <li>
 <p><strong>Use Case:</strong> Encapsulating booking/cancellation actions, supporting undo operations.</p>
@@ -641,7 +2681,7 @@
 </li>
 </ul>
 <hr />
-<h3 id="g-facade-pattern">g) <strong>Facade Pattern</strong><a class="headerlink" href="#g-facade-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="g-facade-pattern">g) <strong>Facade Pattern</strong></h3>
 <ul>
 <li>
 <p><strong>Use Case:</strong> BookingFacade to handle all booking-related operations like seat selection, payment, and notification.</p>
@@ -653,21 +2693,21 @@
 <p><strong>Advantage:</strong> Hides internal complexity from client.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">BookingFacade</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BookingService</span><span class="w"> </span><span class="n">bookingService</span><span class="p">;</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">PaymentService</span><span class="w"> </span><span class="n">paymentService</span><span class="p">;</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">NotificationService</span><span class="w"> </span><span class="n">notificationService</span><span class="p">;</span>
+<pre><code class="language-java">class BookingFacade {
+    private BookingService bookingService;
+    private PaymentService paymentService;
+    private NotificationService notificationService;
 
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Booking</span><span class="w"> </span><span class="nf">makeBooking</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">Show</span><span class="w"> </span><span class="n">show</span><span class="p">,</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Seat</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seats</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Booking</span><span class="w"> </span><span class="n">booking</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bookingService</span><span class="p">.</span><span class="na">bookTickets</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">show</span><span class="p">,</span><span class="w"> </span><span class="n">seats</span><span class="p">);</span>
-<span class="w">        </span><span class="n">paymentService</span><span class="p">.</span><span class="na">processPayment</span><span class="p">(</span><span class="n">booking</span><span class="p">.</span><span class="na">getPayment</span><span class="p">());</span>
-<span class="w">        </span><span class="n">notificationService</span><span class="p">.</span><span class="na">notifyUser</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Booking confirmed&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">booking</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    public Booking makeBooking(User user, Show show, List&lt;Seat&gt; seats) {
+        Booking booking = bookingService.bookTickets(user, show, seats);
+        paymentService.processPayment(booking.getPayment());
+        notificationService.notifyUser(user, &quot;Booking confirmed&quot;);
+        return booking;
+    }
+}
+</code></pre>
 <hr />
-<h2 id="5-concurrency-scalability">5. <strong>Concurrency &amp; Scalability</strong><a class="headerlink" href="#5-concurrency-scalability" title="Permanent link">&para;</a></h2>
+<h2 id="5-concurrency-scalability">5. <strong>Concurrency &amp; Scalability</strong></h2>
 <ul>
 <li>
 <p><strong>Seat Locking:</strong> Use <strong>Optimistic Locking</strong> or <strong>Pessimistic Locking</strong> in DB to prevent double booking.</p>
@@ -680,7 +2720,7 @@
 </li>
 </ul>
 <hr />
-<h2 id="6-extensibility-maintainability">6. <strong>Extensibility &amp; Maintainability</strong><a class="headerlink" href="#6-extensibility-maintainability" title="Permanent link">&para;</a></h2>
+<h2 id="6-extensibility-maintainability">6. <strong>Extensibility &amp; Maintainability</strong></h2>
 <ul>
 <li>
 <p><strong>Open/Closed Principle:</strong> Add new payment methods, seat types, or notification channels without modifying existing code.</p>
@@ -696,7 +2736,7 @@
 </li>
 </ul>
 <hr />
-<h2 id="7-advantages-of-this-design">7. <strong>Advantages of this Design</strong><a class="headerlink" href="#7-advantages-of-this-design" title="Permanent link">&para;</a></h2>
+<h2 id="7-advantages-of-this-design">7. <strong>Advantages of this Design</strong></h2>
 <ol>
 <li>
 <p><strong>Modular:</strong> Each responsibility is encapsulated in a single class or service.</p>
@@ -715,7 +2755,7 @@
 </li>
 </ol>
 <hr />
-<h2 id="8-conclusion">8. <strong>Conclusion</strong><a class="headerlink" href="#8-conclusion" title="Permanent link">&para;</a></h2>
+<h2 id="8-conclusion">8. <strong>Conclusion</strong></h2>
 <p>This design combines <strong>OOP principles, SOLID principles, and multiple design patterns</strong> to build a robust, extensible BookMyShow-like platform.<br />
 Key takeaways for an LLD interview:</p>
 <ul>

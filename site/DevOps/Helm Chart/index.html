@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../Containerization%20Evolution/">
+      
+      
+        <link rel="next" href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -264,6 +278,819 @@
   
 
       </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DevOps
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DevOps
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Containerization%20Evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 1. What is Helm?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-core-problem-helm-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚨 2. The Core Problem Helm Solves
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 2. The Core Problem Helm Solves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#without-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Without Helm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With Helm
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-key-helm-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 3. Key Helm Concepts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-real-world-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 4. Real-World Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 4. Real-World Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traditional-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traditional Way:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Helm:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-why-helm-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 5. Why Helm Exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-typical-interview-questions-and-ideal-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 6. Typical Interview Questions (and Ideal Answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 6. Typical Interview Questions (and Ideal Answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q1-what-is-helm-and-why-do-we-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Q1: What is Helm and why do we use it?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q2-how-does-helm-improve-cicd-pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Q2: How does Helm improve CI/CD pipelines?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q3-what-is-the-structure-of-a-helm-chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Q3: What is the structure of a Helm chart?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q4-how-do-you-manage-environment-specific-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Q4: How do you manage environment-specific configurations?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q5-how-does-helm-handle-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Q5: How does Helm handle dependencies?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q6-what-are-helm-repositories-and-how-do-they-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Q6: What are Helm repositories and how do they work?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q7-whats-the-difference-between-helm-v2-and-v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Q7: What’s the difference between Helm v2 and v3?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#q8-what-are-common-pitfalls-when-using-helm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Q8: What are common pitfalls when using Helm?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-how-helm-fits-in-the-kubernetes-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ 7. How Helm Fits in the Kubernetes Ecosystem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-advanced-interview-cross-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 8. Advanced Interview Cross-Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-summary-why-helm-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 9. Summary — Why Helm Matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Scenario
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-helm-folder-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 1. Helm Folder Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-root-chartyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 2. Root Chart.yaml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-root-valuesyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 3. Root values.yaml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-example-subchart-auth-servicechartyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 4. Example Subchart – auth-service/Chart.yaml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-example-auth-servicetemplatesdeploymentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 5. Example auth-service/templates/deployment.yaml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-example-auth-servicetemplatesserviceyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 6. Example auth-service/templates/service.yaml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-example-api-gateway-servicetemplatesingressyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 7. Example api-gateway-service/templates/ingress.yaml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-environment-specific-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 8. Environment-Specific Values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 8. Environment-Specific Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#values-devyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        values-dev.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#values-prodyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        values-prod.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-commands-to-deploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 9. Commands to Deploy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 9. Commands to Deploy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-all-microservices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install all microservices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrade-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upgrade version
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rollback-if-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rollback if failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-benefits-in-a-microservice-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 10. Benefits in a Microservice Ecosystem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interview-deep-dive-cross-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Interview Deep Dive Cross-Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 Interview Deep Dive Cross-Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-folder-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 1. Folder Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-chartyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 2. Chart.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-valuesyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ 3. values.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-templates_helperstpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 4. templates/_helpers.tpl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-templatesconfigmapyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 5. templates/configmap.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-templatesdeploymentyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 6. templates/deployment.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-templatesserviceyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 7. templates/service.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-templatesingressyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 8. templates/ingress.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-templatesnotestxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 9. templates/NOTES.txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-commands-to-deploy-on-minikube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 10. Commands to Deploy on Minikube
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 10. Commands to Deploy on Minikube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-start-minikube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Start Minikube
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-enable-ingress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Enable Ingress
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-deploy-auth-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Deploy Auth Service
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-access-the-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Access the service
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-interview-level-discussion-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 11. Interview-Level Discussion Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-deploying-as-part-of-the-whole-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 12. Deploying as Part of the Whole System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -283,17 +1110,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    System Design
+    Distributed Sytem
   
 
     
@@ -304,12 +1131,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    Distributed Sytem
   
 
           </label>
@@ -322,14 +1149,1710 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Distributed System/load-balancer.md" class="md-nav__link">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -372,14 +2895,14 @@
 
 <p>Complete interview-oriented guide<strong> around </strong>Helm (Kubernetes package manager)<strong> — what problem it solves, how it fits into the Kubernetes ecosystem, why it exists, and the common </strong>cross-questions<strong> with </strong>standard answers** that interviewers ask to test real understanding.</p>
 <hr />
-<h2 id="1-what-is-helm">🧩 1. What is Helm?<a class="headerlink" href="#1-what-is-helm" title="Permanent link">&para;</a></h2>
+<h2 id="1-what-is-helm">🧩 1. What is Helm?</h2>
 <blockquote>
 <p><strong>Helm</strong> is a <strong>package manager for Kubernetes</strong>, similar to how <code>apt</code> works for Ubuntu or <code>npm</code> for Node.js.<br />
 It helps you define, install, and manage Kubernetes applications through reusable configuration templates called <strong>Helm charts</strong>.</p>
 </blockquote>
 <hr />
-<h2 id="2-the-core-problem-helm-solves">🚨 2. The Core Problem Helm Solves<a class="headerlink" href="#2-the-core-problem-helm-solves" title="Permanent link">&para;</a></h2>
-<h3 id="without-helm">Without Helm<a class="headerlink" href="#without-helm" title="Permanent link">&para;</a></h3>
+<h2 id="2-the-core-problem-helm-solves">🚨 2. The Core Problem Helm Solves</h2>
+<h3 id="without-helm">Without Helm</h3>
 <p>In a typical Kubernetes setup:</p>
 <ul>
 <li>
@@ -398,7 +2921,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 <p>Rolling back to a previous version is tedious.</p>
 </li>
 </ul>
-<h3 id="with-helm">With Helm<a class="headerlink" href="#with-helm" title="Permanent link">&para;</a></h3>
+<h3 id="with-helm">With Helm</h3>
 <p>Helm solves these problems by:</p>
 <ul>
 <li>
@@ -418,7 +2941,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </li>
 </ul>
 <hr />
-<h2 id="3-key-helm-concepts">⚙️ 3. Key Helm Concepts<a class="headerlink" href="#3-key-helm-concepts" title="Permanent link">&para;</a></h2>
+<h2 id="3-key-helm-concepts">⚙️ 3. Key Helm Concepts</h2>
 <table>
 <thead>
 <tr>
@@ -450,9 +2973,9 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </tbody>
 </table>
 <hr />
-<h2 id="4-real-world-example">🧠 4. Real-World Example<a class="headerlink" href="#4-real-world-example" title="Permanent link">&para;</a></h2>
+<h2 id="4-real-world-example">🧠 4. Real-World Example</h2>
 <p>Let’s say you want to deploy a <strong>Spring Boot microservice</strong>.</p>
-<h3 id="traditional-way">Traditional Way:<a class="headerlink" href="#traditional-way" title="Permanent link">&para;</a></h3>
+<h3 id="traditional-way">Traditional Way:</h3>
 <ul>
 <li>
 <p>deployment.yaml</p>
@@ -471,8 +2994,8 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </li>
 </ul>
 <p>You’d copy-paste these for dev, stage, and prod — manually updating image tags and environment variables.</p>
-<h3 id="using-helm">Using Helm:<a class="headerlink" href="#using-helm" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>my-spring-service/
+<h3 id="using-helm">Using Helm:</h3>
+<pre><code>my-spring-service/
  ┣ charts/
  ┣ templates/
  ┃ ┣ deployment.yaml
@@ -480,15 +3003,15 @@ It helps you define, install, and manage Kubernetes applications through reusabl
  ┃ ┗ ingress.yaml
  ┣ values.yaml
  ┗ Chart.yaml
-</code></pre></div>
+</code></pre>
 <p>Then deploy using:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>my-spring-service<span class="w"> </span>./my-spring-service<span class="w"> </span>-f<span class="w"> </span>values-prod.yaml
-</code></pre></div>
+<pre><code class="language-bash">helm install my-spring-service ./my-spring-service -f values-prod.yaml
+</code></pre>
 <p>And rollback easily:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>rollback<span class="w"> </span>my-spring-service<span class="w"> </span><span class="m">1</span>
-</code></pre></div>
+<pre><code class="language-bash">helm rollback my-spring-service 1
+</code></pre>
 <hr />
-<h2 id="5-why-helm-exists">🧩 5. Why Helm Exists<a class="headerlink" href="#5-why-helm-exists" title="Permanent link">&para;</a></h2>
+<h2 id="5-why-helm-exists">🧩 5. Why Helm Exists</h2>
 <table>
 <thead>
 <tr>
@@ -520,8 +3043,8 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </tbody>
 </table>
 <hr />
-<h2 id="6-typical-interview-questions-and-ideal-answers">🎯 6. Typical Interview Questions (and Ideal Answers)<a class="headerlink" href="#6-typical-interview-questions-and-ideal-answers" title="Permanent link">&para;</a></h2>
-<h3 id="q1-what-is-helm-and-why-do-we-use-it">✅ Q1: What is Helm and why do we use it?<a class="headerlink" href="#q1-what-is-helm-and-why-do-we-use-it" title="Permanent link">&para;</a></h3>
+<h2 id="6-typical-interview-questions-and-ideal-answers">🎯 6. Typical Interview Questions (and Ideal Answers)</h2>
+<h3 id="q1-what-is-helm-and-why-do-we-use-it">✅ Q1: What is Helm and why do we use it?</h3>
 <blockquote>
 <p>Helm is the Kubernetes package manager that simplifies deploying complex applications by packaging multiple manifests into versioned charts. It provides templating, configuration management, and release tracking.</p>
 </blockquote>
@@ -531,12 +3054,12 @@ It helps you define, install, and manage Kubernetes applications through reusabl
     → “Yes, but managing 100s of YAMLs across environments becomes error-prone. Helm brings templating, version control, rollback, and packaging — which are essential for production-scale Kubernetes management.”</li>
 </ul>
 <hr />
-<h3 id="q2-how-does-helm-improve-cicd-pipelines">✅ Q2: How does Helm improve CI/CD pipelines?<a class="headerlink" href="#q2-how-does-helm-improve-cicd-pipelines" title="Permanent link">&para;</a></h3>
+<h3 id="q2-how-does-helm-improve-cicd-pipelines">✅ Q2: How does Helm improve CI/CD pipelines?</h3>
 <blockquote>
 <p>Helm integrates with CI/CD to automate deployment. Instead of manually applying YAMLs, the pipeline just runs:</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>--install<span class="w"> </span>my-app<span class="w"> </span>./chart<span class="w"> </span>-f<span class="w"> </span>values-prod.yaml
-</code></pre></div>
+<pre><code class="language-bash">helm upgrade --install my-app ./chart -f values-prod.yaml
+</code></pre>
 <p>It standardizes deployments and supports rollbacks automatically.</p>
 <p><strong>Cross-question:</strong></p>
 <ul>
@@ -544,7 +3067,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
     → “Helm keeps a history of all releases. You can rollback with <code>helm rollback &lt;release&gt; &lt;revision&gt;</code>. It re-applies the previous configuration cleanly.”</li>
 </ul>
 <hr />
-<h3 id="q3-what-is-the-structure-of-a-helm-chart">✅ Q3: What is the structure of a Helm chart?<a class="headerlink" href="#q3-what-is-the-structure-of-a-helm-chart" title="Permanent link">&para;</a></h3>
+<h3 id="q3-what-is-the-structure-of-a-helm-chart">✅ Q3: What is the structure of a Helm chart?</h3>
 <blockquote>
 <p>A chart includes:</p>
 </blockquote>
@@ -571,7 +3094,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
     → “It defines reusable snippets like labels or name conventions to maintain DRY principles across templates.”</li>
 </ul>
 <hr />
-<h3 id="q4-how-do-you-manage-environment-specific-configurations">✅ Q4: How do you manage environment-specific configurations?<a class="headerlink" href="#q4-how-do-you-manage-environment-specific-configurations" title="Permanent link">&para;</a></h3>
+<h3 id="q4-how-do-you-manage-environment-specific-configurations">✅ Q4: How do you manage environment-specific configurations?</h3>
 <blockquote>
 <p>By maintaining multiple <code>values-&lt;env&gt;.yaml</code> files:</p>
 </blockquote>
@@ -584,15 +3107,15 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </li>
 </ul>
 <p>Then you deploy:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>my-app<span class="w"> </span>-f<span class="w"> </span>values-prod.yaml
-</code></pre></div>
+<pre><code class="language-bash">helm install my-app -f values-prod.yaml
+</code></pre>
 <p><strong>Cross-question:</strong></p>
 <ul>
 <li><em>“What if different environments have different resource requirements?”</em><br />
     → “Helm allows overriding any configuration via environment-specific values files or via <code>--set</code> CLI arguments.”</li>
 </ul>
 <hr />
-<h3 id="q5-how-does-helm-handle-dependencies">✅ Q5: How does Helm handle dependencies?<a class="headerlink" href="#q5-how-does-helm-handle-dependencies" title="Permanent link">&para;</a></h3>
+<h3 id="q5-how-does-helm-handle-dependencies">✅ Q5: How does Helm handle dependencies?</h3>
 <blockquote>
 <p>Helm allows defining dependencies in <code>Chart.yaml</code> under the <code>dependencies</code> section. For example, a service might depend on Redis or PostgreSQL charts.</p>
 </blockquote>
@@ -602,22 +3125,22 @@ It helps you define, install, and manage Kubernetes applications through reusabl
     → <code>helm dependency update</code></li>
 </ul>
 <hr />
-<h3 id="q6-what-are-helm-repositories-and-how-do-they-work">✅ Q6: What are Helm repositories and how do they work?<a class="headerlink" href="#q6-what-are-helm-repositories-and-how-do-they-work" title="Permanent link">&para;</a></h3>
+<h3 id="q6-what-are-helm-repositories-and-how-do-they-work">✅ Q6: What are Helm repositories and how do they work?</h3>
 <blockquote>
 <p>Helm repositories store packaged charts (<code>.tgz</code>). You can add public repos like:</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>bitnami<span class="w"> </span>https://charts.bitnami.com/bitnami
-</code></pre></div>
+<pre><code class="language-bash">helm repo add bitnami https://charts.bitnami.com/bitnami
+</code></pre>
 <p>And install charts directly:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>mydb<span class="w"> </span>bitnami/postgresql
-</code></pre></div>
+<pre><code class="language-bash">helm install mydb bitnami/postgresql
+</code></pre>
 <p><strong>Cross-question:</strong></p>
 <ul>
 <li><em>“How is this similar to DockerHub?”</em><br />
     → “Just like DockerHub stores container images, Helm repositories store versioned application charts.”</li>
 </ul>
 <hr />
-<h3 id="q7-whats-the-difference-between-helm-v2-and-v3">✅ Q7: What’s the difference between Helm v2 and v3?<a class="headerlink" href="#q7-whats-the-difference-between-helm-v2-and-v3" title="Permanent link">&para;</a></h3>
+<h3 id="q7-whats-the-difference-between-helm-v2-and-v3">✅ Q7: What’s the difference between Helm v2 and v3?</h3>
 <table>
 <thead>
 <tr>
@@ -645,7 +3168,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </tbody>
 </table>
 <hr />
-<h3 id="q8-what-are-common-pitfalls-when-using-helm">✅ Q8: What are common pitfalls when using Helm?<a class="headerlink" href="#q8-what-are-common-pitfalls-when-using-helm" title="Permanent link">&para;</a></h3>
+<h3 id="q8-what-are-common-pitfalls-when-using-helm">✅ Q8: What are common pitfalls when using Helm?</h3>
 <ul>
 <li>
 <p>Hardcoding values instead of templating.</p>
@@ -664,9 +3187,9 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </li>
 </ul>
 <hr />
-<h2 id="7-how-helm-fits-in-the-kubernetes-ecosystem">🏗️ 7. How Helm Fits in the Kubernetes Ecosystem<a class="headerlink" href="#7-how-helm-fits-in-the-kubernetes-ecosystem" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>CI/CD → Helm → Kubernetes API → Pods/Services
-</code></pre></div>
+<h2 id="7-how-helm-fits-in-the-kubernetes-ecosystem">🏗️ 7. How Helm Fits in the Kubernetes Ecosystem</h2>
+<pre><code>CI/CD → Helm → Kubernetes API → Pods/Services
+</code></pre>
 <ul>
 <li>
 <p><strong>CI/CD</strong> builds and triggers Helm.</p>
@@ -683,7 +3206,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </ul>
 <p>Helm is the <strong>bridge</strong> between <strong>continuous delivery pipelines</strong> and <strong>Kubernetes declarative deployment</strong>.</p>
 <hr />
-<h2 id="8-advanced-interview-cross-questions">🧩 8. Advanced Interview Cross-Questions<a class="headerlink" href="#8-advanced-interview-cross-questions" title="Permanent link">&para;</a></h2>
+<h2 id="8-advanced-interview-cross-questions">🧩 8. Advanced Interview Cross-Questions</h2>
 <table>
 <thead>
 <tr>
@@ -711,7 +3234,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </tbody>
 </table>
 <hr />
-<h2 id="9-summary-why-helm-matters">🔥 9. Summary — Why Helm Matters<a class="headerlink" href="#9-summary-why-helm-matters" title="Permanent link">&para;</a></h2>
+<h2 id="9-summary-why-helm-matters">🔥 9. Summary — Why Helm Matters</h2>
 <table>
 <thead>
 <tr>
@@ -746,7 +3269,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 <p>Excellent — let’s move from the <strong>conceptual</strong> to the <strong>practical</strong>, using a <strong>production-grade Helm chart structure</strong> for a <strong>multi-microservice system</strong>.</p>
 <p>We’ll design this in a way that mirrors how a real distributed system (like Netflix-style architecture or any enterprise-grade microservice ecosystem) is deployed via Helm.</p>
 <hr />
-<h1 id="scenario">🏗️ Scenario<a class="headerlink" href="#scenario" title="Permanent link">&para;</a></h1>
+<h1 id="scenario">🏗️ Scenario</h1>
 <p>We have a <strong>microservice-based system</strong> with the following services:</p>
 <ul>
 <li>
@@ -787,8 +3310,8 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </li>
 </ul>
 <hr />
-<h1 id="1-helm-folder-structure">🧩 1. Helm Folder Structure<a class="headerlink" href="#1-helm-folder-structure" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code>microservices-helm/
+<h1 id="1-helm-folder-structure">🧩 1. Helm Folder Structure</h1>
+<pre><code>microservices-helm/
 ├── Chart.yaml
 ├── values.yaml
 ├── values-dev.yaml
@@ -847,220 +3370,220 @@ It helps you define, install, and manage Kubernetes applications through reusabl
     ├── _helpers.tpl
     ├── NOTES.txt
     └── namespace.yaml
-</code></pre></div>
+</code></pre>
 <hr />
-<h1 id="2-root-chartyaml">🧠 2. Root <code>Chart.yaml</code><a class="headerlink" href="#2-root-chartyaml" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v2</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">microservices-helm</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Helm chart for multi-microservice Kubernetes deployment</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">application</span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="nt">appVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
+<h1 id="2-root-chartyaml">🧠 2. Root <code>Chart.yaml</code></h1>
+<pre><code class="language-yaml">apiVersion: v2
+name: microservices-helm
+description: Helm chart for multi-microservice Kubernetes deployment
+type: application
+version: 1.0.0
+appVersion: &quot;1.0.0&quot;
 
-<span class="nt">dependencies</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api-gateway-service</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://charts/api-gateway-service&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-service</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://charts/auth-service&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user-service</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://charts/user-service&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">order-service</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://charts/order-service&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inventory-service</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://charts/inventory-service&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-db</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://charts/postgres-db&quot;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis-cache</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://charts/redis-cache&quot;</span>
-</code></pre></div>
+dependencies:
+  - name: api-gateway-service
+    version: 1.0.0
+    repository: &quot;file://charts/api-gateway-service&quot;
+  - name: auth-service
+    version: 1.0.0
+    repository: &quot;file://charts/auth-service&quot;
+  - name: user-service
+    version: 1.0.0
+    repository: &quot;file://charts/user-service&quot;
+  - name: order-service
+    version: 1.0.0
+    repository: &quot;file://charts/order-service&quot;
+  - name: inventory-service
+    version: 1.0.0
+    repository: &quot;file://charts/inventory-service&quot;
+  - name: postgres-db
+    version: 1.0.0
+    repository: &quot;file://charts/postgres-db&quot;
+  - name: redis-cache
+    version: 1.0.0
+    repository: &quot;file://charts/redis-cache&quot;
+</code></pre>
 <hr />
-<h1 id="3-root-valuesyaml">⚙️ 3. Root <code>values.yaml</code><a class="headerlink" href="#3-root-valuesyaml" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
-<span class="w">  </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
-<span class="w">  </span><span class="nt">imageRegistry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myregistry.io/microservices</span>
+<h1 id="3-root-valuesyaml">⚙️ 3. Root <code>values.yaml</code></h1>
+<pre><code class="language-yaml">global:
+  namespace: production
+  imagePullPolicy: IfNotPresent
+  imageRegistry: myregistry.io/microservices
 
-<span class="nt">api-gateway-service</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api-gateway</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;v1.0.0&quot;</span>
-<span class="w">  </span><span class="nt">service</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterIP</span>
-<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
-<span class="w">  </span><span class="nt">ingress</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gateway.myapp.com</span>
+api-gateway-service:
+  image:
+    repository: api-gateway
+    tag: &quot;v1.0.0&quot;
+  service:
+    type: ClusterIP
+    port: 8080
+  ingress:
+    enabled: true
+    host: gateway.myapp.com
 
-<span class="nt">auth-service</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-service</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;v1.0.0&quot;</span>
-<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">JWT_SECRET</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;supersecret&quot;</span>
-<span class="w">    </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgres-db:5432&quot;</span>
+auth-service:
+  image:
+    repository: auth-service
+    tag: &quot;v1.0.0&quot;
+  env:
+    JWT_SECRET: &quot;supersecret&quot;
+    DATABASE_URL: &quot;postgres-db:5432&quot;
 
-<span class="nt">user-service</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user-service</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;v1.0.0&quot;</span>
-<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgres-db:5432&quot;</span>
+user-service:
+  image:
+    repository: user-service
+    tag: &quot;v1.0.0&quot;
+  env:
+    DATABASE_URL: &quot;postgres-db:5432&quot;
 
-<span class="nt">order-service</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">order-service</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;v1.0.0&quot;</span>
-<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgres-db:5432&quot;</span>
-<span class="w">    </span><span class="nt">REDIS_HOST</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;redis-cache&quot;</span>
+order-service:
+  image:
+    repository: order-service
+    tag: &quot;v1.0.0&quot;
+  env:
+    DATABASE_URL: &quot;postgres-db:5432&quot;
+    REDIS_HOST: &quot;redis-cache&quot;
 
-<span class="nt">inventory-service</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inventory-service</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;v1.0.0&quot;</span>
-<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgres-db:5432&quot;</span>
+inventory-service:
+  image:
+    repository: inventory-service
+    tag: &quot;v1.0.0&quot;
+  env:
+    DATABASE_URL: &quot;postgres-db:5432&quot;
 
-<span class="nt">postgres-db</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;15&quot;</span>
-<span class="w">  </span><span class="nt">persistence</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10Gi</span>
-<span class="w">  </span><span class="nt">credentials</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;admin&quot;</span>
-<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;password&quot;</span>
+postgres-db:
+  image:
+    repository: postgres
+    tag: &quot;15&quot;
+  persistence:
+    size: 10Gi
+  credentials:
+    username: &quot;admin&quot;
+    password: &quot;password&quot;
 
-<span class="nt">redis-cache</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;7&quot;</span>
-<span class="w">  </span><span class="nt">persistence</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-</code></pre></div>
+redis-cache:
+  image:
+    repository: redis
+    tag: &quot;7&quot;
+  persistence:
+    enabled: false
+</code></pre>
 <hr />
-<h1 id="4-example-subchart-auth-servicechartyaml">🧩 4. Example Subchart – <code>auth-service/Chart.yaml</code><a class="headerlink" href="#4-example-subchart-auth-servicechartyaml" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v2</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-service</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Authentication microservice chart</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">application</span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="nt">appVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
-</code></pre></div>
+<h1 id="4-example-subchart-auth-servicechartyaml">🧩 4. Example Subchart – <code>auth-service/Chart.yaml</code></h1>
+<pre><code class="language-yaml">apiVersion: v2
+name: auth-service
+description: Authentication microservice chart
+type: application
+version: 1.0.0
+appVersion: &quot;1.0.0&quot;
+</code></pre>
 <hr />
-<h1 id="5-example-auth-servicetemplatesdeploymentyaml">🧩 5. Example <code>auth-service/templates/deployment.yaml</code><a class="headerlink" href="#5-example-auth-servicetemplatesdeploymentyaml" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.replicaCount | default 2</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-service</span>
-<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">.Values.image.registry</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">default</span><span class="nv"> </span><span class="s">.Values.global.imageRegistry</span><span class="nv"> </span><span class="s">}}/{{</span><span class="nv"> </span><span class="s">.Values.image.repository</span><span class="nv"> </span><span class="s">}}:{{</span><span class="nv"> </span><span class="s">.Values.image.tag</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.global.imagePullPolicy</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8081</span>
-<span class="w">          </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JWT_SECRET</span>
-<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.env.JWT_SECRET | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL</span>
-<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.env.DATABASE_URL | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-</code></pre></div>
+<h1 id="5-example-auth-servicetemplatesdeploymentyaml">🧩 5. Example <code>auth-service/templates/deployment.yaml</code></h1>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include &quot;auth-service.fullname&quot; . }}
+  labels:
+    app: {{ include &quot;auth-service.name&quot; . }}
+spec:
+  replicas: {{ .Values.replicaCount | default 2 }}
+  selector:
+    matchLabels:
+      app: {{ include &quot;auth-service.name&quot; . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include &quot;auth-service.name&quot; . }}
+    spec:
+      containers:
+        - name: auth-service
+          image: &quot;{{ .Values.image.registry | default .Values.global.imageRegistry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}&quot;
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - containerPort: 8081
+          env:
+            - name: JWT_SECRET
+              value: {{ .Values.env.JWT_SECRET | quote }}
+            - name: DATABASE_URL
+              value: {{ .Values.env.DATABASE_URL | quote }}
+</code></pre>
 <hr />
-<h1 id="6-example-auth-servicetemplatesserviceyaml">🧩 6. Example <code>auth-service/templates/service.yaml</code><a class="headerlink" href="#6-example-auth-servicetemplatesserviceyaml" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8081</span>
-<span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8081</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterIP</span>
-</code></pre></div>
+<h1 id="6-example-auth-servicetemplatesserviceyaml">🧩 6. Example <code>auth-service/templates/service.yaml</code></h1>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include &quot;auth-service.fullname&quot; . }}
+spec:
+  selector:
+    app: {{ include &quot;auth-service.name&quot; . }}
+  ports:
+    - port: 8081
+      targetPort: 8081
+  type: ClusterIP
+</code></pre>
 <hr />
-<h1 id="7-example-api-gateway-servicetemplatesingressyaml">🧩 7. Example <code>api-gateway-service/templates/ingress.yaml</code><a class="headerlink" href="#7-example-api-gateway-servicetemplatesingressyaml" title="Permanent link">&para;</a></h1>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">{{</span><span class="nv">- if .Values.ingress.enabled</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;api-gateway-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.ingress.host</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">      </span><span class="nt">http</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">paths</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
-<span class="w">            </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
-<span class="w">            </span><span class="nt">backend</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">service</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;api-gateway-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
-<span class="w">                  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.service.port</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="p p-Indicator">{{</span><span class="nv">- end</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-</code></pre></div>
+<h1 id="7-example-api-gateway-servicetemplatesingressyaml">🧩 7. Example <code>api-gateway-service/templates/ingress.yaml</code></h1>
+<pre><code class="language-yaml">{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include &quot;api-gateway-service.fullname&quot; . }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include &quot;api-gateway-service.fullname&quot; . }}
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}
+</code></pre>
 <hr />
-<h1 id="8-environment-specific-values">🧠 8. Environment-Specific Values<a class="headerlink" href="#8-environment-specific-values" title="Permanent link">&para;</a></h1>
-<h3 id="values-devyaml"><code>values-dev.yaml</code><a class="headerlink" href="#values-devyaml" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
-<span class="w">  </span><span class="nt">imageRegistry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-registry.io/microservices</span>
+<h1 id="8-environment-specific-values">🧠 8. Environment-Specific Values</h1>
+<h3 id="values-devyaml"><code>values-dev.yaml</code></h3>
+<pre><code class="language-yaml">global:
+  namespace: dev
+  imageRegistry: dev-registry.io/microservices
 
-<span class="nt">auth-service</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;v1.0.0-dev&quot;</span>
-<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgres-db.dev:5432&quot;</span>
-</code></pre></div>
-<h3 id="values-prodyaml"><code>values-prod.yaml</code><a class="headerlink" href="#values-prodyaml" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">global</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
-<span class="w">  </span><span class="nt">imageRegistry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-registry.io/microservices</span>
+auth-service:
+  image:
+    tag: &quot;v1.0.0-dev&quot;
+  env:
+    DATABASE_URL: &quot;postgres-db.dev:5432&quot;
+</code></pre>
+<h3 id="values-prodyaml"><code>values-prod.yaml</code></h3>
+<pre><code class="language-yaml">global:
+  namespace: prod
+  imageRegistry: prod-registry.io/microservices
 
-<span class="nt">auth-service</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;v1.0.0-prod&quot;</span>
-<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgres-db.prod:5432&quot;</span>
-</code></pre></div>
+auth-service:
+  image:
+    tag: &quot;v1.0.0-prod&quot;
+  env:
+    DATABASE_URL: &quot;postgres-db.prod:5432&quot;
+</code></pre>
 <hr />
-<h1 id="9-commands-to-deploy">🚀 9. Commands to Deploy<a class="headerlink" href="#9-commands-to-deploy" title="Permanent link">&para;</a></h1>
-<h3 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>dependency<span class="w"> </span>update
-</code></pre></div>
-<h3 id="install-all-microservices">Install all microservices<a class="headerlink" href="#install-all-microservices" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>ecommerce-system<span class="w"> </span>./microservices-helm<span class="w"> </span>-f<span class="w"> </span>values-prod.yaml
-</code></pre></div>
-<h3 id="upgrade-version">Upgrade version<a class="headerlink" href="#upgrade-version" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>ecommerce-system<span class="w"> </span>./microservices-helm<span class="w"> </span>-f<span class="w"> </span>values-prod.yaml
-</code></pre></div>
-<h3 id="rollback-if-failed">Rollback if failed<a class="headerlink" href="#rollback-if-failed" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>rollback<span class="w"> </span>ecommerce-system<span class="w"> </span><span class="m">1</span>
-</code></pre></div>
+<h1 id="9-commands-to-deploy">🚀 9. Commands to Deploy</h1>
+<h3 id="install-dependencies">Install dependencies</h3>
+<pre><code class="language-bash">helm dependency update
+</code></pre>
+<h3 id="install-all-microservices">Install all microservices</h3>
+<pre><code class="language-bash">helm install ecommerce-system ./microservices-helm -f values-prod.yaml
+</code></pre>
+<h3 id="upgrade-version">Upgrade version</h3>
+<pre><code class="language-bash">helm upgrade ecommerce-system ./microservices-helm -f values-prod.yaml
+</code></pre>
+<h3 id="rollback-if-failed">Rollback if failed</h3>
+<pre><code class="language-bash">helm rollback ecommerce-system 1
+</code></pre>
 <hr />
-<h1 id="10-benefits-in-a-microservice-ecosystem">🔍 10. Benefits in a Microservice Ecosystem<a class="headerlink" href="#10-benefits-in-a-microservice-ecosystem" title="Permanent link">&para;</a></h1>
+<h1 id="10-benefits-in-a-microservice-ecosystem">🔍 10. Benefits in a Microservice Ecosystem</h1>
 <table>
 <thead>
 <tr>
@@ -1096,7 +3619,7 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 </tbody>
 </table>
 <hr />
-<h1 id="interview-deep-dive-cross-questions">🧠 Interview Deep Dive Cross-Questions<a class="headerlink" href="#interview-deep-dive-cross-questions" title="Permanent link">&para;</a></h1>
+<h1 id="interview-deep-dive-cross-questions">🧠 Interview Deep Dive Cross-Questions</h1>
 <table>
 <thead>
 <tr>
@@ -1133,8 +3656,8 @@ It helps you define, install, and manage Kubernetes applications through reusabl
 <p>This chart will be compatible with <strong>Minikube, Docker Desktop, or any managed Kubernetes cluster (like EKS/GKE/AKS)</strong>.<br />
 We’ll include all the key manifests — <strong>Deployment</strong>, <strong>Service</strong>, <strong>ConfigMap</strong>, <strong>Ingress</strong>, and <strong>Values</strong> — in a <strong>Helm-standard structure</strong>.</p>
 <hr />
-<h2 id="1-folder-structure">🧩 1. Folder Structure<a class="headerlink" href="#1-folder-structure" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>charts/
+<h2 id="1-folder-structure">🧩 1. Folder Structure</h2>
+<pre><code>charts/
 └── auth-service/
     ├── Chart.yaml
     ├── values.yaml
@@ -1145,190 +3668,190 @@ We’ll include all the key manifests — <strong>Deployment</strong>, <strong>S
     │   ├── configmap.yaml
     │   ├── _helpers.tpl
     │   └── NOTES.txt
-</code></pre></div>
+</code></pre>
 <hr />
-<h2 id="2-chartyaml">⚙️ 2. Chart.yaml<a class="headerlink" href="#2-chartyaml" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v2</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-service</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A Helm chart for the Authentication microservice</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">application</span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="nt">appVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0.0&quot;</span>
-</code></pre></div>
+<h2 id="2-chartyaml">⚙️ 2. Chart.yaml</h2>
+<pre><code class="language-yaml">apiVersion: v2
+name: auth-service
+description: A Helm chart for the Authentication microservice
+type: application
+version: 1.0.0
+appVersion: &quot;1.0.0&quot;
+</code></pre>
 <hr />
-<h2 id="3-valuesyaml">⚙️ 3. values.yaml<a class="headerlink" href="#3-valuesyaml" title="Permanent link">&para;</a></h2>
+<h2 id="3-valuesyaml">⚙️ 3. values.yaml</h2>
 <p>This file defines all configurable parameters.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<pre><code class="language-yaml">replicaCount: 2
 
-<span class="nt">image</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io</span>
-<span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myorg/auth-service</span>
-<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;v1.0.0&quot;</span>
-<span class="w">  </span><span class="nt">pullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+image:
+  registry: docker.io
+  repository: myorg/auth-service
+  tag: &quot;v1.0.0&quot;
+  pullPolicy: IfNotPresent
 
-<span class="nt">service</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterIP</span>
-<span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
+service:
+  type: ClusterIP
+  port: 8080
 
-<span class="nt">ingress</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">className</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
-<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth.myapp.local</span>
-<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
-<span class="w">  </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Prefix</span>
+ingress:
+  enabled: true
+  className: nginx
+  host: auth.myapp.local
+  path: /
+  pathType: Prefix
 
-<span class="nt">env</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">JWT_SECRET</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;supersecret&quot;</span>
-<span class="w">  </span><span class="nt">DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgresql://admin:password@postgres-db:5432/authdb&quot;</span>
+env:
+  JWT_SECRET: &quot;supersecret&quot;
+  DATABASE_URL: &quot;postgresql://admin:password@postgres-db:5432/authdb&quot;
 
-<span class="nt">resources</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">limits</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;500m&quot;</span>
-<span class="w">    </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;512Mi&quot;</span>
-<span class="w">  </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;200m&quot;</span>
-<span class="w">    </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;256Mi&quot;</span>
+resources:
+  limits:
+    cpu: &quot;500m&quot;
+    memory: &quot;512Mi&quot;
+  requests:
+    cpu: &quot;200m&quot;
+    memory: &quot;256Mi&quot;
 
-<span class="nt">config</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">LOG_LEVEL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;INFO&quot;</span>
-<span class="w">  </span><span class="nt">TOKEN_EXPIRY</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;15m&quot;</span>
-</code></pre></div>
+config:
+  LOG_LEVEL: &quot;INFO&quot;
+  TOKEN_EXPIRY: &quot;15m&quot;
+</code></pre>
 <hr />
-<h2 id="4-templates_helperstpl">🧱 4. templates/_helpers.tpl<a class="headerlink" href="#4-templates_helperstpl" title="Permanent link">&para;</a></h2>
+<h2 id="4-templates_helperstpl">🧱 4. templates/_helpers.tpl</h2>
 <p>Used to define reusable naming functions.</p>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">{{</span><span class="nv">/*</span>
-<span class="nv">Generate a fullname (namespace + chart)</span>
-<span class="nv">*/</span><span class="p p-Indicator">}}</span>
-<span class="p p-Indicator">{{</span><span class="nv">- define &quot;auth-service.fullname&quot; -</span><span class="p p-Indicator">}}</span>
-<span class="p p-Indicator">{{</span><span class="nv">- printf &quot;%s-%s&quot; .Release.Name .Chart.Name | trunc 63 | trimSuffix &quot;-&quot; -</span><span class="p p-Indicator">}}</span>
-<span class="p p-Indicator">{{</span><span class="nv">- end -</span><span class="p p-Indicator">}}</span>
+<pre><code class="language-yaml">{{/*
+Generate a fullname (namespace + chart)
+*/}}
+{{- define &quot;auth-service.fullname&quot; -}}
+{{- printf &quot;%s-%s&quot; .Release.Name .Chart.Name | trunc 63 | trimSuffix &quot;-&quot; -}}
+{{- end -}}
 
-<span class="p p-Indicator">{{</span><span class="nv">/*</span>
-<span class="nv">Return chart name</span>
-<span class="nv">*/</span><span class="p p-Indicator">}}</span>
-<span class="p p-Indicator">{{</span><span class="nv">- define &quot;auth-service.name&quot; -</span><span class="p p-Indicator">}}</span>
-<span class="p p-Indicator">{{</span><span class="nv">- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix &quot;-&quot; -</span><span class="p p-Indicator">}}</span>
-<span class="p p-Indicator">{{</span><span class="nv">- end -</span><span class="p p-Indicator">}}</span>
-</code></pre></div>
+{{/*
+Return chart name
+*/}}
+{{- define &quot;auth-service.name&quot; -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix &quot;-&quot; -}}
+{{- end -}}
+</code></pre>
 <hr />
-<h2 id="5-templatesconfigmapyaml">🧱 5. templates/configmap.yaml<a class="headerlink" href="#5-templatesconfigmapyaml" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-config</span>
-<span class="nt">data</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">LOG_LEVEL</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.config.LOG_LEVEL | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">TOKEN_EXPIRY</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.config.TOKEN_EXPIRY | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-</code></pre></div>
+<h2 id="5-templatesconfigmapyaml">🧱 5. templates/configmap.yaml</h2>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include &quot;auth-service.fullname&quot; . }}-config
+data:
+  LOG_LEVEL: {{ .Values.config.LOG_LEVEL | quote }}
+  TOKEN_EXPIRY: {{ .Values.config.TOKEN_EXPIRY | quote }}
+</code></pre>
 <hr />
-<h2 id="6-templatesdeploymentyaml">🧱 6. templates/deployment.yaml<a class="headerlink" href="#6-templatesdeploymentyaml" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.replicaCount</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-service</span>
-<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">.Values.image.registry</span><span class="nv"> </span><span class="s">}}/{{</span><span class="nv"> </span><span class="s">.Values.image.repository</span><span class="nv"> </span><span class="s">}}:{{</span><span class="nv"> </span><span class="s">.Values.image.tag</span><span class="nv"> </span><span class="s">}}&quot;</span>
-<span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.image.pullPolicy</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
-<span class="w">          </span><span class="nt">env</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JWT_SECRET</span>
-<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.env.JWT_SECRET | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DATABASE_URL</span>
-<span class="w">              </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.env.DATABASE_URL | quote</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">          </span><span class="nt">envFrom</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">configMapRef</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span><span class="l l-Scalar l-Scalar-Plain">-config</span>
-<span class="w">          </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">limits</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.resources.limits.cpu</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.resources.limits.memory</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">            </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.resources.requests.cpu</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.resources.requests.memory</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-</code></pre></div>
+<h2 id="6-templatesdeploymentyaml">🧱 6. templates/deployment.yaml</h2>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include &quot;auth-service.fullname&quot; . }}
+  labels:
+    app: {{ include &quot;auth-service.name&quot; . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include &quot;auth-service.name&quot; . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include &quot;auth-service.name&quot; . }}
+    spec:
+      containers:
+        - name: auth-service
+          image: &quot;{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}&quot;
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JWT_SECRET
+              value: {{ .Values.env.JWT_SECRET | quote }}
+            - name: DATABASE_URL
+              value: {{ .Values.env.DATABASE_URL | quote }}
+          envFrom:
+            - configMapRef:
+                name: {{ include &quot;auth-service.fullname&quot; . }}-config
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+</code></pre>
 <hr />
-<h2 id="7-templatesserviceyaml">🧱 7. templates/service.yaml<a class="headerlink" href="#7-templatesserviceyaml" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.service.type</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.name&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.service.port</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
-</code></pre></div>
+<h2 id="7-templatesserviceyaml">🧱 7. templates/service.yaml</h2>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include &quot;auth-service.fullname&quot; . }}
+  labels:
+    app: {{ include &quot;auth-service.name&quot; . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ include &quot;auth-service.name&quot; . }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+</code></pre>
 <hr />
-<h2 id="8-templatesingressyaml">🧱 8. templates/ingress.yaml<a class="headerlink" href="#8-templatesingressyaml" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="p p-Indicator">{{</span><span class="nv">- if .Values.ingress.enabled</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">kubernetes.io/ingress.class</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.ingress.className</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.ingress.host</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">      </span><span class="nt">http</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">paths</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.ingress.path</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">            </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.ingress.pathType</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">            </span><span class="nt">backend</span><span class="p">:</span>
-<span class="w">              </span><span class="nt">service</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">include &quot;auth-service.fullname&quot; .</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
-<span class="w">                  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{{</span><span class="w"> </span><span class="nv">.Values.service.port</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-<span class="p p-Indicator">{{</span><span class="nv">- end</span><span class="w"> </span><span class="p p-Indicator">}}</span>
-</code></pre></div>
+<h2 id="8-templatesingressyaml">🧱 8. templates/ingress.yaml</h2>
+<pre><code class="language-yaml">{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include &quot;auth-service.fullname&quot; . }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.className }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.path }}
+            pathType: {{ .Values.ingress.pathType }}
+            backend:
+              service:
+                name: {{ include &quot;auth-service.fullname&quot; . }}
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}
+</code></pre>
 <hr />
-<h2 id="9-templatesnotestxt">🧱 9. templates/NOTES.txt<a class="headerlink" href="#9-templatesnotestxt" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>Auth Service has been successfully deployed!
+<h2 id="9-templatesnotestxt">🧱 9. templates/NOTES.txt</h2>
+<pre><code class="language-txt">Auth Service has been successfully deployed!
 
 To access the service:
   1. Run: kubectl get all -n &lt;namespace&gt;
   2. Access via Ingress: http://{{ .Values.ingress.host }}
   3. Or port-forward manually:
        kubectl port-forward svc/{{ include &quot;auth-service.fullname&quot; . }} 8080:8080
-</code></pre></div>
+</code></pre>
 <hr />
-<h2 id="10-commands-to-deploy-on-minikube">🧪 10. Commands to Deploy on Minikube<a class="headerlink" href="#10-commands-to-deploy-on-minikube" title="Permanent link">&para;</a></h2>
-<h3 id="step-1-start-minikube">Step 1: Start Minikube<a class="headerlink" href="#step-1-start-minikube" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>minikube<span class="w"> </span>start
-</code></pre></div>
-<h3 id="step-2-enable-ingress">Step 2: Enable Ingress<a class="headerlink" href="#step-2-enable-ingress" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>minikube<span class="w"> </span>addons<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ingress
-</code></pre></div>
-<h3 id="step-3-deploy-auth-service">Step 3: Deploy Auth Service<a class="headerlink" href="#step-3-deploy-auth-service" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>auth-service<span class="w"> </span>./charts/auth-service
-</code></pre></div>
-<h3 id="step-4-verify">Step 4: Verify<a class="headerlink" href="#step-4-verify" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>pods,svc,ingress
-</code></pre></div>
-<h3 id="step-5-access-the-service">Step 5: Access the service<a class="headerlink" href="#step-5-access-the-service" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>minikube<span class="w"> </span>tunnel
-<span class="c1"># Visit http://auth.myapp.local (add this host to /etc/hosts if needed)</span>
-</code></pre></div>
+<h2 id="10-commands-to-deploy-on-minikube">🧪 10. Commands to Deploy on Minikube</h2>
+<h3 id="step-1-start-minikube">Step 1: Start Minikube</h3>
+<pre><code class="language-bash">minikube start
+</code></pre>
+<h3 id="step-2-enable-ingress">Step 2: Enable Ingress</h3>
+<pre><code class="language-bash">minikube addons enable ingress
+</code></pre>
+<h3 id="step-3-deploy-auth-service">Step 3: Deploy Auth Service</h3>
+<pre><code class="language-bash">helm install auth-service ./charts/auth-service
+</code></pre>
+<h3 id="step-4-verify">Step 4: Verify</h3>
+<pre><code class="language-bash">kubectl get pods,svc,ingress
+</code></pre>
+<h3 id="step-5-access-the-service">Step 5: Access the service</h3>
+<pre><code class="language-bash">minikube tunnel
+# Visit http://auth.myapp.local (add this host to /etc/hosts if needed)
+</code></pre>
 <hr />
-<h2 id="11-interview-level-discussion-points">🧠 11. Interview-Level Discussion Points<a class="headerlink" href="#11-interview-level-discussion-points" title="Permanent link">&para;</a></h2>
+<h2 id="11-interview-level-discussion-points">🧠 11. Interview-Level Discussion Points</h2>
 <table>
 <thead>
 <tr>
@@ -1360,19 +3883,19 @@ To access the service:
 </tbody>
 </table>
 <hr />
-<h2 id="12-deploying-as-part-of-the-whole-system">🧩 12. Deploying as Part of the Whole System<a class="headerlink" href="#12-deploying-as-part-of-the-whole-system" title="Permanent link">&para;</a></h2>
+<h2 id="12-deploying-as-part-of-the-whole-system">🧩 12. Deploying as Part of the Whole System</h2>
 <p>If this <code>auth-service</code> chart is a <strong>subchart</strong>, it would be part of your main chart’s dependency in:</p>
-<div class="highlight"><pre><span></span><code>microservices-helm/Chart.yaml
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nt">dependencies</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth-service</span>
-<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file://charts/auth-service&quot;</span>
-</code></pre></div>
+<pre><code>microservices-helm/Chart.yaml
+</code></pre>
+<pre><code class="language-yaml">dependencies:
+  - name: auth-service
+    version: 1.0.0
+    repository: &quot;file://charts/auth-service&quot;
+</code></pre>
 <p>Then you just run:</p>
-<div class="highlight"><pre><span></span><code>helm<span class="w"> </span>dependency<span class="w"> </span>update
-helm<span class="w"> </span>install<span class="w"> </span>ecommerce-system<span class="w"> </span>./microservices-helm
-</code></pre></div>
+<pre><code class="language-bash">helm dependency update
+helm install ecommerce-system ./microservices-helm
+</code></pre>
 <hr />
 
 

@@ -1,36 +1,37 @@
 site_name: Nitesh Notes
-site_description: Technical notes, system design, Spring Boot, microservices
+site_description: Technical notes, system design, distributed system, Spring Boot, microservices
 site_author: Nitesh
 repo_url: https://github.com/Nitesh123-Nits/niteshdailydocs
 theme:
   name: material
-  logo: images/logo.png           # optional: path under docs/
-  favicon: images/logo.png
+  icon:
+    logo: fontawesome/solid/w
+  favicon: logo.png
   palette:
-   - scheme: default
-     primary: deep-purple
-     accent: pink
    - scheme: slate
-     primary: deep-purple
+     toggle:
+      icon: material/brightness-7 
+      name: Dark Mode
+     primary: purple
      accent: pink
+   - scheme: default
+     toggle:
+      icon: material/brightness-7 
+      name: Light Mode
+     primary: blue
+     accent: deep orange
   features:
     - navigation.instant
     - navigation.tracking
     - toc.integrate
 
-nav:
-  - Home: index.md
-  - System Design:
-      - Load Balancer: HLD/load-balancer.md
 
 
 markdown_extensions:
-  - admonition
-  - pymdownx.superfences
-  - pymdownx.tabbed
-  - pymdownx.inlinehilite
-  - toc:
-      permalink: true
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 plugins:
   - search

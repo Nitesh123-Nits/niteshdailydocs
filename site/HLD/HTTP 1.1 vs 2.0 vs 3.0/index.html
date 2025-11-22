@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../Fan-out%20vs%20Fan-in/">
+      
+      
+        <link rel="next" href="../Hot%20Key/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
@@ -322,14 +336,1832 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Distributed System/load-balancer.md" class="md-nav__link">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -370,12 +2202,12 @@
   
 
 
-<h1 id="1-introduction-what-http-is-and-why-it-changed">1. Introduction — what HTTP is and why it changed<a class="headerlink" href="#1-introduction-what-http-is-and-why-it-changed" title="Permanent link">&para;</a></h1>
+<h1 id="1-introduction-what-http-is-and-why-it-changed">1. Introduction — what HTTP is and why it changed</h1>
 <p>HTTP (HyperText Transfer Protocol) is the application-layer protocol that web clients (browsers, crawlers, mobile apps) use to request resources from servers (HTML, CSS, JS, images, API responses). It defines <em>message formats</em>, <em>request/response semantics</em>, and (across versions) how those messages get carried over the network.</p>
 <p>Why newer HTTP versions were needed: the web grew from simple pages to rich, asset-heavy applications. Latency and bandwidth became dominant user-experience factors. Each HTTP revision attempted to reduce latency, make better use of network/bandwidth, and avoid inefficiencies (extra handshakes, redundant connections, and head-of-line blocking) that slowed page loads.</p>
 <hr />
-<h1 id="2-http10-http11-architecture-mechanics-and-pain-points">2. HTTP/1.0 → HTTP/1.1 — architecture, mechanics, and pain points<a class="headerlink" href="#2-http10-http11-architecture-mechanics-and-pain-points" title="Permanent link">&para;</a></h1>
-<h2 id="architecture-and-working-mechanism-http1x">Architecture and working mechanism (HTTP/1.x)<a class="headerlink" href="#architecture-and-working-mechanism-http1x" title="Permanent link">&para;</a></h2>
+<h1 id="2-http10-http11-architecture-mechanics-and-pain-points">2. HTTP/1.0 → HTTP/1.1 — architecture, mechanics, and pain points</h1>
+<h2 id="architecture-and-working-mechanism-http1x">Architecture and working mechanism (HTTP/1.x)</h2>
 <ul>
 <li>
 <p><strong>Textual protocol</strong>: Requests and responses are plain text (start-line, headers, blank line, body).</p>
@@ -387,7 +2219,7 @@
 <p><strong>HTTP/1.0</strong> (early web): commonly used one TCP connection per request (though servers/clients sometimes allowed keep-alive as an extension).</p>
 </li>
 </ul>
-<h2 id="key-limitations-in-http10-and-11">Key limitations in HTTP/1.0 and 1.1<a class="headerlink" href="#key-limitations-in-http10-and-11" title="Permanent link">&para;</a></h2>
+<h2 id="key-limitations-in-http10-and-11">Key limitations in HTTP/1.0 and 1.1</h2>
 <ul>
 <li>
 <p><strong>One request per connection (originally)</strong> → lots of TCP connections for pages with many resources (images, scripts, CSS).</p>
@@ -405,7 +2237,7 @@
 <p><strong>Blocking/parsing complexity</strong>: chunked or unknown-length responses were awkward in early implementations.</p>
 </li>
 </ul>
-<h2 id="what-http11-added">What HTTP/1.1 added<a class="headerlink" href="#what-http11-added" title="Permanent link">&para;</a></h2>
+<h2 id="what-http11-added">What HTTP/1.1 added</h2>
 <ul>
 <li>
 <p><strong>Persistent connections by default (Connection: keep-alive)</strong> — reuse TCP connections for multiple requests/responses, removing the need to re-establish TCP for every resource.</p>
@@ -420,7 +2252,7 @@
 <p><strong>Host header requirement</strong>, range requests, better caching semantics, and more header fields for robust behavior.</p>
 </li>
 </ul>
-<h2 id="remaining-problems-after-http11">Remaining problems after HTTP/1.1<a class="headerlink" href="#remaining-problems-after-http11" title="Permanent link">&para;</a></h2>
+<h2 id="remaining-problems-after-http11">Remaining problems after HTTP/1.1</h2>
 <ul>
 <li>
 <p><strong>No true multiplexing</strong>: either one request at a time per connection, or pipelining which still enforced ordered responses → still blocked by the slow resource.</p>
@@ -434,9 +2266,9 @@
 </ul>
 <p><strong>Real-world impact:</strong> pages with dozens/hundreds of assets were slow because of connection churn and serialized transfers; mobile and high-latency networks suffered most.</p>
 <hr />
-<h1 id="3-http2-how-it-addressed-http1x-problems">3. HTTP/2 — how it addressed HTTP/1.x problems<a class="headerlink" href="#3-http2-how-it-addressed-http1x-problems" title="Permanent link">&para;</a></h1>
+<h1 id="3-http2-how-it-addressed-http1x-problems">3. HTTP/2 — how it addressed HTTP/1.x problems</h1>
 <p>HTTP/2 is an evolution that keeps application semantics (methods, status codes, URIs, headers) but changes how bytes flow on the wire.</p>
-<h2 id="core-technical-features">Core technical features<a class="headerlink" href="#core-technical-features" title="Permanent link">&para;</a></h2>
+<h2 id="core-technical-features">Core technical features</h2>
 <ol>
 <li>
 <p><strong>Binary framing layer</strong></p>
@@ -469,15 +2301,15 @@
 </ul>
 </li>
 </ol>
-<h2 id="how-multiplexing-solved-application-level-hol">How multiplexing solved application-level HOL<a class="headerlink" href="#how-multiplexing-solved-application-level-hol" title="Permanent link">&para;</a></h2>
+<h2 id="how-multiplexing-solved-application-level-hol">How multiplexing solved application-level HOL</h2>
 <ul>
 <li>Under HTTP/1.x, a single connection served one request at a time — a slow response blocked the next. HTTP/2 multiplexes many streams on the same TCP connection so one stream’s delay (waiting for a resource) does <em>not</em> block concurrent streams at the <em>application framing</em> level.</li>
 </ul>
-<h2 id="why-http2-still-experienced-hol-blocking-transport-level">Why HTTP/2 still experienced HOL blocking (transport-level)<a class="headerlink" href="#why-http2-still-experienced-hol-blocking-transport-level" title="Permanent link">&para;</a></h2>
+<h2 id="why-http2-still-experienced-hol-blocking-transport-level">Why HTTP/2 still experienced HOL blocking (transport-level)</h2>
 <ul>
 <li>Because HTTP/2 multiplexes over <strong>TCP</strong>, which guarantees <em>in-order delivery</em> of bytes, TCP will hold back later packets until missing earlier packets are retransmitted and received. So if packet loss occurs, all streams using that TCP connection can experience delay until the lost packet(s) are recovered. This is <strong>transport-layer HOL blocking</strong> (distinct from the earlier application-level HOL that multiplexing removed).</li>
 </ul>
-<h2 id="benefits-of-http2">Benefits of HTTP/2<a class="headerlink" href="#benefits-of-http2" title="Permanent link">&para;</a></h2>
+<h2 id="benefits-of-http2">Benefits of HTTP/2</h2>
 <ul>
 <li>
 <p><strong>Lower latency for pages</strong> (fewer connections, multiplexing).</p>
@@ -492,14 +2324,14 @@
 <p><strong>Smaller headers on the wire</strong> (HPACK).</p>
 </li>
 </ul>
-<h2 id="practical-caveats-and-adoption-notes">Practical caveats and adoption notes<a class="headerlink" href="#practical-caveats-and-adoption-notes" title="Permanent link">&para;</a></h2>
+<h2 id="practical-caveats-and-adoption-notes">Practical caveats and adoption notes</h2>
 <ul>
 <li>Server push had theory appeal but practical complexity (cache management, wasted pushes) led to mixed adoption and eventual deprecation in browsers (see Section 6). (<a href="https://developer.chrome.com/blog/removing-push?utm_source=chatgpt.com" title="Remove HTTP/2 Server Push from Chrome | Blog">Chrome for Developers</a>)</li>
 </ul>
 <hr />
-<h1 id="4-http3-the-quic-revolution">4. HTTP/3 — the QUIC revolution<a class="headerlink" href="#4-http3-the-quic-revolution" title="Permanent link">&para;</a></h1>
+<h1 id="4-http3-the-quic-revolution">4. HTTP/3 — the QUIC revolution</h1>
 <p>HTTP/3 rethinks the transport. Instead of riding over TCP, HTTP/3 uses <strong>QUIC</strong>, a transport built on top of UDP that incorporates many features traditionally provided by TCP + TLS but redesigned for modern needs.</p>
-<h2 id="what-is-quic">What is QUIC?<a class="headerlink" href="#what-is-quic" title="Permanent link">&para;</a></h2>
+<h2 id="what-is-quic">What is QUIC?</h2>
 <ul>
 <li>
 <p>QUIC is a UDP-based transport protocol that implements:</p>
@@ -519,11 +2351,11 @@
 </ul>
 </li>
 </ul>
-<h2 id="how-quic-eliminates-transport-level-hol-blocking">How QUIC eliminates transport-level HOL blocking<a class="headerlink" href="#how-quic-eliminates-transport-level-hol-blocking" title="Permanent link">&para;</a></h2>
+<h2 id="how-quic-eliminates-transport-level-hol-blocking">How QUIC eliminates transport-level HOL blocking</h2>
 <ul>
 <li>QUIC provides <strong>per-stream framing and delivery</strong>: packet loss for a frame on stream A does <em>not</em> block progress on stream B — streams are independent. Retransmissions occur only for lost data on the affected stream. This eliminates TCP’s global in-order delivery HOL blocking for multiplexed HTTP traffic.</li>
 </ul>
-<h2 id="handshake-0-rtt-and-1-rtt">Handshake: 0-RTT and 1-RTT<a class="headerlink" href="#handshake-0-rtt-and-1-rtt" title="Permanent link">&para;</a></h2>
+<h2 id="handshake-0-rtt-and-1-rtt">Handshake: 0-RTT and 1-RTT</h2>
 <ul>
 <li>
 <p><strong>1-RTT</strong>: Initial QUIC handshake (with TLS 1.3 integrated) typically completes in one round-trip (client → server → client), faster than separate TCP 3-way + TLS 1.3 which often needs 1–2 RTTs.</p>
@@ -533,7 +2365,7 @@
 </li>
 </ul>
 <p>Cloudflare’s and other operators’ analyses document QUIC’s handshake benefits and 0-RTT results. (<a href="https://blog.cloudflare.com/even-faster-connection-establishment-with-quic-0-rtt-resumption/?utm_source=chatgpt.com" title="Even faster connection establishment with QUIC 0-RTT ...">The Cloudflare Blog</a>)</p>
-<h2 id="benefits-specifically-enabled-by-quichttp3">Benefits specifically enabled by QUIC/HTTP/3<a class="headerlink" href="#benefits-specifically-enabled-by-quichttp3" title="Permanent link">&para;</a></h2>
+<h2 id="benefits-specifically-enabled-by-quichttp3">Benefits specifically enabled by QUIC/HTTP/3</h2>
 <ul>
 <li>
 <p><strong>True stream independence</strong> → removes transport HOL blocking.</p>
@@ -551,7 +2383,7 @@
 <p><strong>Better performance on lossy networks</strong> (less penalty per packet loss because loss only affects the stream with lost packets), improving mobile and long-fat networks.</p>
 </li>
 </ul>
-<h2 id="quic-vs-tcp-retransmission-behavior">QUIC vs TCP retransmission behavior<a class="headerlink" href="#quic-vs-tcp-retransmission-behavior" title="Permanent link">&para;</a></h2>
+<h2 id="quic-vs-tcp-retransmission-behavior">QUIC vs TCP retransmission behavior</h2>
 <ul>
 <li>
 <p><strong>TCP</strong>: In-order delivery globally on the connection. Lost packet causes blocking until retransmitted and received — affects <em>all</em> streams sharing the connection.</p>
@@ -561,7 +2393,7 @@
 </li>
 </ul>
 <hr />
-<h1 id="5-comparative-summary-table">5. Comparative summary table<a class="headerlink" href="#5-comparative-summary-table" title="Permanent link">&para;</a></h1>
+<h1 id="5-comparative-summary-table">5. Comparative summary table</h1>
 <table>
 <thead>
 <tr>
@@ -632,8 +2464,8 @@
 </tbody>
 </table>
 <hr />
-<h1 id="6-real-world-impact-adoption-and-practical-notes">6. Real-world impact, adoption, and practical notes<a class="headerlink" href="#6-real-world-impact-adoption-and-practical-notes" title="Permanent link">&para;</a></h1>
-<h2 id="how-upgrades-improved-web-performance-ux">How upgrades improved web performance / UX<a class="headerlink" href="#how-upgrades-improved-web-performance-ux" title="Permanent link">&para;</a></h2>
+<h1 id="6-real-world-impact-adoption-and-practical-notes">6. Real-world impact, adoption, and practical notes</h1>
+<h2 id="how-upgrades-improved-web-performance-ux">How upgrades improved web performance / UX</h2>
 <ul>
 <li>
 <p><strong>Faster page loads</strong>: multiplexing (HTTP/2) and reduced handshake/0-RTT (HTTP/3) lower time-to-first-byte and time-to-interactive for many pages.</p>
@@ -648,7 +2480,7 @@
 <p><strong>Bandwidth efficiency</strong>: header compression and fewer redundant retransmissions reduce bytes sent.</p>
 </li>
 </ul>
-<h2 id="adoption-status-broad-overview">Adoption status (broad overview)<a class="headerlink" href="#adoption-status-broad-overview" title="Permanent link">&para;</a></h2>
+<h2 id="adoption-status-broad-overview">Adoption status (broad overview)</h2>
 <ul>
 <li>
 <p><strong>HTTP/2</strong>: Widely adopted by browsers, CDNs, and servers for several years — de facto standard for encrypted HTTP traffic.</p>
@@ -657,15 +2489,15 @@
 <p><strong>HTTP/3</strong>: Rapid adoption across browsers and CDNs. Major browsers have shipped HTTP/3 support (Chromium-based browsers, Firefox, Safari) and many large CDNs (Cloudflare, Fastly, Akamai, Cloud providers) support HTTP/3 on their edges. Browser and CDN support has grown steeply from 2020 onward and by the mid-2020s HTTP/3 is supported by the majority of modern clients and a growing share of origin/edge servers. (<a href="https://caniuse.com/http3?utm_source=chatgpt.com" title="HTTP/3 protocol | Can I use... Support tables for HTML5, ...">caniuse.com</a>)</p>
 </li>
 </ul>
-<h2 id="server-push-reality">Server push reality<a class="headerlink" href="#server-push-reality" title="Permanent link">&para;</a></h2>
+<h2 id="server-push-reality">Server push reality</h2>
 <ul>
 <li>Server Push looked promising in HTTP/2 but in practice caused correctness and caching complexities. Major browser vendors moved to disable or remove push support (Chrome disabled by default; Firefox removed push support), and many operators recommend using alternatives like <strong>103 Early Hints</strong> to inform clients about resources to fetch. (<a href="https://developer.chrome.com/blog/removing-push?utm_source=chatgpt.com" title="Remove HTTP/2 Server Push from Chrome | Blog">Chrome for Developers</a>)</li>
 </ul>
-<h2 id="cdns-and-http3">CDNs and HTTP/3<a class="headerlink" href="#cdns-and-http3" title="Permanent link">&para;</a></h2>
+<h2 id="cdns-and-http3">CDNs and HTTP/3</h2>
 <ul>
 <li>Many leading CDNs and edge providers support HTTP/3 today (Cloudflare, Akamai, Fastly, major cloud CDNs) and it’s available as an option or enabled by default in their offerings — enabling servers to serve clients over QUIC/HTTP/3 from the edge. (<a href="https://www.willshall.com/top-20-cdn-providers-in-2025/?utm_source=chatgpt.com" title="Top 20 CDN Providers in 2025">WillShall</a>)</li>
 </ul>
-<h2 id="future-trends">Future trends<a class="headerlink" href="#future-trends" title="Permanent link">&para;</a></h2>
+<h2 id="future-trends">Future trends</h2>
 <ul>
 <li>
 <p><strong>HTTP/3 adoption will continue to rise</strong> and likely become the default for encrypted web traffic where QUIC is allowed on the network path.</p>
@@ -678,7 +2510,7 @@
 </li>
 </ul>
 <hr />
-<h1 id="7-concise-conclusion-one-line-per-version">7. Concise conclusion (one-line per version)<a class="headerlink" href="#7-concise-conclusion-one-line-per-version" title="Permanent link">&para;</a></h1>
+<h1 id="7-concise-conclusion-one-line-per-version">7. Concise conclusion (one-line per version)</h1>
 <ul>
 <li>
 <p><strong>HTTP/1.x →</strong> Simplistic request-response textual protocol that worked for small pages but suffered from many connections and serialized requests.</p>
@@ -692,34 +2524,34 @@
 </ul>
 <p>Each step built on the previous: HTTP/1.1 fixed obvious inefficiencies; HTTP/2 changed the framing and concurrency model; HTTP/3 rethought the transport to eliminate remaining transport-level limitations.</p>
 <hr />
-<h1 id="8-optional-visuals-quick-ascii-diagrams-conceptual-timeline">8. (Optional visuals — quick ASCII diagrams &amp; conceptual timeline)<a class="headerlink" href="#8-optional-visuals-quick-ascii-diagrams-conceptual-timeline" title="Permanent link">&para;</a></h1>
-<h2 id="timeline-simple">Timeline (simple)<a class="headerlink" href="#timeline-simple" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>HTTP/1.0 (text)  →  HTTP/1.1 (persistent conn, pipelining, chunked)  →  HTTP/2 (binary frames, multiplexing, HPACK)  →  HTTP/3 (QUIC over UDP, QPACK, 0/1-RTT)
-</code></pre></div>
-<h2 id="packetstream-conceptual-difference-very-simplified">Packet/stream conceptual difference (very simplified)<a class="headerlink" href="#packetstream-conceptual-difference-very-simplified" title="Permanent link">&para;</a></h2>
+<h1 id="8-optional-visuals-quick-ascii-diagrams-conceptual-timeline">8. (Optional visuals — quick ASCII diagrams &amp; conceptual timeline)</h1>
+<h2 id="timeline-simple">Timeline (simple)</h2>
+<pre><code>HTTP/1.0 (text)  →  HTTP/1.1 (persistent conn, pipelining, chunked)  →  HTTP/2 (binary frames, multiplexing, HPACK)  →  HTTP/3 (QUIC over UDP, QPACK, 0/1-RTT)
+</code></pre>
+<h2 id="packetstream-conceptual-difference-very-simplified">Packet/stream conceptual difference (very simplified)</h2>
 <p><strong>HTTP/2 over TCP (multiplexed streams but single byte-stream):</strong></p>
-<div class="highlight"><pre><span></span><code>TCP stream: [ bytes in-order ]  &lt;- one TCP flow
+<pre><code>TCP stream: [ bytes in-order ]  &lt;- one TCP flow
 Frames for Stream A, B interleaved → if a packet with Stream A bytes lost, TCP blocks delivery of later bytes (affects Stream B)
-</code></pre></div>
+</code></pre>
 <p><strong>HTTP/3 over QUIC (multiplexed, per-stream):</strong></p>
-<div class="highlight"><pre><span></span><code>QUIC connection:
-  Stream A frames  --&gt; retransmit only A&#39;s lost packets
-  Stream B frames  --&gt; unaffected by A&#39;s loss
+<pre><code>QUIC connection:
+  Stream A frames  --&gt; retransmit only A's lost packets
+  Stream B frames  --&gt; unaffected by A's loss
 Packets carry stream frames with independent flow control and loss recovery.
-</code></pre></div>
-<h2 id="http2-frame-multiplexing-concept">HTTP/2 frame multiplexing (concept)<a class="headerlink" href="#http2-frame-multiplexing-concept" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>Client opens TCP
+</code></pre>
+<h2 id="http2-frame-multiplexing-concept">HTTP/2 frame multiplexing (concept)</h2>
+<pre><code>Client opens TCP
 Client: [HEADERS(stream1)] [DATA(stream1-part1)]
 Client: [HEADERS(stream2)]
 Server: [DATA(stream2)] [DATA(stream1-part2)]
 (Frames interleaved; client/server reassembles by stream id)
-</code></pre></div>
-<h2 id="quic-stream-independence-concept">QUIC stream independence (concept)<a class="headerlink" href="#quic-stream-independence-concept" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>Client sends QUIC packet 1 (stream 1 parts)
+</code></pre>
+<h2 id="quic-stream-independence-concept">QUIC stream independence (concept)</h2>
+<pre><code>Client sends QUIC packet 1 (stream 1 parts)
 Client sends QUIC packet 2 (stream 2 parts)
 Packet 1 lost =&gt; retransmit stream 1 frames only
 Stream 2 data in packet 2 still delivered to application
-</code></pre></div>
+</code></pre>
 <hr />
 
 

@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../../DevOps/Helm%20Chart/">
+      
+      
+        <link rel="next" href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
@@ -322,14 +336,1832 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Distributed System/load-balancer.md" class="md-nav__link">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Var%20%2C%20Sealed%20class%2C%20Record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -372,7 +2204,7 @@
 
 <p>Clean, interview-ready, system-design-level explanation of <strong>distributed transactions</strong>, <strong>why Sagas exist</strong>, <strong>orchestration vs choreography</strong>, when to use which, and how to answer interview questions with confidence.</p>
 <hr />
-<h1 id="why-distributed-transactions-are-hard">🔥 Why Distributed Transactions Are Hard<a class="headerlink" href="#why-distributed-transactions-are-hard" title="Permanent link">&para;</a></h1>
+<h1 id="why-distributed-transactions-are-hard">🔥 Why Distributed Transactions Are Hard</h1>
 <p>When you split your system into microservices, each service manages its own <strong>database</strong> and <strong>business logic</strong>.<br />
 A transaction that spans multiple services can no longer rely on:</p>
 <ul>
@@ -386,22 +2218,22 @@ A transaction that spans multiple services can no longer rely on:</p>
 <p>So you need a pattern that ensures <strong>eventual consistency</strong> without blocking resources.</p>
 <p>That’s where <strong>Saga Pattern</strong> comes in.</p>
 <hr />
-<h1 id="what-is-saga-pattern">🎯 What Is Saga Pattern?<a class="headerlink" href="#what-is-saga-pattern" title="Permanent link">&para;</a></h1>
+<h1 id="what-is-saga-pattern">🎯 What Is Saga Pattern?</h1>
 <p>A <strong>Saga</strong> is a sequence of <strong>local transactions</strong> where each step updates its own service/database and then triggers the next step using events.</p>
 <p>If a step fails, the Saga triggers <strong>compensating transactions</strong> to undo the previous steps.</p>
 <p>Example:<br />
 Order → Payment → Inventory → Shipping<br />
 If Shipping fails → Undo Inventory → Undo Payment → Cancel Order</p>
 <hr />
-<h1 id="two-types-of-saga">⚡ Two Types of Saga<a class="headerlink" href="#two-types-of-saga" title="Permanent link">&para;</a></h1>
+<h1 id="two-types-of-saga">⚡ Two Types of Saga</h1>
 <p>![[Pasted image 20251122170019.png]]</p>
 <p>There are <strong>two coordination styles</strong>:</p>
 <hr />
-<h1 id="1-saga-choreography-event-driven">1️⃣ Saga Choreography (Event-Driven)<a class="headerlink" href="#1-saga-choreography-event-driven" title="Permanent link">&para;</a></h1>
+<h1 id="1-saga-choreography-event-driven">1️⃣ Saga Choreography (Event-Driven)</h1>
 <p>![[Pasted image 20251122170113.png]]</p>
 <p><strong>No central coordinator</strong>.<br />
 Each service listens to events and performs the next action.</p>
-<h3 id="flow">Flow:<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<h3 id="flow">Flow:</h3>
 <ol>
 <li>
 <p>Order Service → publishes <em>OrderCreated</em></p>
@@ -417,7 +2249,7 @@ Each service listens to events and performs the next action.</p>
 </li>
 </ol>
 <p>If an error occurs → publish a failure event → previous services listen and run compensations.</p>
-<h3 id="advantages">✔ Advantages<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h3>
+<h3 id="advantages">✔ Advantages</h3>
 <ul>
 <li>
 <p>Very loosely coupled</p>
@@ -432,7 +2264,7 @@ Each service listens to events and performs the next action.</p>
 <p>Event-driven → easy to extend</p>
 </li>
 </ul>
-<h3 id="disadvantages">✘ Disadvantages<a class="headerlink" href="#disadvantages" title="Permanent link">&para;</a></h3>
+<h3 id="disadvantages">✘ Disadvantages</h3>
 <ul>
 <li>
 <p>Harder to understand end-to-end flow</p>
@@ -447,7 +2279,7 @@ Each service listens to events and performs the next action.</p>
 <p>Risk of “event storm” → too many event types</p>
 </li>
 </ul>
-<h3 id="when-to-use">👉 When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
+<h3 id="when-to-use">👉 When to Use</h3>
 <ul>
 <li>
 <p>Business workflow is simple</p>
@@ -462,15 +2294,15 @@ Each service listens to events and performs the next action.</p>
 <p>Event-driven architecture already exists (Kafka, RabbitMQ)</p>
 </li>
 </ul>
-<h3 id="interview-points">Interview points<a class="headerlink" href="#interview-points" title="Permanent link">&para;</a></h3>
+<h3 id="interview-points">Interview points</h3>
 <blockquote>
 <p>“Choreography is ideal when the transaction flow is simple, services are autonomous, and we want high scalability without a central coordinator.”</p>
 </blockquote>
 <hr />
-<h1 id="2-saga-orchestration-central-controller">2️⃣ Saga Orchestration (Central Controller)<a class="headerlink" href="#2-saga-orchestration-central-controller" title="Permanent link">&para;</a></h1>
+<h1 id="2-saga-orchestration-central-controller">2️⃣ Saga Orchestration (Central Controller)</h1>
 <p>![[Pasted image 20251122170206.png]]</p>
 <p>A <strong>central Saga orchestrator</strong> commands all services.</p>
-<h3 id="flow_1">Flow:<a class="headerlink" href="#flow_1" title="Permanent link">&para;</a></h3>
+<h3 id="flow_1">Flow:</h3>
 <ol>
 <li>
 <p>Orchestrator → calls Payment → waits for response</p>
@@ -485,7 +2317,7 @@ Each service listens to events and performs the next action.</p>
 <p>If failure → orchestrator calls compensations</p>
 </li>
 </ol>
-<h3 id="advantages_1">✔ Advantages<a class="headerlink" href="#advantages_1" title="Permanent link">&para;</a></h3>
+<h3 id="advantages_1">✔ Advantages</h3>
 <ul>
 <li>
 <p>Single point for workflow logic</p>
@@ -500,7 +2332,7 @@ Each service listens to events and performs the next action.</p>
 <p>Predictable flow</p>
 </li>
 </ul>
-<h3 id="disadvantages_1">✘ Disadvantages<a class="headerlink" href="#disadvantages_1" title="Permanent link">&para;</a></h3>
+<h3 id="disadvantages_1">✘ Disadvantages</h3>
 <ul>
 <li>
 <p>Orchestrator becomes a dependency</p>
@@ -512,7 +2344,7 @@ Each service listens to events and performs the next action.</p>
 <p>Can grow complex as workflow grows</p>
 </li>
 </ul>
-<h3 id="when-to-use_1">👉 When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h3>
+<h3 id="when-to-use_1">👉 When to Use</h3>
 <ul>
 <li>
 <p>Complex, long-running workflows</p>
@@ -527,12 +2359,12 @@ Each service listens to events and performs the next action.</p>
 <p>Strict business rules (approval flows, retries, deadlines)</p>
 </li>
 </ul>
-<h3 id="interview-points_1">Interview points<a class="headerlink" href="#interview-points_1" title="Permanent link">&para;</a></h3>
+<h3 id="interview-points_1">Interview points</h3>
 <blockquote>
 <p>“Orchestration works best when you want a clear, centrally managed business workflow with strong observability.”</p>
 </blockquote>
 <hr />
-<h1 id="orchestration-vs-choreography-short-comparison">🥊 Orchestration vs Choreography — Short Comparison<a class="headerlink" href="#orchestration-vs-choreography-short-comparison" title="Permanent link">&para;</a></h1>
+<h1 id="orchestration-vs-choreography-short-comparison">🥊 Orchestration vs Choreography — Short Comparison</h1>
 <table>
 <thead>
 <tr>
@@ -580,36 +2412,36 @@ Each service listens to events and performs the next action.</p>
 </tbody>
 </table>
 <hr />
-<h1 id="how-to-answer-in-interviews">🧠 How to Answer in Interviews<a class="headerlink" href="#how-to-answer-in-interviews" title="Permanent link">&para;</a></h1>
-<h3 id="1-what-problem-does-saga-solve">❓1. What problem does Saga solve?<a class="headerlink" href="#1-what-problem-does-saga-solve" title="Permanent link">&para;</a></h3>
+<h1 id="how-to-answer-in-interviews">🧠 How to Answer in Interviews</h1>
+<h3 id="1-what-problem-does-saga-solve">❓1. What problem does Saga solve?</h3>
 <blockquote>
 <p>“Saga solves the problem of achieving eventual consistency across microservices without using distributed locking or 2PC. It breaks a big transaction into smaller local transactions with compensating actions.”</p>
 </blockquote>
-<h3 id="2-when-do-you-use-saga">❓2. When do you use Saga?<a class="headerlink" href="#2-when-do-you-use-saga" title="Permanent link">&para;</a></h3>
+<h3 id="2-when-do-you-use-saga">❓2. When do you use Saga?</h3>
 <blockquote>
 <p>“Whenever a business transaction touches multiple microservices and requires eventual consistency and rollback semantics.”</p>
 </blockquote>
-<h3 id="3-difference-between-orchestration-and-choreography">❓3. Difference between Orchestration and Choreography?<a class="headerlink" href="#3-difference-between-orchestration-and-choreography" title="Permanent link">&para;</a></h3>
+<h3 id="3-difference-between-orchestration-and-choreography">❓3. Difference between Orchestration and Choreography?</h3>
 <blockquote>
 <p>“Choreography is event-driven without a central controller; orchestration has a central coordinator that directs each step.”</p>
 </blockquote>
-<h3 id="4-which-one-should-you-choose">❓4. Which one should you choose?<a class="headerlink" href="#4-which-one-should-you-choose" title="Permanent link">&para;</a></h3>
+<h3 id="4-which-one-should-you-choose">❓4. Which one should you choose?</h3>
 <p>Give a balanced answer:</p>
 <blockquote>
 <p>“If the workflow is simple and we want loose coupling, I choose choreography.<br />
 For complex workflows, involving many services, with clear visibility and rules, I choose orchestration.”</p>
 </blockquote>
-<h3 id="5-why-not-use-distributed-transactions-with-2pc">❓5. Why not use distributed transactions with 2PC?<a class="headerlink" href="#5-why-not-use-distributed-transactions-with-2pc" title="Permanent link">&para;</a></h3>
+<h3 id="5-why-not-use-distributed-transactions-with-2pc">❓5. Why not use distributed transactions with 2PC?</h3>
 <blockquote>
 <p>“2PC introduces locking, blocking, single point of failure, coordination overhead, and is not cloud-friendly. Sagas avoid this by using eventual consistency.”</p>
 </blockquote>
-<h3 id="6-how-do-compensating-transactions-work">❓6. How do compensating transactions work?<a class="headerlink" href="#6-how-do-compensating-transactions-work" title="Permanent link">&para;</a></h3>
+<h3 id="6-how-do-compensating-transactions-work">❓6. How do compensating transactions work?</h3>
 <blockquote>
 <p>“Each service defines a reverse action that restores state if later steps fail.”</p>
 </blockquote>
 <hr />
-<h1 id="a-real-world-example-interview-gold">🧩 A Real-World Example (Interview Gold)<a class="headerlink" href="#a-real-world-example-interview-gold" title="Permanent link">&para;</a></h1>
-<h3 id="example-use-case-online-order-flow">Example use case: Online Order Flow<a class="headerlink" href="#example-use-case-online-order-flow" title="Permanent link">&para;</a></h3>
+<h1 id="a-real-world-example-interview-gold">🧩 A Real-World Example (Interview Gold)</h1>
+<h3 id="example-use-case-online-order-flow">Example use case: Online Order Flow</h3>
 <p><strong>Choreography</strong> → small startups</p>
 <ul>
 <li>
@@ -630,7 +2462,7 @@ For complex workflows, involving many services, with clear visibility and rules,
 </ul>
 <p>Interviewers love when you tie the concept to domain workflows.</p>
 <hr />
-<h1 id="final-recommendation">🏆 Final Recommendation<a class="headerlink" href="#final-recommendation" title="Permanent link">&para;</a></h1>
+<h1 id="final-recommendation">🏆 Final Recommendation</h1>
 <p><strong>Use Choreography</strong> when:<br />
 ✔ 3–5 services<br />
 ✔ Simple flow<br />
@@ -642,7 +2474,7 @@ For complex workflows, involving many services, with clear visibility and rules,
 ✔ Need audit, monitoring, observability<br />
 ✔ Long-running business processes</p>
 <hr />
-<h2 id="question-2pc-vs-saga">Question 2PC vs Saga<a class="headerlink" href="#question-2pc-vs-saga" title="Permanent link">&para;</a></h2>
+<h2 id="question-2pc-vs-saga">Question 2PC vs Saga</h2>
 <p><strong>Clear, interview-ready, engineering-accurate comparison</strong> between <strong>2PC (Two-Phase Commit)</strong> and the <strong>Saga Pattern</strong>, along with <em>why modern distributed systems choose Saga over 2PC</em>.</p>
 <p>I’ll give you:</p>
 <p>✔ Deep conceptual difference<br />
@@ -652,10 +2484,10 @@ For complex workflows, involving many services, with clear visibility and rules,
 ✔ When 2PC is still used<br />
 ✔ Interview-ready short answers</p>
 <hr />
-<h1 id="first-what-2pc-tries-to-solve">🚀 First: What 2PC Tries to Solve<a class="headerlink" href="#first-what-2pc-tries-to-solve" title="Permanent link">&para;</a></h1>
+<h1 id="first-what-2pc-tries-to-solve">🚀 First: What 2PC Tries to Solve</h1>
 <p>2PC (Two-Phase Commit) tries to ensure that <strong>multiple databases</strong> commit or roll back together <strong>atomically</strong>, as if they were a single database.</p>
 <p>It does this by using a <strong>Transaction Coordinator</strong> and <strong>Prepare + Commit</strong> protocol.</p>
-<h3 id="2pc-flow">2PC Flow<a class="headerlink" href="#2pc-flow" title="Permanent link">&para;</a></h3>
+<h3 id="2pc-flow">2PC Flow</h3>
 <p>![[Pasted image 20251122170519.png]]
 ![[Pasted image 20251122170542.png]]</p>
 <p>1️⃣ <strong>Prepare Phase</strong><br />
@@ -672,10 +2504,10 @@ Each service locks resources and replies YES/NO.</p>
 </ul>
 <p>Sounds perfect — but reality is different.</p>
 <hr />
-<h1 id="why-2pc-fails-in-modern-distributed-systems">❌ Why 2PC Fails in Modern Distributed Systems<a class="headerlink" href="#why-2pc-fails-in-modern-distributed-systems" title="Permanent link">&para;</a></h1>
+<h1 id="why-2pc-fails-in-modern-distributed-systems">❌ Why 2PC Fails in Modern Distributed Systems</h1>
 <p>Below are <strong>practical engineering reasons</strong> why cloud-native systems <em>avoid</em> 2PC.</p>
 <hr />
-<h2 id="1-resource-locking-blocking-low-throughput">1. <strong>Resource Locking → Blocking → Low Throughput</strong><a class="headerlink" href="#1-resource-locking-blocking-low-throughput" title="Permanent link">&para;</a></h2>
+<h2 id="1-resource-locking-blocking-low-throughput">1. <strong>Resource Locking → Blocking → Low Throughput</strong></h2>
 <p>During “Prepare”, each service <strong>locks rows/tables</strong> until commit.</p>
 <p>This causes:</p>
 <ul>
@@ -693,13 +2525,13 @@ Each service locks resources and replies YES/NO.</p>
 </li>
 </ul>
 <p>In distributed microservices, a single workflow might touch many services → locks everywhere → system becomes slow.</p>
-<h3 id="saga-solution">Saga Solution<a class="headerlink" href="#saga-solution" title="Permanent link">&para;</a></h3>
+<h3 id="saga-solution">Saga Solution</h3>
 <p>Sagas <strong>never lock anything</strong> across services.</p>
 <p>Each local transaction commits immediately.<br />
 If something fails later → compensating transactions undo prior actions.</p>
 <p><strong>No locks. No blocking.</strong></p>
 <hr />
-<h2 id="2-coordinator-single-point-of-failure">2. <strong>Coordinator = Single Point of Failure</strong><a class="headerlink" href="#2-coordinator-single-point-of-failure" title="Permanent link">&para;</a></h2>
+<h2 id="2-coordinator-single-point-of-failure">2. <strong>Coordinator = Single Point of Failure</strong></h2>
 <p>If the coordinator dies <strong>after prepare but before commit</strong>, participants sit with resources locked, waiting forever.</p>
 <p>You need:</p>
 <ul>
@@ -718,7 +2550,7 @@ If something fails later → compensating transactions undo prior actions.</p>
 </ul>
 <p>Saga eliminates the coordinator or uses a <strong>stateless orchestrator</strong>.</p>
 <hr />
-<h2 id="3-not-cloud-friendly-not-horizontal-scalable">3. <strong>Not Cloud-Friendly / Not Horizontal Scalable</strong><a class="headerlink" href="#3-not-cloud-friendly-not-horizontal-scalable" title="Permanent link">&para;</a></h2>
+<h2 id="3-not-cloud-friendly-not-horizontal-scalable">3. <strong>Not Cloud-Friendly / Not Horizontal Scalable</strong></h2>
 <p>Modern systems are:</p>
 <ul>
 <li>
@@ -749,12 +2581,12 @@ If something fails later → compensating transactions undo prior actions.</p>
 <p>This breaks in cloud-native setups.</p>
 <p>Saga is built <strong>for unreliable networks and async systems</strong>.</p>
 <hr />
-<h2 id="4-no-support-for-long-running-transactions">4. <strong>No Support for Long-Running Transactions</strong><a class="headerlink" href="#4-no-support-for-long-running-transactions" title="Permanent link">&para;</a></h2>
+<h2 id="4-no-support-for-long-running-transactions">4. <strong>No Support for Long-Running Transactions</strong></h2>
 <p>If a workflow takes minutes/hours (e.g., user payment approval):</p>
 <p>2PC cannot keep locks for that long.</p>
 <p>Saga supports long-running workflows naturally.</p>
 <hr />
-<h2 id="5-tight-coupling">5. <strong>Tight Coupling</strong><a class="headerlink" href="#5-tight-coupling" title="Permanent link">&para;</a></h2>
+<h2 id="5-tight-coupling">5. <strong>Tight Coupling</strong></h2>
 <p>2PC couples services at the transaction boundary:</p>
 <ul>
 <li>
@@ -780,11 +2612,11 @@ If something fails later → compensating transactions undo prior actions.</p>
 </li>
 </ul>
 <hr />
-<h2 id="6-poor-failure-recovery">6. <strong>Poor Failure Recovery</strong><a class="headerlink" href="#6-poor-failure-recovery" title="Permanent link">&para;</a></h2>
+<h2 id="6-poor-failure-recovery">6. <strong>Poor Failure Recovery</strong></h2>
 <p>If a participant commits but crashes before informing coordinator → inconsistent state.</p>
 <p>Saga uses compensating transactions → recovery is clean and predictable.</p>
 <hr />
-<h2 id="7-high-latency">7. <strong>High Latency</strong><a class="headerlink" href="#7-high-latency" title="Permanent link">&para;</a></h2>
+<h2 id="7-high-latency">7. <strong>High Latency</strong></h2>
 <p>2PC requires:</p>
 <ul>
 <li>
@@ -799,7 +2631,7 @@ If something fails later → compensating transactions undo prior actions.</p>
 </ul>
 <p>Saga is asynchronous → high throughput.</p>
 <hr />
-<h2 id="2pc-vs-saga-pattern-comparison-table">📊 <strong>2PC vs Saga Pattern — Comparison Table</strong><a class="headerlink" href="#2pc-vs-saga-pattern-comparison-table" title="Permanent link">&para;</a></h2>
+<h2 id="2pc-vs-saga-pattern-comparison-table">📊 <strong>2PC vs Saga Pattern — Comparison Table</strong></h2>
 <table>
 <thead>
 <tr>
@@ -872,21 +2704,21 @@ If something fails later → compensating transactions undo prior actions.</p>
 </tbody>
 </table>
 <hr />
-<h1 id="what-saga-solves-that-2pc-cannot">🤯 What Saga Solves That 2PC Cannot<a class="headerlink" href="#what-saga-solves-that-2pc-cannot" title="Permanent link">&para;</a></h1>
-<h3 id="1-eventual-consistency-across-independently-owned-services"><strong>1. Eventual consistency across independently owned services</strong><a class="headerlink" href="#1-eventual-consistency-across-independently-owned-services" title="Permanent link">&para;</a></h3>
+<h1 id="what-saga-solves-that-2pc-cannot">🤯 What Saga Solves That 2PC Cannot</h1>
+<h3 id="1-eventual-consistency-across-independently-owned-services"><strong>1. Eventual consistency across independently owned services</strong></h3>
 <p>2PC assumes all participants share a global transactional context — not practical in microservices.</p>
-<h3 id="2-ability-to-run-long-running-business-processes"><strong>2. Ability to run long-running business processes</strong><a class="headerlink" href="#2-ability-to-run-long-running-business-processes" title="Permanent link">&para;</a></h3>
+<h3 id="2-ability-to-run-long-running-business-processes"><strong>2. Ability to run long-running business processes</strong></h3>
 <p>Saga can span seconds, minutes, or hours.</p>
-<h3 id="3-no-distributed-locking"><strong>3. No distributed locking</strong><a class="headerlink" href="#3-no-distributed-locking" title="Permanent link">&para;</a></h3>
+<h3 id="3-no-distributed-locking"><strong>3. No distributed locking</strong></h3>
 <p>Saga commits each step independently → non-blocking.</p>
-<h3 id="4-better-resilience-in-partial-failures"><strong>4. Better resilience in partial failures</strong><a class="headerlink" href="#4-better-resilience-in-partial-failures" title="Permanent link">&para;</a></h3>
+<h3 id="4-better-resilience-in-partial-failures"><strong>4. Better resilience in partial failures</strong></h3>
 <p>Saga compensates, which is domain-aware and safer.</p>
-<h3 id="5-works-with-async-communication-kafka-rabbitmq"><strong>5. Works with async communication (Kafka, RabbitMQ)</strong><a class="headerlink" href="#5-works-with-async-communication-kafka-rabbitmq" title="Permanent link">&para;</a></h3>
+<h3 id="5-works-with-async-communication-kafka-rabbitmq"><strong>5. Works with async communication (Kafka, RabbitMQ)</strong></h3>
 <p>2PC requires synchronous round trips.</p>
-<h3 id="6-cloud-native-scalable-fault-tolerant"><strong>6. Cloud-native, scalable, fault-tolerant</strong><a class="headerlink" href="#6-cloud-native-scalable-fault-tolerant" title="Permanent link">&para;</a></h3>
+<h3 id="6-cloud-native-scalable-fault-tolerant"><strong>6. Cloud-native, scalable, fault-tolerant</strong></h3>
 <p>Designed for async, unreliable networks.</p>
 <hr />
-<h1 id="when-to-use-2pc-rare-but-still-exists">🧠 When to Use 2PC (Rare but still exists)<a class="headerlink" href="#when-to-use-2pc-rare-but-still-exists" title="Permanent link">&para;</a></h1>
+<h1 id="when-to-use-2pc-rare-but-still-exists">🧠 When to Use 2PC (Rare but still exists)</h1>
 <p>Use 2PC <strong>only when</strong>:</p>
 <ul>
 <li>
@@ -918,7 +2750,7 @@ If something fails later → compensating transactions undo prior actions.</p>
 </li>
 </ul>
 <hr />
-<h1 id="when-to-use-saga-modern-default">🏆 When to Use Saga (Modern Default)<a class="headerlink" href="#when-to-use-saga-modern-default" title="Permanent link">&para;</a></h1>
+<h1 id="when-to-use-saga-modern-default">🏆 When to Use Saga (Modern Default)</h1>
 <p>Use Saga when:</p>
 <ul>
 <li>
@@ -941,7 +2773,7 @@ If something fails later → compensating transactions undo prior actions.</p>
 </li>
 </ul>
 <hr />
-<h1 id="interview-ready-answer-short-perfect">💬 Interview-Ready Answer (Short &amp; Perfect)<a class="headerlink" href="#interview-ready-answer-short-perfect" title="Permanent link">&para;</a></h1>
+<h1 id="interview-ready-answer-short-perfect">💬 Interview-Ready Answer (Short &amp; Perfect)</h1>
 <blockquote>
 <p>“2PC guarantees strong consistency but introduces locking, blocking, coordination overhead, and a single point of failure. It is not scalable and doesn’t work well in cloud-native microservices.</p>
 <p>Saga avoids locks by breaking a global transaction into multiple local transactions with compensating actions. It supports asynchronous communication, long-running workflows, and high scalability.</p>

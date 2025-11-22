@@ -6,19 +6,23 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+        <meta name="description" content="Technical notes, system design, distributed system, Spring Boot, microservices">
       
       
         <meta name="author" content="Nitesh">
       
       
       
+        <link rel="prev" href="../UUID/">
+      
+      
+        <link rel="next" href="../Virtual%20Thread/">
       
       
         
       
       
-      <link rel="icon" href="../../images/logo.png">
+      <link rel="icon" href="../../logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
     
     
@@ -65,7 +69,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +96,8 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -122,13 +127,21 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="purple" data-md-color-accent="pink"  aria-label="Dark Mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark Mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light Mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light Mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
 </form>
@@ -221,7 +234,8 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
       
-  <img src="../../images/logo.png" alt="logo">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M20.8 34c16.5-6.2 35 2.2 41.2 18.7l110.2 294L257.3 55c4-13.7 16.5-23 30.7-23s26.7 9.4 30.7 23l85.1 291.7L514 52.8c6.2-16.5 24.6-24.9 41.2-18.7s25 24.6 18.8 41.1l-144 384c-4.8 12.9-17.4 21.3-31.2 20.7s-25.7-9.8-29.5-23L288 178.3 206.7 457c-3.9 13.2-15.8 22.5-29.5 23s-26.3-7.8-31.2-20.7L2 75.2c-6.2-16.5 2.2-35 18.8-41.2"/></svg>
 
     </a>
     Nitesh Notes
@@ -255,7 +269,7 @@
   <span class="md-ellipsis">
     
   
-    Home
+    👋 Welcome to Nitesh Notes
   
 
     
@@ -293,7 +307,7 @@
   <span class="md-ellipsis">
     
   
-    System Design
+    DevOps
   
 
     
@@ -309,7 +323,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    System Design
+    DevOps
   
 
           </label>
@@ -322,14 +336,2198 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Distributed System/load-balancer.md" class="md-nav__link">
+      <a href="../../DevOps/Containerization%20Evolution/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Load Balancer
+    Containerization Evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DevOps/Helm%20Chart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Sytem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Distributed Sytem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed%20Sytem/Saga%20%2C%202PC%20%28%20Distributed%20Transaction%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga , 2PC ( Distributed Transaction)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excalidraw
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Excalidraw
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.27.37.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.27.37.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Excalidraw/Drawing%202025-11-22%2015.28.35.excalidraw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drawing 2025 11 22 15.28.35.excalidraw
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/CQRS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CQRS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Centralization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Centralization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Distributed%20Monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distributed Monolith
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Fan-out%20vs%20Fan-in/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan out vs Fan in
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/HTTP%201.1%20vs%202.0%20vs%203.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introduction — what HTTP is and why it changed
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Hot%20Key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot Key
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Load%20balancer%20vs%20Reverse%20proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer vs Reverse proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20Queue%20vs%20Pub-Sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Queue vs Pub Sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Message%20vs%20Command%20vs%20Event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message vs Command vs Event
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Mobile%20System%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mobile System Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Polyglot%20Architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Polyglot Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Programming%20Language%20and%20Service%20Design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming Language and Service Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Rate%20Limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rate Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/SQL%20vs%20No-Sql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL vs No Sql
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Saga%20Pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga Pattern
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Transactional%20Outbox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transactional Outbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/Websocket%20vs%20Webhook%20vs%20SSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Websocket vs Webhook vs SSE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD/load-balancer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Java
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Annotation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Conditional%20Bean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditional Bean
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Date%20Time/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🕒 Mastering Java Time &amp; Date API (java.time): A Complete Guide with Real-World Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Fluent%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluent API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Functional%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Inner%20Class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inner Class
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%20IO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java IO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Marker%20Interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marker Interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Java Optional — a production-grade, expert guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Static%20vs%20Default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Static vs Default
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Stream%20API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stream API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UUID/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UUID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Var , Sealed class, Record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-var-local-variable-type-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 1. var (Local Variable Type Inference)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 1. var (Local Variable Type Inference)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Notes:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-tip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Interview Tip:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-this-keyword" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 2. this Keyword
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 2. this Keyword">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-tip_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Interview Tip:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-inner-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 3. Inner Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 3. Inner Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-of-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Example of All:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Use Cases:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-tip_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Interview Tip:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-record-java-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 4. record (Java 16)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 4. record (Java 16)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Notes:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-tip_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Interview Tip:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sealed-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sealed Class
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sealed Class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-sealed-classes-java-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 5. sealed Classes (Java 17)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 5. sealed Classes (Java 17)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyword-meanings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔍 Keyword Meanings:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-it-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Why It Exists:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-world-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Real-World Use Case:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interview-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Interview Insights:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-in-enterprise-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Example in Enterprise Modeling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Virtual%20Thread/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Thread
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLD
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20BookMyShow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD BookMyShow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Cache%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Cache System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20File%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD File System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Food%20Delivery%20App/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Food Delivery App
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Interview%20Questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Logging%20System/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Logging System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../LLD/LLD%20Payment%20Gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLD Payment Gateway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Inter%20Service%20Communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inter Service Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microservices/Resilience4j/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resilience4j
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SpringBoot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SpringBoot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/API%20Versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Object%20Mapper%20%2C%20Model%20Mapper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Mapper , Model Mapper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Reactive%20Programming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reactive Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SpringBoot/Spring%20AOP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring AOP
   
 
     
@@ -377,27 +2575,27 @@
 4️⃣ <code>record</code> class</p>
 <p>Each with <strong>code snippet + explanation + interview use case</strong> 👇</p>
 <hr />
-<h2 id="1-var-local-variable-type-inference">🧩 1. <code>var</code> (Local Variable Type Inference)<a class="headerlink" href="#1-var-local-variable-type-inference" title="Permanent link">&para;</a></h2>
+<h2 id="1-var-local-variable-type-inference">🧩 1. <code>var</code> (Local Variable Type Inference)</h2>
 <p>Introduced in <strong>Java 10</strong>, <code>var</code> lets the compiler infer the type of a local variable.</p>
-<h3 id="example">✅ Example:<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">VarExample</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Nitesh&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// inferred as String</span>
-<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">28</span><span class="p">;</span><span class="w">        </span><span class="c1">// inferred as int</span>
-<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">List</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;Java&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Spring&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Microservices&quot;</span><span class="p">);</span>
+<h3 id="example">✅ Example:</h3>
+<pre><code class="language-java">public class VarExample {
+    public static void main(String[] args) {
+        var name = &quot;Nitesh&quot;; // inferred as String
+        var age = 28;        // inferred as int
+        var list = java.util.List.of(&quot;Java&quot;, &quot;Spring&quot;, &quot;Microservices&quot;);
 
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Name: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, Age: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">age</span><span class="p">);</span>
-<span class="w">        </span><span class="n">list</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="notes">💡 Notes:<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+        System.out.println(&quot;Name: &quot; + name + &quot;, Age: &quot; + age);
+        list.forEach(System.out::println);
+    }
+}
+</code></pre>
+<h3 id="notes">💡 Notes:</h3>
 <ul>
 <li>Can only be used for <strong>local variables</strong>, <strong>loops</strong>, and <strong>try-with-resources</strong>.</li>
 <li>Type must be <strong>inferrable at compile time</strong>.</li>
 <li>Not for fields, method parameters, or return types.</li>
 </ul>
-<h3 id="interview-tip">🧠 Interview Tip:<a class="headerlink" href="#interview-tip" title="Permanent link">&para;</a></h3>
+<h3 id="interview-tip">🧠 Interview Tip:</h3>
 <blockquote>
 <p><strong>Q:</strong> Why was <code>var</code> introduced?
 <strong>A:</strong> To improve code readability, reduce verbosity, and encourage cleaner local variable declarations.
@@ -405,36 +2603,36 @@
 <strong>A:</strong> No, because the compiler can’t infer the type.</p>
 </blockquote>
 <hr />
-<h2 id="2-this-keyword">🧩 2. <code>this</code> Keyword<a class="headerlink" href="#2-this-keyword" title="Permanent link">&para;</a></h2>
+<h2 id="2-this-keyword">🧩 2. <code>this</code> Keyword</h2>
 <p><code>this</code> refers to the <strong>current instance</strong> of the class — commonly used to:</p>
 <ul>
 <li>Differentiate between instance and local variables</li>
 <li>Invoke current object’s methods</li>
 <li>Pass the current object as a parameter</li>
 </ul>
-<h3 id="example_1">✅ Example:<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">Employee</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<h3 id="example_1">✅ Example:</h3>
+<pre><code class="language-java">class Employee {
+    private String name;
+    private int id;
 
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Employee</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w"> </span><span class="c1">// differentiates local variable from instance variable</span>
-<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+    public Employee(String name, int id) {
+        this.name = name; // differentiates local variable from instance variable
+        this.id = id;
+    }
 
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">show</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Employee: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;, ID: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">id</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+    void show() {
+        System.out.println(&quot;Employee: &quot; + this.name + &quot;, ID: &quot; + this.id);
+    }
+}
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ThisKeywordExample</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Employee</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Employee</span><span class="p">(</span><span class="s">&quot;Nitesh&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">);</span>
-<span class="w">        </span><span class="n">emp</span><span class="p">.</span><span class="na">show</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="interview-tip_1">🧠 Interview Tip:<a class="headerlink" href="#interview-tip_1" title="Permanent link">&para;</a></h3>
+public class ThisKeywordExample {
+    public static void main(String[] args) {
+        Employee emp = new Employee(&quot;Nitesh&quot;, 101);
+        emp.show();
+    }
+}
+</code></pre>
+<h3 id="interview-tip_1">🧠 Interview Tip:</h3>
 <blockquote>
 <p><strong>Q:</strong> When do you use <code>this()</code>?
 <strong>A:</strong> To call another constructor in the same class.
@@ -442,9 +2640,9 @@
 <strong>A:</strong> No — static doesn’t belong to an instance.</p>
 </blockquote>
 <hr />
-<h2 id="3-inner-classes">🧩 3. Inner Classes<a class="headerlink" href="#3-inner-classes" title="Permanent link">&para;</a></h2>
+<h2 id="3-inner-classes">🧩 3. Inner Classes</h2>
 <p>Inner classes provide <strong>encapsulation</strong> and <strong>logical grouping</strong> of classes that are only relevant to their enclosing class.</p>
-<h3 id="types">Types:<a class="headerlink" href="#types" title="Permanent link">&para;</a></h3>
+<h3 id="types">Types:</h3>
 <ol>
 <li><strong>Non-static (Member Inner Class)</strong></li>
 <li><strong>Static Nested Class</strong></li>
@@ -452,63 +2650,63 @@
 <li><strong>Anonymous Inner Class</strong></li>
 </ol>
 <hr />
-<h3 id="example-of-all">✅ Example of All:<a class="headerlink" href="#example-of-all" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OuterClass</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">outerField</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Outer Field&quot;</span><span class="p">;</span>
+<h3 id="example-of-all">✅ Example of All:</h3>
+<pre><code class="language-java">public class OuterClass {
+    private String outerField = &quot;Outer Field&quot;;
 
-<span class="w">    </span><span class="c1">// 1️⃣ Member Inner Class</span>
-<span class="w">    </span><span class="kd">class</span> <span class="nc">InnerClass</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Accessing: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">outerField</span><span class="p">);</span><span class="w"> </span><span class="c1">// can access outer instance members</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+    // 1️⃣ Member Inner Class
+    class InnerClass {
+        void display() {
+            System.out.println(&quot;Accessing: &quot; + outerField); // can access outer instance members
+        }
+    }
 
-<span class="w">    </span><span class="c1">// 2️⃣ Static Nested Class</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kd">class</span> <span class="nc">StaticNested</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">show</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Static nested class can’t access outer instance fields directly&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+    // 2️⃣ Static Nested Class
+    static class StaticNested {
+        void show() {
+            System.out.println(&quot;Static nested class can’t access outer instance fields directly&quot;);
+        }
+    }
 
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">localAndAnonymousExamples</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// 3️⃣ Local Inner Class</span>
-<span class="w">        </span><span class="kd">class</span> <span class="nc">LocalInner</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Inside local inner class&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">LocalInner</span><span class="p">().</span><span class="na">print</span><span class="p">();</span>
+    void localAndAnonymousExamples() {
+        // 3️⃣ Local Inner Class
+        class LocalInner {
+            void print() {
+                System.out.println(&quot;Inside local inner class&quot;);
+            }
+        }
+        new LocalInner().print();
 
-<span class="w">        </span><span class="c1">// 4️⃣ Anonymous Inner Class</span>
-<span class="w">        </span><span class="n">Runnable</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Runnable</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Anonymous inner class running...&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">};</span>
-<span class="w">        </span><span class="n">r</span><span class="p">.</span><span class="na">run</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
+        // 4️⃣ Anonymous Inner Class
+        Runnable r = new Runnable() {
+            public void run() {
+                System.out.println(&quot;Anonymous inner class running...&quot;);
+            }
+        };
+        r.run();
+    }
 
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">OuterClass</span><span class="w"> </span><span class="n">outer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OuterClass</span><span class="p">();</span>
+    public static void main(String[] args) {
+        OuterClass outer = new OuterClass();
 
-<span class="w">        </span><span class="n">OuterClass</span><span class="p">.</span><span class="na">InnerClass</span><span class="w"> </span><span class="n">inner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outer</span><span class="p">.</span><span class="na">new</span><span class="w"> </span><span class="nf">InnerClass</span><span class="p">();</span>
-<span class="w">        </span><span class="n">inner</span><span class="p">.</span><span class="na">display</span><span class="p">();</span>
+        OuterClass.InnerClass inner = outer.new InnerClass();
+        inner.display();
 
-<span class="w">        </span><span class="n">OuterClass</span><span class="p">.</span><span class="na">StaticNested</span><span class="w"> </span><span class="n">staticNested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">OuterClass</span><span class="p">.</span><span class="na">StaticNested</span><span class="p">();</span>
-<span class="w">        </span><span class="n">staticNested</span><span class="p">.</span><span class="na">show</span><span class="p">();</span>
+        OuterClass.StaticNested staticNested = new OuterClass.StaticNested();
+        staticNested.show();
 
-<span class="w">        </span><span class="n">outer</span><span class="p">.</span><span class="na">localAndAnonymousExamples</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="use-cases">💡 Use Cases:<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+        outer.localAndAnonymousExamples();
+    }
+}
+</code></pre>
+<h3 id="use-cases">💡 Use Cases:</h3>
 <ul>
 <li><strong>Member Inner Class</strong> → when class logically belongs to outer class (e.g., <code>Entry</code> in <code>Map</code>).</li>
 <li><strong>Static Nested Class</strong> → utility/helper inside outer class without holding reference to it.</li>
 <li><strong>Local Inner Class</strong> → encapsulate behavior used only inside one method.</li>
 <li><strong>Anonymous Inner Class</strong> → concise instantiation for one-time use (e.g., callbacks, listeners).</li>
 </ul>
-<h3 id="interview-tip_2">🧠 Interview Tip:<a class="headerlink" href="#interview-tip_2" title="Permanent link">&para;</a></h3>
+<h3 id="interview-tip_2">🧠 Interview Tip:</h3>
 <blockquote>
 <p><strong>Q:</strong> Difference between static nested and inner class?
 <strong>A:</strong> Static nested doesn’t hold implicit reference to the outer instance.
@@ -516,26 +2714,26 @@
 <strong>A:</strong> In event handling, comparator definitions, etc.</p>
 </blockquote>
 <hr />
-<h2 id="4-record-java-16">🧩 4. <code>record</code> (Java 16)<a class="headerlink" href="#4-record-java-16" title="Permanent link">&para;</a></h2>
+<h2 id="4-record-java-16">🧩 4. <code>record</code> (Java 16)</h2>
 <p>Introduced in <strong>Java 14 (preview)</strong> and <strong>finalized in Java 16</strong>,
 <code>record</code> provides a compact way to create <strong>immutable data carriers</strong>.</p>
-<h3 id="example_2">✅ Example:<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">record</span> <span class="nc">EmployeeRecord</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// You can still add methods</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">formattedInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;Employee[name=%s, id=%d, salary=%.2f]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+<h3 id="example_2">✅ Example:</h3>
+<pre><code class="language-java">public record EmployeeRecord(String name, int id, double salary) {
+    // You can still add methods
+    public String formattedInfo() {
+        return String.format(&quot;Employee[name=%s, id=%d, salary=%.2f]&quot;, name, id, salary);
+    }
+}
 
-<span class="kd">class</span> <span class="nc">RecordExample</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">EmployeeRecord</span><span class="w"> </span><span class="n">emp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">EmployeeRecord</span><span class="p">(</span><span class="s">&quot;Nitesh&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span><span class="w"> </span><span class="mf">55000.00</span><span class="p">);</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">emp</span><span class="p">.</span><span class="na">name</span><span class="p">());</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">emp</span><span class="p">.</span><span class="na">formattedInfo</span><span class="p">());</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="notes_1">💡 Notes:<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h3>
+class RecordExample {
+    public static void main(String[] args) {
+        EmployeeRecord emp = new EmployeeRecord(&quot;Nitesh&quot;, 101, 55000.00);
+        System.out.println(emp.name());
+        System.out.println(emp.formattedInfo());
+    }
+}
+</code></pre>
+<h3 id="notes_1">💡 Notes:</h3>
 <ul>
 <li>
 <p>Automatically generates:</p>
@@ -548,7 +2746,7 @@
 <li><code>toString()</code>, <code>equals()</code>, <code>hashCode()</code></li>
 <li>Immutable by design.</li>
 </ul>
-<h3 id="interview-tip_3">🧠 Interview Tip:<a class="headerlink" href="#interview-tip_3" title="Permanent link">&para;</a></h3>
+<h3 id="interview-tip_3">🧠 Interview Tip:</h3>
 <blockquote>
 <p><strong>Q:</strong> Why use <code>record</code> over class?
 <strong>A:</strong> For <strong>data-transfer</strong>, <strong>DTOs</strong>, <strong>value objects</strong>, reducing boilerplate.
@@ -556,7 +2754,7 @@
 <strong>A:</strong> No, but it can <strong>implement interfaces</strong>.</p>
 </blockquote>
 <hr />
-<h2 id="summary-table">🔍 Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h2>
+<h2 id="summary-table">🔍 Summary Table</h2>
 <table>
 <thead>
 <tr>
@@ -594,55 +2792,55 @@
 </tbody>
 </table>
 <hr />
-<h1 id="sealed-class">Sealed Class<a class="headerlink" href="#sealed-class" title="Permanent link">&para;</a></h1>
+<h1 id="sealed-class">Sealed Class</h1>
 <p>Excellent addition — <strong>sealed classes</strong> (introduced in <strong>Java 17</strong>) are one of the most important modern Java features for <strong>controlled inheritance</strong> and <strong>pattern matching readiness</strong>.</p>
 <p>Let’s go step-by-step just like before 👇</p>
 <hr />
-<h2 id="5-sealed-classes-java-17">🧩 5. <code>sealed</code> Classes (Java 17)<a class="headerlink" href="#5-sealed-classes-java-17" title="Permanent link">&para;</a></h2>
-<h3 id="concept">🧠 Concept:<a class="headerlink" href="#concept" title="Permanent link">&para;</a></h3>
+<h2 id="5-sealed-classes-java-17">🧩 5. <code>sealed</code> Classes (Java 17)</h2>
+<h3 id="concept">🧠 Concept:</h3>
 <p>A <strong>sealed class</strong> restricts which other classes can <strong>extend or implement it</strong>.
 It enforces a <strong>fixed inheritance hierarchy</strong>, improving <strong>domain modeling</strong>, <strong>type safety</strong>, and <strong>exhaustive pattern matching</strong>.</p>
 <hr />
-<h3 id="example_3">✅ Example:<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Shape</span><span class="w"> </span><span class="n">permits</span><span class="w"> </span><span class="n">Circle</span><span class="p">,</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">,</span><span class="w"> </span><span class="n">Square</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">area</span><span class="p">();</span>
-<span class="p">}</span>
+<h3 id="example_3">✅ Example:</h3>
+<pre><code class="language-java">sealed class Shape permits Circle, Rectangle, Square {
+    abstract double area();
+}
 
-<span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Circle</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Circle</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="nd">@Override</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">area</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">PI</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
+final class Circle extends Shape {
+    private final double radius;
+    Circle(double radius) { this.radius = radius; }
+    @Override
+    double area() { return Math.PI * radius * radius; }
+}
 
-<span class="n">non</span><span class="o">-</span><span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Rectangle</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">// can be extended further</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">breadth</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Rectangle</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">breadth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="nd">@Override</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">area</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">breadth</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
+non-sealed class Rectangle extends Shape {  // can be extended further
+    private final double length, breadth;
+    Rectangle(double l, double b) { this.length = l; this.breadth = b; }
+    @Override
+    double area() { return length * breadth; }
+}
 
-<span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Square</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">side</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Square</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">side</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">side</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="nd">@Override</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="nf">area</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">side</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
+final class Square extends Shape {
+    private final double side;
+    Square(double side) { this.side = side; }
+    @Override
+    double area() { return side * side; }
+}
 
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SealedClassExample</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Shape</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Circle</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
-<span class="w">        </span><span class="n">Shape</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">);</span>
-<span class="w">        </span><span class="n">Shape</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Square</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+public class SealedClassExample {
+    public static void main(String[] args) {
+        Shape c = new Circle(5);
+        Shape r = new Rectangle(4, 6);
+        Shape s = new Square(3);
 
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Circle area: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">area</span><span class="p">());</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Rectangle area: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="na">area</span><span class="p">());</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Square area: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">area</span><span class="p">());</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+        System.out.println(&quot;Circle area: &quot; + c.area());
+        System.out.println(&quot;Rectangle area: &quot; + r.area());
+        System.out.println(&quot;Square area: &quot; + s.area());
+    }
+}
+</code></pre>
 <hr />
-<h3 id="keyword-meanings">🔍 Keyword Meanings:<a class="headerlink" href="#keyword-meanings" title="Permanent link">&para;</a></h3>
+<h3 id="keyword-meanings">🔍 Keyword Meanings:</h3>
 <table>
 <thead>
 <tr>
@@ -670,7 +2868,7 @@ It enforces a <strong>fixed inheritance hierarchy</strong>, improving <strong>do
 </tbody>
 </table>
 <hr />
-<h3 id="why-it-exists">💡 Why It Exists:<a class="headerlink" href="#why-it-exists" title="Permanent link">&para;</a></h3>
+<h3 id="why-it-exists">💡 Why It Exists:</h3>
 <p>Before Java 17, inheritance was <strong>open-ended</strong> — any class could extend a non-final class, leading to:</p>
 <ul>
 <li>Fragile hierarchies</li>
@@ -679,22 +2877,22 @@ It enforces a <strong>fixed inheritance hierarchy</strong>, improving <strong>do
 </ul>
 <p>Sealed classes solve this by <strong>making inheritance explicit</strong>.</p>
 <hr />
-<h3 id="real-world-use-case">🧱 Real-World Use Case:<a class="headerlink" href="#real-world-use-case" title="Permanent link">&para;</a></h3>
+<h3 id="real-world-use-case">🧱 Real-World Use Case:</h3>
 <ul>
 <li>Modeling <strong>finite domain hierarchies</strong>, e.g. <code>Payment → CreditCardPayment, UpiPayment, CashPayment</code>.</li>
 <li>Used with <strong>pattern matching switch</strong> for exhaustive checks (from Java 21 onward):</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">describeShape</span><span class="p">(</span><span class="n">Shape</span><span class="w"> </span><span class="n">shape</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">Circle</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Circle with area &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">area</span><span class="p">();</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Rectangle with area &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="na">area</span><span class="p">();</span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">Square</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Square with area &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">area</span><span class="p">();</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-java">static String describeShape(Shape shape) {
+    return switch (shape) {
+        case Circle c -&gt; &quot;Circle with area &quot; + c.area();
+        case Rectangle r -&gt; &quot;Rectangle with area &quot; + r.area();
+        case Square s -&gt; &quot;Square with area &quot; + s.area();
+    };
+}
+</code></pre>
 <p>The compiler ensures all permitted subclasses are handled — no <code>default</code> case required. ✅</p>
 <hr />
-<h3 id="interview-insights">🧠 Interview Insights:<a class="headerlink" href="#interview-insights" title="Permanent link">&para;</a></h3>
+<h3 id="interview-insights">🧠 Interview Insights:</h3>
 <table>
 <thead>
 <tr>
@@ -722,7 +2920,7 @@ It enforces a <strong>fixed inheritance hierarchy</strong>, improving <strong>do
 </tbody>
 </table>
 <hr />
-<h3 id="summary-table_1">✅ Summary Table<a class="headerlink" href="#summary-table_1" title="Permanent link">&para;</a></h3>
+<h3 id="summary-table_1">✅ Summary Table</h3>
 <table>
 <thead>
 <tr>
@@ -754,27 +2952,27 @@ It enforces a <strong>fixed inheritance hierarchy</strong>, improving <strong>do
 </tbody>
 </table>
 <hr />
-<h3 id="example-in-enterprise-modeling">🧱 Example in Enterprise Modeling<a class="headerlink" href="#example-in-enterprise-modeling" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">sealed</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Payment</span><span class="w"> </span><span class="n">permits</span><span class="w"> </span><span class="n">CreditCardPayment</span><span class="p">,</span><span class="w"> </span><span class="n">UpiPayment</span><span class="p">,</span><span class="w"> </span><span class="n">CashPayment</span><span class="w"> </span><span class="p">{}</span>
+<h3 id="example-in-enterprise-modeling">🧱 Example in Enterprise Modeling</h3>
+<pre><code class="language-java">sealed interface Payment permits CreditCardPayment, UpiPayment, CashPayment {}
 
-<span class="kd">record</span> <span class="nc">CreditCardPayment</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">cardNumber</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="p">{}</span>
-<span class="kd">record</span> <span class="nc">UpiPayment</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">upiId</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="p">{}</span>
-<span class="kd">record</span> <span class="nc">CashPayment</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="p">{}</span>
+record CreditCardPayment(String cardNumber, double amount) implements Payment {}
+record UpiPayment(String upiId, double amount) implements Payment {}
+record CashPayment(double amount) implements Payment {}
 
-<span class="kd">class</span> <span class="nc">PaymentProcessor</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">Payment</span><span class="w"> </span><span class="n">payment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">payment</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">CreditCardPayment</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Processing card: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">cardNumber</span><span class="p">());</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">UpiPayment</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Processing UPI: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="na">upiId</span><span class="p">());</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">CashPayment</span><span class="w"> </span><span class="n">cash</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Processing cash of ₹&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cash</span><span class="p">.</span><span class="na">amount</span><span class="p">());</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+class PaymentProcessor {
+    static void process(Payment payment) {
+        switch (payment) {
+            case CreditCardPayment c -&gt; System.out.println(&quot;Processing card: &quot; + c.cardNumber());
+            case UpiPayment u -&gt; System.out.println(&quot;Processing UPI: &quot; + u.upiId());
+            case CashPayment cash -&gt; System.out.println(&quot;Processing cash of ₹&quot; + cash.amount());
+        }
+    }
 
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">process</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">UpiPayment</span><span class="p">(</span><span class="s">&quot;nitesh@upi&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">500.00</span><span class="p">));</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    public static void main(String[] args) {
+        process(new UpiPayment(&quot;nitesh@upi&quot;, 500.00));
+    }
+}
+</code></pre>
 <p>This is an <strong>idiomatic</strong> modern Java approach — sealed interfaces + records = <strong>immutable, exhaustive, and clean domain modeling</strong>.</p>
 <hr />
 
