@@ -13,6 +13,8 @@
       
       
       
+        <link rel="prev" href="../..">
+      
       
       
         
@@ -272,18 +274,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -304,7 +308,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -319,10 +323,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../Distributed System" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -338,116 +367,673 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Saga vs 2PC
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pasted-image-20251122171613png" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ![[Pasted image 20251122171613.png]]
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-high-level-classification-of-load-balancing-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 1. HIGH-LEVEL CLASSIFICATION OF LOAD-BALANCING ALGORITHMS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 1. HIGH-LEVEL CLASSIFICATION OF LOAD-BALANCING ALGORITHMS">
+      <ul class="md-nav__list">
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+          <li class="md-nav__item">
+  <a href="#a-static-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Static Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A. Static Algorithms">
+      <ul class="md-nav__list">
         
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
+          <li class="md-nav__item">
+  <a href="#1-round-robin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Round Robin
+      
+    </span>
+  </a>
   
-  
-  <span class="md-ellipsis">
-    
-  
-    Spring
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+</li>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
+          <li class="md-nav__item">
+  <a href="#2-weighted-round-robin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Weighted Round Robin
+      
+    </span>
+  </a>
   
-    Spring
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+</li>
         
+          <li class="md-nav__item">
+  <a href="#3-ip-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. IP Hash
+      
+    </span>
+  </a>
   
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-url-hash-request-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. URL Hash / Request Hash
+      
+    </span>
+  </a>
   
-  <span class="md-ellipsis">
-    
+</li>
+        
+      </ul>
+    </nav>
   
-    WebFlux
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-dynamic-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Dynamic Algorithms
+      
+    </span>
+  </a>
   
-
-    
-  </span>
+    <nav class="md-nav" aria-label="B. Dynamic Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-least-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Least Connections
+      
+    </span>
+  </a>
   
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-weighted-least-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Weighted Least Connections
+      
+    </span>
+  </a>
   
-
-      </a>
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-least-response-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Least Response Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-resource-based-utilization-based-cpumemorylatency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Resource-Based / Utilization-Based (CPU/Memory/Latency)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-consistent-hashing-distributed-hashing-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Consistent Hashing / Distributed Hashing Family
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C. Consistent Hashing / Distributed Hashing Family">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-consistent-hashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Consistent Hashing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-ring-hashing-ketama-hashing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Ring Hashing / Ketama Hashing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-maglev-hashing-google" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Maglev Hashing (Google)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-advanced-intelligent-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Advanced / Intelligent Algorithms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="D. Advanced / Intelligent Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#12-random-with-two-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Random with Two Choices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-adaptive-load-balancing-feedback-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Adaptive Load Balancing (Feedback-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-latency-based-routing-aws-route-53-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Latency-Based Routing (AWS Route 53 style)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-geo-based-routing-geodns-cdn-lb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Geo-Based Routing (GeoDNS, CDN LB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-algorithms-with-definitions-when-to-use-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 2. ALGORITHMS WITH DEFINITIONS + WHEN TO USE + PITFALLS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 2. ALGORITHMS WITH DEFINITIONS + WHEN TO USE + PITFALLS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-round-robin_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Round Robin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-weighted-round-robin_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Weighted Round Robin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-least-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Least Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-weighted-least-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Weighted Least Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-least-response-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Least Response Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-ip-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. IP Hash
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-url-hash-request-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. URL Hash / Request Hash
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-consistent-hashing-ring-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Consistent Hashing (Ring-Based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-random-with-two-choices-power-of-2-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Random with Two Choices (Power of 2 Choices)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-adaptive-resource-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Adaptive / Resource-Based
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-latency-based-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Latency-Based Routing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-geo-based-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Geo-Based Routing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-which-algorithm-to-use-when-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 3. WHICH ALGORITHM TO USE WHEN (CHEAT SHEET)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-interview-oriented-questions-with-expected-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 4. INTERVIEW-ORIENTED QUESTIONS (With expected answers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✅ 4. INTERVIEW-ORIENTED QUESTIONS (With expected answers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-conceptual-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Conceptual Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A. Conceptual Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-how-does-round-robin-differ-from-least-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. How does Round Robin differ from Least Connections?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-why-is-consistent-hashing-used-in-distributed-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why is Consistent Hashing used in distributed systems?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-why-use-weighted-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Why use Weighted algorithms?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-scenario-based-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Scenario-Based Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B. Scenario-Based Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-your-system-uses-sticky-sessions-which-algorithm-will-you-choose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Your system uses sticky sessions; which algorithm will you choose?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-you-have-long-running-requests-file-uploads-streaming-which-algorithm-fits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. You have long-running requests (file uploads, streaming). Which algorithm fits?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-you-have-a-global-system-deployed-in-5-regions-which-lb-algorithm-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. You have a global system deployed in 5 regions; which LB algorithm to use?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-if-one-server-becomes-slow-but-has-fewer-connections-what-happens-in-least-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. If one server becomes slow but has fewer connections, what happens in Least Connections?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-deep-dive-senior-level-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Deep-Dive / Senior-Level Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C. Deep-Dive / Senior-Level Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-whats-the-problem-with-ip-hash-when-scaling-up-or-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. What’s the problem with IP Hash when scaling up or down?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-how-does-power-of-two-choices-outperform-round-robin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. How does “Power of Two Choices” outperform Round Robin?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-how-do-cdns-use-load-balancing-internally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. How do CDNs use load-balancing internally?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-system-design-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. System-Design Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="D. System-Design Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-if-you-have-1m-requestssec-and-30-servers-which-algorithm-ensures-smooth-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. If you have 1M requests/sec and 30 servers, which algorithm ensures smooth distribution?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-how-does-an-lb-avoid-hotspotting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. How does an LB avoid hotspotting?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-short-summary-interview-friendly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ 5. SHORT SUMMARY (Interview-Friendly)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
