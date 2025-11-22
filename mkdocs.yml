@@ -21,10 +21,7 @@ theme:
 nav:
   - Home: index.md
   - System Design:
-      - Load Balancer: Distributed System
-      - Saga vs 2PC: HLD
-  - Spring:
-      - WebFlux: spring/webflux-best-practices.md
+      - Load Balancer: Distributed System/load-balancer.md
 
 
 markdown_extensions:
