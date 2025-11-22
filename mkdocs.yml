@@ -1,0 +1,42 @@
+site_name: Nitesh Notes
+site_description: Technical notes, system design, Spring Boot, microservices
+site_author: Nitesh
+repo_url: https://github.com/Nitesh123-Nits/niteshdailydocs
+theme:
+  name: material
+  logo: images/logo.png           # optional: path under docs/
+  favicon: images/logo.png
+  palette:
+   - scheme: default
+     primary: deep-purple
+     accent: pink
+   - scheme: slate
+     primary: deep-purple
+     accent: pink
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - toc.integrate
+
+nav:
+  - Home: index.md
+  - System Design:
+      - Load Balancer: Distributed System
+      - Saga vs 2PC: HLD
+  - Spring:
+      - WebFlux: spring/webflux-best-practices.md
+
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+
+# Optional: change docs_dir/build_dir if needed
