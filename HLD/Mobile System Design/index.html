@@ -1,0 +1,1026 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Mobile System Design - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview-system-design-for-web-mobile-applications" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Mobile System Design
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Mobile System Design</h1>
+
+<p>Excellent and <em>very insightful</em> question — this is exactly the kind of thinking that separates a <strong>backend/system design</strong> candidate from a <strong>full-system or mobile-oriented system designer</strong>.</p>
+<p>You’re absolutely right — most system design interviews focus on <strong>backend architecture</strong> (APIs, databases, scaling, caching, etc.), but in <strong>real-world systems</strong>, we almost always serve <strong>multiple clients</strong>:</p>
+<ul>
+<li>
+<p><strong>Web app</strong> (React, Angular, etc.)</p>
+</li>
+<li>
+<p><strong>Mobile app</strong> (Android/iOS)</p>
+</li>
+<li>
+<p>Sometimes even <strong>IoT</strong>, <strong>TV</strong>, or <strong>wearable devices</strong>.</p>
+</li>
+</ul>
+<p>So let’s create a <strong>complete, detailed guide</strong> that focuses on <strong>system design considerations for systems serving both web and mobile clients</strong>, with special emphasis on <strong>mobile application perspectives</strong> (Android, iOS).</p>
+<hr />
+<h2 id="overview-system-design-for-web-mobile-applications">🧭 OVERVIEW: SYSTEM DESIGN FOR WEB + MOBILE APPLICATIONS<a class="headerlink" href="#overview-system-design-for-web-mobile-applications" title="Permanent link">&para;</a></h2>
+<p>When a system has both web and mobile clients, your design now needs to consider:</p>
+<ol>
+<li>
+<p><strong>Network conditions</strong> (mobile ≠ stable Wi-Fi)</p>
+</li>
+<li>
+<p><strong>Data synchronization</strong> (offline-first behavior)</p>
+</li>
+<li>
+<p><strong>API design and efficiency</strong> (mobile bandwidth + battery)</p>
+</li>
+<li>
+<p><strong>Push notifications and background jobs</strong></p>
+</li>
+<li>
+<p><strong>Versioning and backward compatibility</strong></p>
+</li>
+<li>
+<p><strong>Authentication and session management</strong></p>
+</li>
+<li>
+<p><strong>App updates and release cycles</strong></p>
+</li>
+<li>
+<p><strong>App Store &amp; Play Store ecosystem constraints</strong></p>
+</li>
+</ol>
+<hr />
+<h2 id="1-client-differences-and-their-impact-on-design">🧩 1. Client Differences and Their Impact on Design<a class="headerlink" href="#1-client-differences-and-their-impact-on-design" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Web App</th>
+<th>Mobile App</th>
+<th>Design Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Network Stability</strong></td>
+<td>Usually stable (Wi-Fi)</td>
+<td>Unstable, variable (3G/4G/5G)</td>
+<td>APIs must support retries, incremental sync, background sync</td>
+</tr>
+<tr>
+<td><strong>Storage</strong></td>
+<td>Browser local storage</td>
+<td>Local DB (Room, Realm, SQLite)</td>
+<td>Support local caching/offline queue</td>
+</tr>
+<tr>
+<td><strong>Processing Power</strong></td>
+<td>Usually higher</td>
+<td>Limited</td>
+<td>Reduce client logic; use lightweight responses</td>
+</tr>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Continuous deployment possible</td>
+<td>Needs app store release</td>
+<td>Backward-compatible API versions</td>
+</tr>
+<tr>
+<td><strong>Notifications</strong></td>
+<td>Browser notifications (optional)</td>
+<td>Push via FCM/APNs</td>
+<td>Add event-driven notification backend</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-key-backend-design-considerations-for-web-mobile-systems">🛠️ 2. Key Backend Design Considerations for Web + Mobile Systems<a class="headerlink" href="#2-key-backend-design-considerations-for-web-mobile-systems" title="Permanent link">&para;</a></h2>
+<h3 id="a-api-gateway-layer">(a) <strong>API Gateway Layer</strong><a class="headerlink" href="#a-api-gateway-layer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Acts as a single entry point for all clients.</p>
+</li>
+<li>
+<p>Can differentiate between <strong>mobile clients</strong> and <strong>web clients</strong> via headers or tokens.</p>
+</li>
+<li>
+<p>Supports:</p>
+<ul>
+<li>
+<p>API versioning (v1/mobile, v2/web)</p>
+</li>
+<li>
+<p>Rate limiting per client type</p>
+</li>
+<li>
+<p>Authentication delegation (JWT, OAuth2)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you design an API gateway that serves both mobile and web apps efficiently?</p>
+</blockquote>
+<hr />
+<h3 id="b-data-synchronization-and-offline-support">(b) <strong>Data Synchronization and Offline Support</strong><a class="headerlink" href="#b-data-synchronization-and-offline-support" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Mobile apps often work offline — so you need:</p>
+<ul>
+<li>
+<p><strong>Sync queue / job service</strong></p>
+</li>
+<li>
+<p><strong>Conflict resolution logic</strong> (e.g., last-write-wins, CRDTs)</p>
+</li>
+<li>
+<p><strong>Delta updates</strong> (send only changed data)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Backend might maintain <strong>sync timestamps</strong> or <strong>version numbers</strong> per resource.</p>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How do you design a note-taking app that syncs offline data from mobile when the user reconnects?</p>
+</blockquote>
+<hr />
+<h3 id="c-api-efficiency">(c) <strong>API Efficiency</strong><a class="headerlink" href="#c-api-efficiency" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Mobile devices are bandwidth and battery-sensitive.<br />
+    Design APIs with:</p>
+</li>
+<li>
+<p><strong>Pagination</strong> and <strong>partial responses</strong> (GraphQL or REST with query parameters)</p>
+</li>
+<li>
+<p><strong>Compression</strong> (gzip, Brotli)</p>
+</li>
+<li>
+<p><strong>Batch endpoints</strong> (send multiple requests together)</p>
+</li>
+<li>
+<p><strong>Content negotiation</strong> (e.g., send light JSON or binary protobuf)</p>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you optimize APIs for low-bandwidth mobile networks?</p>
+</blockquote>
+<hr />
+<h3 id="d-push-notifications-background-updates">(d) <strong>Push Notifications &amp; Background Updates</strong><a class="headerlink" href="#d-push-notifications-background-updates" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Use <strong>Firebase Cloud Messaging (FCM)</strong> or <strong>Apple Push Notification Service (APNs)</strong>.</p>
+</li>
+<li>
+<p>Backend should integrate an <strong>event-driven system</strong> (Kafka, SNS/SQS, or Pub/Sub) to trigger push messages.</p>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you design a notification system for a chat app that supports both web and mobile?</p>
+</blockquote>
+<hr />
+<h3 id="e-authentication-and-session-management">(e) <strong>Authentication and Session Management</strong><a class="headerlink" href="#e-authentication-and-session-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>For mobile:</p>
+<ul>
+<li>
+<p>Use <strong>JWT tokens</strong> stored securely (EncryptedSharedPrefs, Keychain)</p>
+</li>
+<li>
+<p>Refresh tokens periodically</p>
+</li>
+<li>
+<p>Support <strong>social login</strong> (Google, Apple)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Backend must handle:</p>
+<ul>
+<li>
+<p>Token revocation</p>
+</li>
+<li>
+<p>Device management (e.g., logout from one device)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you design secure authentication for mobile users with token-based auth?</p>
+</blockquote>
+<hr />
+<h3 id="f-versioning-and-backward-compatibility">(f) <strong>Versioning and Backward Compatibility</strong><a class="headerlink" href="#f-versioning-and-backward-compatibility" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Web apps can be updated easily; mobile apps cannot.</p>
+</li>
+<li>
+<p>Maintain multiple API versions.</p>
+</li>
+<li>
+<p>Include <code>X-App-Version</code> header for adaptive responses.</p>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you handle backward compatibility when new API features break older mobile clients?</p>
+</blockquote>
+<hr />
+<h3 id="g-monitoring-and-crash-reporting">(g) <strong>Monitoring and Crash Reporting</strong><a class="headerlink" href="#g-monitoring-and-crash-reporting" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Backend should log per-device performance metrics.</p>
+</li>
+<li>
+<p>Integrate with tools like:</p>
+<ul>
+<li>
+<p>Firebase Crashlytics (for app crashes)</p>
+</li>
+<li>
+<p>APM (Application Performance Monitoring)</p>
+</li>
+<li>
+<p>Sentry, Datadog</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you design monitoring for user errors and crashes across web and mobile?</p>
+</blockquote>
+<hr />
+<h3 id="h-feature-flagging-and-remote-config">(h) <strong>Feature Flagging and Remote Config</strong><a class="headerlink" href="#h-feature-flagging-and-remote-config" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Mobile deployments take time — you can’t roll back easily.</p>
+</li>
+<li>
+<p>Use <strong>remote feature flags</strong> (Firebase Remote Config, LaunchDarkly) for feature control.</p>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you design a remote configuration system for your mobile app?</p>
+</blockquote>
+<hr />
+<h3 id="i-security-and-api-abuse-protection">(i) <strong>Security and API Abuse Protection</strong><a class="headerlink" href="#i-security-and-api-abuse-protection" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Mobile apps are easier to reverse-engineer.</p>
+</li>
+<li>
+<p>Protect APIs via:</p>
+<ul>
+<li>
+<p>HMAC-signed requests</p>
+</li>
+<li>
+<p>Device attestation (e.g., Play Integrity API, App Attest)</p>
+</li>
+<li>
+<p>Encrypted communication (TLS pinning)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you prevent mobile clients from being reverse-engineered to abuse your APIs?</p>
+</blockquote>
+<hr />
+<h2 id="3-architecture-patterns-for-multi-platform-systems">⚙️ 3. Architecture Patterns for Multi-Platform Systems<a class="headerlink" href="#3-architecture-patterns-for-multi-platform-systems" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Use Case</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BFF (Backend for Frontend)</strong></td>
+<td>Different client needs different API responses</td>
+<td>Separate <code>/bff-web</code> and <code>/bff-mobile</code> services</td>
+</tr>
+<tr>
+<td><strong>GraphQL Gateway</strong></td>
+<td>Clients can request custom fields</td>
+<td>Mobile asks for light data, web for detailed</td>
+</tr>
+<tr>
+<td><strong>Event-Driven Systems</strong></td>
+<td>Notifications, async updates</td>
+<td>Chat, order tracking</td>
+</tr>
+<tr>
+<td><strong>CQRS + Offline Cache</strong></td>
+<td>Real-time sync with offline writes</td>
+<td>Notes, task management apps</td>
+</tr>
+</tbody>
+</table>
+<p>📘 <strong>Interview Question Example:</strong></p>
+<blockquote>
+<p>How would you design a BFF architecture when mobile and web clients have different API needs?</p>
+</blockquote>
+<hr />
+<h2 id="4-common-mobile-oriented-system-design-questions">🧪 4. Common Mobile-Oriented System Design Questions<a class="headerlink" href="#4-common-mobile-oriented-system-design-questions" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Example Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Offline Sync</strong></td>
+<td>Design Google Docs / Evernote / WhatsApp sync</td>
+</tr>
+<tr>
+<td><strong>Notifications</strong></td>
+<td>Design push notification system (e.g., WhatsApp)</td>
+</tr>
+<tr>
+<td><strong>Media Uploads</strong></td>
+<td>Design image/video upload for Instagram</td>
+</tr>
+<tr>
+<td><strong>Chat System</strong></td>
+<td>Design WhatsApp / Messenger backend</td>
+</tr>
+<tr>
+<td><strong>Real-time Updates</strong></td>
+<td>Design real-time stock price feed or ride tracking</td>
+</tr>
+<tr>
+<td><strong>App Configuration</strong></td>
+<td>Design remote config system (like Firebase Remote Config)</td>
+</tr>
+<tr>
+<td><strong>App Updates</strong></td>
+<td>Handle breaking changes in old mobile versions</td>
+</tr>
+<tr>
+<td><strong>Analytics</strong></td>
+<td>Design event-tracking pipeline for mobile apps</td>
+</tr>
+<tr>
+<td><strong>Battery/Network Efficiency</strong></td>
+<td>Optimize data fetching and caching patterns</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-key-mobile-specific-system-design-concepts-to-learn">🧭 5. Key Mobile-Specific System Design Concepts to Learn<a class="headerlink" href="#5-key-mobile-specific-system-design-concepts-to-learn" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Offline-first architecture</strong></p>
+</li>
+<li>
+<p><strong>Delta sync and conflict resolution</strong></p>
+</li>
+<li>
+<p><strong>BFF pattern for platform-specific optimization</strong></p>
+</li>
+<li>
+<p><strong>Push notification architecture</strong></p>
+</li>
+<li>
+<p><strong>App version and feature rollout management</strong></p>
+</li>
+<li>
+<p><strong>Token-based auth and device identity</strong></p>
+</li>
+<li>
+<p><strong>GraphQL vs REST in mobile APIs</strong></p>
+</li>
+<li>
+<p><strong>App telemetry and logging systems</strong></p>
+</li>
+<li>
+<p><strong>Mobile CDN optimization (image resizing, caching)</strong></p>
+</li>
+<li>
+<p><strong>Security (TLS pinning, obfuscation, attestation)</strong></p>
+</li>
+</ol>
+<hr />
+<h2 id="6-resources-for-practice">📚 6. Resources for Practice<a class="headerlink" href="#6-resources-for-practice" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>System Design for Mobile Developers – Alex Xu (ByteByteGo Mobile Edition)</strong></p>
+</li>
+<li>
+<p><strong>Firebase Architecture Guides</strong></p>
+</li>
+<li>
+<p><strong>AWS Reference Architecture: Mobile Backend</strong></p>
+</li>
+<li>
+<p><strong>Google Developers: Offline and Sync Strategies</strong></p>
+</li>
+<li>
+<p><strong>HighScalability blog – WhatsApp, Instagram, Messenger design articles</strong></p>
+</li>
+</ul>
+<hr />
+<h2 id="summary-table-additional-areas-to-study-for-mobile-integrated-system-design">✅ Summary Table — Additional Areas to Study for Mobile-Integrated System Design<a class="headerlink" href="#summary-table-additional-areas-to-study-for-mobile-integrated-system-design" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Why Important</th>
+<th>Learn / Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Offline-first</td>
+<td>Mobile often goes offline</td>
+<td>Conflict resolution, sync queues</td>
+</tr>
+<tr>
+<td>BFF pattern</td>
+<td>Different data needs</td>
+<td>Separate backend layers</td>
+</tr>
+<tr>
+<td>API efficiency</td>
+<td>Mobile = low bandwidth</td>
+<td>Pagination, compression</td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td>User engagement</td>
+<td>FCM, APNs</td>
+</tr>
+<tr>
+<td>Versioning</td>
+<td>Mobile updates slow</td>
+<td>API compatibility</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Reverse engineering risk</td>
+<td>HMAC, integrity check</td>
+</tr>
+<tr>
+<td>Analytics</td>
+<td>Track app behavior</td>
+<td>Event batching, big data pipelines</td>
+</tr>
+<tr>
+<td>Release management</td>
+<td>App store delays</td>
+<td>Remote feature flags</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

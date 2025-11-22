@@ -1,0 +1,903 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Websocket vs Webhook vs SSE - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-introduction-the-problem-they-solve" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Websocket vs Webhook vs SSE
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Websocket vs Webhook vs SSE</h1>
+
+<p>Complete, structured interview guide<strong> covering </strong>WebSocket<strong>, </strong>Webhook<strong>, and </strong>Server-Sent Events (SSE)** — including fundamentals, architecture, use cases, comparisons, and real-world interview questions with examples.</p>
+<hr />
+<h2 id="1-introduction-the-problem-they-solve">🧩 1. Introduction — The Problem They Solve<a class="headerlink" href="#1-introduction-the-problem-they-solve" title="Permanent link">&para;</a></h2>
+<p>HTTP is <strong>request-response</strong>, i.e., <strong>client always initiates</strong>. But in modern systems, we often need <strong>real-time or near-real-time communication</strong> — for example:</p>
+<ul>
+<li>
+<p>Chat apps (messages appear instantly)</p>
+</li>
+<li>
+<p>Stock price updates</p>
+</li>
+<li>
+<p>Game servers</p>
+</li>
+<li>
+<p>Payment status callbacks</p>
+</li>
+</ul>
+<p>To solve this, we use <strong>push-based or event-driven communication</strong>:<br />
+👉 <strong>WebSockets</strong>, <strong>Webhooks</strong>, and <strong>Server-Sent Events (SSE)</strong>.</p>
+<hr />
+<h2 id="2-websocket-full-duplex-communication">🔌 2. WebSocket — Full Duplex Communication<a class="headerlink" href="#2-websocket-full-duplex-communication" title="Permanent link">&para;</a></h2>
+<h3 id="what-it-is">⚙️ What It Is<a class="headerlink" href="#what-it-is" title="Permanent link">&para;</a></h3>
+<p>WebSocket is a <strong>bi-directional, full-duplex</strong> communication protocol over a <strong>single TCP connection</strong>.<br />
+It starts as an HTTP handshake and then <strong>upgrades</strong> to the WebSocket protocol (<code>ws://</code> or <code>wss://</code>).</p>
+<h3 id="how-it-works">🔄 How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Client sends an HTTP request with an <code>Upgrade</code> header:</p>
+<div class="highlight"><pre><span></span><code>GET /chat HTTP/1.1
+Host: example.com
+Upgrade: websocket
+Connection: Upgrade
+</code></pre></div>
+</li>
+<li>
+<p>Server accepts and switches protocol.</p>
+</li>
+<li>
+<p>Now both can send messages <strong>anytime</strong> without re-establishing a connection.</p>
+</li>
+</ol>
+<h3 id="use-cases">⚡ Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Real-time chat (WhatsApp, Slack)</p>
+</li>
+<li>
+<p>Online multiplayer games</p>
+</li>
+<li>
+<p>Collaborative tools (Google Docs real-time cursor)</p>
+</li>
+<li>
+<p>Trading dashboards / live scoreboards</p>
+</li>
+</ul>
+<h3 id="real-world-example">🏢 Real-World Example<a class="headerlink" href="#real-world-example" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Slack / Discord / Zoom</strong>: use WebSockets for bidirectional messaging and presence updates.</p>
+</li>
+<li>
+<p><strong>Binance / Coinbase</strong>: use WebSocket APIs for live order-book streaming.</p>
+</li>
+</ul>
+<h3 id="when-to-use">💡 When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
+<p>✅ Need <em>bi-directional</em> communication (client ↔ server both push data)<br />
+✅ Low latency and high frequency of updates<br />
+✅ Persistent connection is feasible</p>
+<h3 id="trade-offs">⚠️ Trade-offs<a class="headerlink" href="#trade-offs" title="Permanent link">&para;</a></h3>
+<p>❌ Connection overhead (each client keeps socket open)<br />
+❌ Harder to scale (sticky sessions, connection pooling)<br />
+❌ Needs load balancer &amp; scaling support for long-lived connections (e.g., via Redis pub/sub)</p>
+<hr />
+<h2 id="3-webhook-server-to-server-callbacks">📬 3. Webhook — Server-to-Server Callbacks<a class="headerlink" href="#3-webhook-server-to-server-callbacks" title="Permanent link">&para;</a></h2>
+<h3 id="what-it-is_1">⚙️ What It Is<a class="headerlink" href="#what-it-is_1" title="Permanent link">&para;</a></h3>
+<p>Webhook is <strong>one-way server-to-server communication</strong> via <strong>HTTP POST callbacks</strong>.<br />
+Instead of the client polling the server, the <strong>server calls your endpoint</strong> when an event occurs.</p>
+<h3 id="how-it-works_1">🔄 How It Works<a class="headerlink" href="#how-it-works_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>You register a webhook URL (e.g., <code>https://yourapp.com/payment/callback</code>).</p>
+</li>
+<li>
+<p>When the source system (e.g., Stripe) completes an event (payment success/failure),<br />
+    it sends an HTTP POST to your endpoint with the payload.</p>
+</li>
+<li>
+<p>Your service receives, validates, and processes the data.</p>
+</li>
+</ol>
+<h3 id="use-cases_1">⚡ Use Cases<a class="headerlink" href="#use-cases_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Payment processing (Stripe, Razorpay, PayPal)</p>
+</li>
+<li>
+<p>CI/CD notifications (GitHub → Jenkins)</p>
+</li>
+<li>
+<p>CRM integration (HubSpot → Salesforce)</p>
+</li>
+<li>
+<p>Event-driven automation (Zapier)</p>
+</li>
+</ul>
+<h3 id="real-world-example_1">🏢 Real-World Example<a class="headerlink" href="#real-world-example_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Stripe / Razorpay</strong>: send <code>payment_succeeded</code> events via webhooks.</p>
+</li>
+<li>
+<p><strong>GitHub Webhooks</strong>: trigger builds or deployments on code pushes.</p>
+</li>
+</ul>
+<h3 id="when-to-use_1">💡 When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h3>
+<p>✅ Event-based async communication between servers<br />
+✅ Reliable callbacks without maintaining a live connection<br />
+✅ Client doesn’t need instant (&lt;1s) updates</p>
+<h3 id="trade-offs_1">⚠️ Trade-offs<a class="headerlink" href="#trade-offs_1" title="Permanent link">&para;</a></h3>
+<p>❌ One-directional (source → destination only)<br />
+❌ Requires endpoint security (signatures, retries)<br />
+❌ Not suitable for frequent or low-latency communication</p>
+<hr />
+<h2 id="4-server-sent-events-sse-one-way-stream-from-server-to-client">📡 4. Server-Sent Events (SSE) — One-Way Stream from Server to Client<a class="headerlink" href="#4-server-sent-events-sse-one-way-stream-from-server-to-client" title="Permanent link">&para;</a></h2>
+<h3 id="what-it-is_2">⚙️ What It Is<a class="headerlink" href="#what-it-is_2" title="Permanent link">&para;</a></h3>
+<p>SSE allows <strong>server-to-client streaming</strong> over <strong>HTTP</strong>.<br />
+It’s <strong>unidirectional</strong> (server → client) and built on top of HTTP using <code>text/event-stream</code>.</p>
+<h3 id="how-it-works_2">🔄 How It Works<a class="headerlink" href="#how-it-works_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Client sends an HTTP request with header:</p>
+<div class="highlight"><pre><span></span><code>Accept: text/event-stream
+</code></pre></div>
+</li>
+<li>
+<p>Server keeps the connection open and <strong>pushes events</strong> as text lines.</p>
+<div class="highlight"><pre><span></span><code>event: message
+data: {&quot;user&quot;:&quot;John&quot;,&quot;msg&quot;:&quot;Hello!&quot;}
+</code></pre></div>
+</li>
+<li>
+<p>Client receives events continuously without polling.</p>
+</li>
+</ol>
+<h3 id="use-cases_2">⚡ Use Cases<a class="headerlink" href="#use-cases_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Live score updates</p>
+</li>
+<li>
+<p>Real-time notifications</p>
+</li>
+<li>
+<p>News feed / stock ticker</p>
+</li>
+<li>
+<p>Streaming logs or metrics</p>
+</li>
+</ul>
+<h3 id="real-world-example_2">🏢 Real-World Example<a class="headerlink" href="#real-world-example_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Twitter / Facebook Notifications</strong></p>
+</li>
+<li>
+<p><strong>Kibana / Grafana dashboards</strong></p>
+</li>
+<li>
+<p><strong>Server monitoring UI streaming</strong></p>
+</li>
+</ul>
+<h3 id="when-to-use_2">💡 When to Use<a class="headerlink" href="#when-to-use_2" title="Permanent link">&para;</a></h3>
+<p>✅ One-way real-time updates<br />
+✅ Lightweight streaming without WebSocket overhead<br />
+✅ Works natively over HTTP (no special protocol upgrade)</p>
+<h3 id="trade-offs_2">⚠️ Trade-offs<a class="headerlink" href="#trade-offs_2" title="Permanent link">&para;</a></h3>
+<p>❌ Unidirectional only (server → client)<br />
+❌ Limited browser support for some environments<br />
+❌ TCP connection limit can be an issue on mobile</p>
+<hr />
+<h2 id="5-websocket-vs-webhook-vs-sse-comparison-table">⚖️ 5. WebSocket vs Webhook vs SSE — Comparison Table<a class="headerlink" href="#5-websocket-vs-webhook-vs-sse-comparison-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><strong>WebSocket</strong></th>
+<th><strong>Webhook</strong></th>
+<th><strong>Server-Sent Events (SSE)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Communication</td>
+<td>Bi-directional</td>
+<td>One-way (server → server)</td>
+<td>One-way (server → client)</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>Custom (after HTTP upgrade)</td>
+<td>HTTP POST</td>
+<td>HTTP (text/event-stream)</td>
+</tr>
+<tr>
+<td>Connection Type</td>
+<td>Persistent</td>
+<td>Short-lived (per event)</td>
+<td>Persistent</td>
+</tr>
+<tr>
+<td>Initiator</td>
+<td>Either client or server</td>
+<td>Server</td>
+<td>Server</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>Harder (stateful)</td>
+<td>Easy (stateless)</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>Reliability</td>
+<td>Needs custom retry</td>
+<td>Depends on HTTP</td>
+<td>Built-in reconnection</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>Very low</td>
+<td>High (depends on event)</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Best For</td>
+<td>Chat, games, collab apps</td>
+<td>Integrations, callbacks</td>
+<td>Feeds, dashboards, alerts</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>Slack, Binance</td>
+<td>Stripe, GitHub</td>
+<td>Grafana, Twitter feed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-interview-questions-commonly-asked">🧠 6. Interview Questions — Commonly Asked<a class="headerlink" href="#6-interview-questions-commonly-asked" title="Permanent link">&para;</a></h2>
+<h3 id="conceptual"><strong>Conceptual</strong><a class="headerlink" href="#conceptual" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>What are the differences between WebSocket, Webhook, and SSE?</p>
+</li>
+<li>
+<p>Which protocol would you use for a chat application and why?</p>
+</li>
+<li>
+<p>Why can’t we use Webhook for live updates?</p>
+</li>
+<li>
+<p>What is the difference between WebSocket and HTTP long polling?</p>
+</li>
+<li>
+<p>How does connection management work in WebSocket (scaling, load balancing)?</p>
+</li>
+<li>
+<p>How to secure Webhooks? (signatures, retries, idempotency)</p>
+</li>
+<li>
+<p>How does SSE ensure reconnection if the connection drops?</p>
+</li>
+<li>
+<p>Can SSE handle millions of users? How to scale it?</p>
+</li>
+</ol>
+<h3 id="design-scenarios"><strong>Design Scenarios</strong><a class="headerlink" href="#design-scenarios" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Design a stock trading dashboard</strong> – which protocol and why?<br />
+    → WebSocket (bi-directional, low latency)</p>
+</li>
+<li>
+<p><strong>Design a CI/CD notification system</strong> – which one?<br />
+    → Webhook (server-to-server events)</p>
+</li>
+<li>
+<p><strong>Design a live comment feed for a blog</strong><br />
+    → SSE (server → client stream)</p>
+</li>
+<li>
+<p><strong>Design a multiplayer game backend</strong><br />
+    → WebSocket (real-time both ways)</p>
+</li>
+<li>
+<p><strong>Design a payment callback system</strong><br />
+    → Webhook (reliable async events)</p>
+</li>
+</ol>
+<h3 id="follow-ups"><strong>Follow-ups</strong><a class="headerlink" href="#follow-ups" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>How to ensure message ordering and reliability in WebSockets?</p>
+</li>
+<li>
+<p>How would you scale WebSocket servers (pub/sub, Redis channels)?</p>
+</li>
+<li>
+<p>How to handle retries in Webhooks safely?</p>
+</li>
+<li>
+<p>How do you authenticate WebSocket clients?</p>
+</li>
+</ul>
+<hr />
+<h2 id="7-summary-when-to-use-what">🚀 7. Summary — When to Use What<a class="headerlink" href="#7-summary-when-to-use-what" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Recommended Protocol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Real-time two-way communication</td>
+<td><strong>WebSocket</strong></td>
+</tr>
+<tr>
+<td>Event-driven notifications between services</td>
+<td><strong>Webhook</strong></td>
+</tr>
+<tr>
+<td>Lightweight real-time server → client updates</td>
+<td><strong>SSE</strong></td>
+</tr>
+<tr>
+<td>Low-frequency system triggers</td>
+<td><strong>Webhook</strong></td>
+</tr>
+<tr>
+<td>Frequent low-latency updates</td>
+<td><strong>WebSocket / SSE</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="real-world-summary">🎯 Real-World Summary<a class="headerlink" href="#real-world-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>WebSocket</strong> → Real-time UX (Slack, TradingView, Games)</p>
+</li>
+<li>
+<p><strong>Webhook</strong> → System integrations (Stripe, GitHub, Zapier)</p>
+</li>
+<li>
+<p><strong>SSE</strong> → Live dashboards, notifications, log streaming</p>
+</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

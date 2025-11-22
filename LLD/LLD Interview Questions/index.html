@@ -1,0 +1,1207 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>LLD Interview Questions - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-core-object-oriented-design-questions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LLD Interview Questions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>LLD Interview Questions</h1>
+
+<p>Comprehensive list of the most commonly asked LLD (Low-Level Design)<strong> questions for </strong>Software Developer / SDE interviews<strong> — especially in top tech companies like </strong>Amazon, Google, Microsoft, Uber, Swiggy, Zomato, Flipkart, etc.**</p>
+<p>I’ll organize them by <strong>category and concept</strong> — so you understand what pattern or design idea each question typically tests.</p>
+<hr />
+<h2 id="1-core-object-oriented-design-questions">🧩 1. <strong>Core Object-Oriented Design Questions</strong><a class="headerlink" href="#1-core-object-oriented-design-questions" title="Permanent link">&para;</a></h2>
+<p>These are LLD questions that test your ability to design classes, relationships (association, composition, inheritance), and use of OOP principles like encapsulation, abstraction, and polymorphism.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Concepts Tested</th>
+<th>Common Design Patterns Used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design a Parking Lot System</td>
+<td>OOP, Class Hierarchy, State Management</td>
+<td>Strategy, Singleton</td>
+</tr>
+<tr>
+<td>Design a Library Management System</td>
+<td>OOP, Class Diagram, Relationships</td>
+<td>Factory, Observer</td>
+</tr>
+<tr>
+<td>Design a Movie Ticket Booking System (BookMyShow)</td>
+<td>Entities, Aggregation, Availability Check</td>
+<td>Strategy, Singleton, Observer</td>
+</tr>
+<tr>
+<td>Design an Online Food Ordering System (Zomato/Swiggy)</td>
+<td>Entity Relationships, Order Flow</td>
+<td>Strategy, Observer</td>
+</tr>
+<tr>
+<td>Design a Hotel Management System</td>
+<td>Room Reservation, Pricing, Availability</td>
+<td>Strategy, Factory</td>
+</tr>
+<tr>
+<td>Design an Airline Reservation System</td>
+<td>Availability, Seat Allocation</td>
+<td>Strategy, Singleton</td>
+</tr>
+<tr>
+<td>Design a Car Rental System (Zoomcar)</td>
+<td>Booking Flow, Inventory Management</td>
+<td>Factory, Strategy</td>
+</tr>
+<tr>
+<td>Design a Vending Machine</td>
+<td>State Transitions, Coin Handling</td>
+<td>State Pattern</td>
+</tr>
+<tr>
+<td>Design an Elevator System</td>
+<td>Scheduling, State Transitions</td>
+<td>State, Strategy, Command</td>
+</tr>
+<tr>
+<td>Design a Coffee Vending Machine</td>
+<td>Workflow States</td>
+<td>State, Factory</td>
+</tr>
+<tr>
+<td>Design a Logging Framework</td>
+<td>Thread Safety, Extensibility</td>
+<td>Singleton, Strategy</td>
+</tr>
+<tr>
+<td>Design an ATM System</td>
+<td>State Transitions, Authentication</td>
+<td>State, Strategy, Proxy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-system-behavior-interaction-design">⚙️ 2. <strong>System Behavior / Interaction Design</strong><a class="headerlink" href="#2-system-behavior-interaction-design" title="Permanent link">&para;</a></h2>
+<p>Focuses on <strong>interactions between entities</strong>, state management, and behavior modeling.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Concepts Tested</th>
+<th>Common Design Patterns Used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design a Notification System (Email, SMS, Push)</td>
+<td>Asynchronous Communication</td>
+<td>Observer, Strategy</td>
+</tr>
+<tr>
+<td>Design a Pub-Sub System</td>
+<td>Loose Coupling, Event Handling</td>
+<td>Observer, Publisher-Subscriber</td>
+</tr>
+<tr>
+<td>Design a Rate Limiter</td>
+<td>Concurrency, Thread-Safety</td>
+<td>Token Bucket, Leaky Bucket</td>
+</tr>
+<tr>
+<td>Design a Cache System (LRU, LFU)</td>
+<td>Data Structures, Eviction Policies</td>
+<td>Singleton, Strategy</td>
+</tr>
+<tr>
+<td>Design a Logger</td>
+<td>Thread Safety, Configurability</td>
+<td>Singleton, Chain of Responsibility</td>
+</tr>
+<tr>
+<td>Design a Task Scheduler</td>
+<td>Thread Scheduling, Priority</td>
+<td>Command, Strategy</td>
+</tr>
+<tr>
+<td>Design a Message Queue (like Kafka)</td>
+<td>Producer-Consumer Model</td>
+<td>Observer, Builder</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-design-for-real-world-applications-product-based">💬 3. <strong>Design for Real-World Applications (Product-Based)</strong><a class="headerlink" href="#3-design-for-real-world-applications-product-based" title="Permanent link">&para;</a></h2>
+<p>These simulate designing real services or mini versions of popular products.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Concept Tested</th>
+<th>Common Patterns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design a TinyURL Service</td>
+<td>Hashing, Mapping, Scalability</td>
+<td>Singleton</td>
+</tr>
+<tr>
+<td>Design a Social Media Feed (Instagram, Twitter)</td>
+<td>Caching, Ordering</td>
+<td>Observer, Strategy</td>
+</tr>
+<tr>
+<td>Design a Chat Application (WhatsApp)</td>
+<td>Message Delivery, Group Chat</td>
+<td>Observer, Mediator</td>
+</tr>
+<tr>
+<td>Design a News Feed System</td>
+<td>Ranking, Fan-out on Write/Read</td>
+<td>Observer, Strategy</td>
+</tr>
+<tr>
+<td>Design an Online Payment Gateway</td>
+<td>Transaction Workflow</td>
+<td>Chain of Responsibility</td>
+</tr>
+<tr>
+<td>Design an Online Quiz System</td>
+<td>Question Bank, Evaluation</td>
+<td>Strategy, Factory</td>
+</tr>
+<tr>
+<td>Design a Ride-Sharing System (Uber/Ola)</td>
+<td>Matching Algorithm</td>
+<td>Strategy, Observer, Factory</td>
+</tr>
+<tr>
+<td>Design a Meeting Scheduler</td>
+<td>Conflict Resolution</td>
+<td>Strategy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-design-pattern-focused-questions">🧠 4. <strong>Design Pattern Focused Questions</strong><a class="headerlink" href="#4-design-pattern-focused-questions" title="Permanent link">&para;</a></h2>
+<p>These questions test <strong>recognition and application</strong> of specific design patterns.</p>
+<table>
+<thead>
+<tr>
+<th>Design Pattern</th>
+<th>Example Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Singleton</td>
+<td>Design a Configuration Manager for an App</td>
+</tr>
+<tr>
+<td>Factory</td>
+<td>Design a Shape or Notification Factory</td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>Design Payment Methods or Sorting Algorithms</td>
+</tr>
+<tr>
+<td>Observer</td>
+<td>Design a Notification System or Event Framework</td>
+</tr>
+<tr>
+<td>Decorator</td>
+<td>Design a Pizza Ordering System with Add-ons</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Design a Vending Machine or ATM</td>
+</tr>
+<tr>
+<td>Command</td>
+<td>Design an Undo/Redo System</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>Design a Caching Proxy or Access Control System</td>
+</tr>
+<tr>
+<td>Adapter</td>
+<td>Design an API Integrator between Two Systems</td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>Design a File System (Folders/Files)</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>Design a Query Builder or Object Creator</td>
+</tr>
+<tr>
+<td>Chain of Responsibility</td>
+<td>Design a Logging or Authentication Pipeline</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-concurrency-and-thread-safe-design-questions">📦 5. <strong>Concurrency and Thread-Safe Design Questions</strong><a class="headerlink" href="#5-concurrency-and-thread-safe-design-questions" title="Permanent link">&para;</a></h2>
+<p>Used in high-level interviews to test system-level thinking.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Concepts Tested</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design a Thread-Safe Singleton</td>
+<td>Double-checked locking, Volatile</td>
+</tr>
+<tr>
+<td>Design a Thread Pool</td>
+<td>Executor Pattern</td>
+</tr>
+<tr>
+<td>Design a Blocking Queue</td>
+<td>Concurrency Control</td>
+</tr>
+<tr>
+<td>Design a Producer-Consumer System</td>
+<td>Synchronization, Wait/Notify</td>
+</tr>
+<tr>
+<td>Design a Rate Limiter</td>
+<td>Token Bucket, Sliding Window</td>
+</tr>
+<tr>
+<td>Design a Cache with Expiry</td>
+<td>Synchronization, Eviction Policy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-utility-infrastructure-design">🧰 6. <strong>Utility / Infrastructure Design</strong><a class="headerlink" href="#6-utility-infrastructure-design" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Concepts Tested</th>
+<th>Common Design Patterns Used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design a File System</td>
+<td>Hierarchical Structure</td>
+<td>Composite</td>
+</tr>
+<tr>
+<td>Design a Key-Value Store</td>
+<td>Indexing, Storage</td>
+<td>Strategy</td>
+</tr>
+<tr>
+<td>Design a URL Shortener</td>
+<td>Mapping, Hashing</td>
+<td>Singleton</td>
+</tr>
+<tr>
+<td>Design a Metrics Collector</td>
+<td>Aggregation, Observability</td>
+<td>Observer</td>
+</tr>
+<tr>
+<td>Design a Configuration Management System</td>
+<td>Thread Safety, Immutability</td>
+<td>Singleton, Builder</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-coding-lld-hybrid-questions">🧩 7. <strong>Coding + LLD Hybrid Questions</strong><a class="headerlink" href="#7-coding-lld-hybrid-questions" title="Permanent link">&para;</a></h2>
+<p>These combine <strong>data structure + design</strong> expectations.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Implement an LRU Cache</td>
+<td>Map + Doubly Linked List</td>
+</tr>
+<tr>
+<td>Implement a Hit Counter</td>
+<td>Queue / Sliding Window</td>
+</tr>
+<tr>
+<td>Design a Stack using Queues</td>
+<td>Data Structure + Abstraction</td>
+</tr>
+<tr>
+<td>Implement a Thread-Safe Logger</td>
+<td>Synchronization + Design</td>
+</tr>
+<tr>
+<td>Design a Tic-Tac-Toe Game</td>
+<td>OOP + Game State</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-interview-tip-how-to-approach-lld-questions">🧭 8. <strong>Interview Tip — How to Approach LLD Questions</strong><a class="headerlink" href="#8-interview-tip-how-to-approach-lld-questions" title="Permanent link">&para;</a></h2>
+<p>When asked an LLD question:</p>
+<ol>
+<li>
+<p><strong>Clarify Requirements</strong> – Functional and Non-functional.</p>
+</li>
+<li>
+<p><strong>Identify Core Entities</strong> – Classes, attributes, relationships.</p>
+</li>
+<li>
+<p><strong>Draw Class Diagram</strong> – Show hierarchy and interactions.</p>
+</li>
+<li>
+<p><strong>Discuss Design Patterns</strong> – Explain why you chose them.</p>
+</li>
+<li>
+<p><strong>Handle Concurrency / Scale</strong> – Optional but valuable.</p>
+</li>
+<li>
+<p><strong>Write Clean Pseudocode / Class Skeletons</strong> – If asked.</p>
+</li>
+<li>
+<p><strong>Explain Trade-offs</strong> – Extensibility, Maintainability, and SRP.</p>
+</li>
+</ol>
+<hr />
+<p>If you’d like, I can next give you a <strong>structured table</strong> of</p>
+<blockquote>
+<p>🔹 “Top 20 LLD Interview Questions + The Design Pattern They Map To + The Core Problem They Solve”</p>
+</blockquote>
+<p><strong>Structured master table</strong> of the <strong>Top 20 Most Frequently Asked LLD Questions</strong> in software developer interviews, along with:</p>
+<ul>
+<li>
+<p>🎯 <strong>Design Pattern(s)</strong> used</p>
+</li>
+<li>
+<p>🧩 <strong>Problem Type / Concept Tested</strong></p>
+</li>
+<li>
+<p>💡 <strong>What Problem the Pattern Solves (in context)</strong></p>
+</li>
+</ul>
+<hr />
+<h2 id="top-20-lld-interview-questions-with-patterns-problem-solved">🧠 <strong>Top 20 LLD Interview Questions — with Patterns &amp; Problem Solved</strong><a class="headerlink" href="#top-20-lld-interview-questions-with-patterns-problem-solved" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>LLD Question</th>
+<th>Design Pattern(s) Used</th>
+<th>Concept Tested</th>
+<th>Problem Solved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>🅿️ <strong>Design a Parking Lot System</strong></td>
+<td>Singleton, Strategy</td>
+<td>OOP Design, State Handling</td>
+<td>Manage multiple vehicle types, slots, and pricing using flexible policies.</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>🎬 <strong>Design a Movie Ticket Booking System (BookMyShow)</strong></td>
+<td>Observer, Strategy, Factory</td>
+<td>Entity Modeling, Availability, Notifications</td>
+<td>Handle dynamic seat booking, pricing, and event notifications.</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>🍔 <strong>Design a Food Ordering System (Zomato/Swiggy)</strong></td>
+<td>Strategy, Observer</td>
+<td>Entity Relationship, Order Lifecycle</td>
+<td>Handle restaurant menus, order tracking, and delivery updates.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>🚕 <strong>Design a Cab Booking System (Uber/Ola)</strong></td>
+<td>Strategy, Observer, Factory</td>
+<td>Matching Algorithm, Geo-based Assignment</td>
+<td>Efficient driver-customer match and live tracking.</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>☕ <strong>Design a Coffee Vending Machine</strong></td>
+<td>State, Factory</td>
+<td>State Transitions, Workflow</td>
+<td>Manage machine states (Idle, Ready, Dispense, OutOfStock).</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>🏧 <strong>Design an ATM System</strong></td>
+<td>State, Strategy, Proxy</td>
+<td>Authentication, State Management</td>
+<td>Handle ATM states and user sessions securely.</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>🏢 <strong>Design a Hotel Management System</strong></td>
+<td>Factory, Strategy</td>
+<td>Room Booking, Pricing Policies</td>
+<td>Flexible room pricing and easy reservation flow.</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td>🪙 <strong>Design a Vending Machine</strong></td>
+<td>State, Factory</td>
+<td>Workflow, Error Handling</td>
+<td>Manage item selection, payment, and dispense flow.</td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td>📚 <strong>Design a Library Management System</strong></td>
+<td>Factory, Observer</td>
+<td>Inventory, Lending Flow</td>
+<td>Handle book lending, due dates, and notifications.</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>🔗 <strong>Design a URL Shortener (TinyURL)</strong></td>
+<td>Singleton, Factory</td>
+<td>Mapping, Caching</td>
+<td>Efficient unique ID generation and mapping short → long URL.</td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td>💬 <strong>Design a Chat Application (WhatsApp/Slack)</strong></td>
+<td>Observer, Mediator</td>
+<td>Real-time Communication</td>
+<td>Efficient message delivery, group updates, and status tracking.</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td>🪶 <strong>Design a Logging Framework</strong></td>
+<td>Singleton, Chain of Responsibility</td>
+<td>Thread Safety, Extensibility</td>
+<td>Enable log level filtering and multi-sink output.</td>
+</tr>
+<tr>
+<td><strong>13</strong></td>
+<td>⚙️ <strong>Design a Notification System (Email/SMS/Push)</strong></td>
+<td>Observer, Strategy</td>
+<td>Loose Coupling, Extensibility</td>
+<td>Easily add new notification channels dynamically.</td>
+</tr>
+<tr>
+<td><strong>14</strong></td>
+<td>🔁 <strong>Design a Rate Limiter</strong></td>
+<td>Token Bucket / Sliding Window (Strategy)</td>
+<td>Concurrency Control</td>
+<td>Prevent overload by controlling request rates.</td>
+</tr>
+<tr>
+<td><strong>15</strong></td>
+<td>🧱 <strong>Design an Online Payment System</strong></td>
+<td>Strategy, Chain of Responsibility</td>
+<td>Workflow, Transaction Management</td>
+<td>Handle multiple payment gateways with validation chains.</td>
+</tr>
+<tr>
+<td><strong>16</strong></td>
+<td>🧩 <strong>Design an LRU Cache</strong></td>
+<td>Singleton, Strategy</td>
+<td>Memory Management</td>
+<td>Efficient caching with least recently used eviction policy.</td>
+</tr>
+<tr>
+<td><strong>17</strong></td>
+<td>🪵 <strong>Design a File System</strong></td>
+<td>Composite</td>
+<td>Hierarchical Structure</td>
+<td>Represent files and folders uniformly.</td>
+</tr>
+<tr>
+<td><strong>18</strong></td>
+<td>🕹 <strong>Design a Tic-Tac-Toe / Chess Game</strong></td>
+<td>State, Strategy</td>
+<td>Game Logic, Turn Handling</td>
+<td>Manage turn-based state transitions and rules.</td>
+</tr>
+<tr>
+<td><strong>19</strong></td>
+<td>🧰 <strong>Design a Thread Pool / Executor Service</strong></td>
+<td>Command, Singleton</td>
+<td>Concurrency, Resource Management</td>
+<td>Efficient reuse of threads and queued task execution.</td>
+</tr>
+<tr>
+<td><strong>20</strong></td>
+<td>🏗 <strong>Design a Builder Framework (Query Builder / Object Creator)</strong></td>
+<td>Builder, Fluent Interface</td>
+<td>Object Construction</td>
+<td>Simplify creation of complex immutable objects.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="patterns-their-real-use-in-these-llds">🔍 <strong>Patterns &amp; Their Real Use in These LLDs</strong><a class="headerlink" href="#patterns-their-real-use-in-these-llds" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Used In</th>
+<th>Problem Solved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Singleton</strong></td>
+<td>Logger, Cache, Config Manager, Parking Lot</td>
+<td>Ensure only one global instance exists.</td>
+</tr>
+<tr>
+<td><strong>Factory / Abstract Factory</strong></td>
+<td>Booking Systems, Payment, Vending Machine</td>
+<td>Create related objects without exposing concrete classes.</td>
+</tr>
+<tr>
+<td><strong>Strategy</strong></td>
+<td>Payment, Pricing, Matching Algorithms</td>
+<td>Define a family of algorithms and make them interchangeable.</td>
+</tr>
+<tr>
+<td><strong>Observer</strong></td>
+<td>Notification, Feed, Chat</td>
+<td>Automatically notify dependent objects about changes.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>ATM, Vending Machine, Elevator</td>
+<td>Manage object behavior when internal state changes.</td>
+</tr>
+<tr>
+<td><strong>Builder</strong></td>
+<td>Query Builder, Object Creator</td>
+<td>Simplify building complex objects with multiple fields.</td>
+</tr>
+<tr>
+<td><strong>Composite</strong></td>
+<td>File System, UI Components</td>
+<td>Treat individual and composite objects uniformly.</td>
+</tr>
+<tr>
+<td><strong>Chain of Responsibility</strong></td>
+<td>Logger, Authentication, Payment Workflow</td>
+<td>Pass requests through a chain of handlers.</td>
+</tr>
+<tr>
+<td><strong>Command</strong></td>
+<td>Undo/Redo System, Thread Pool</td>
+<td>Encapsulate actions as objects to allow undo/redo or queueing.</td>
+</tr>
+<tr>
+<td><strong>Proxy</strong></td>
+<td>Caching Proxy, Access Control</td>
+<td>Control access or add caching around an object.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="interviewers-evaluation-criteria">💬 Interviewer’s Evaluation Criteria<a class="headerlink" href="#interviewers-evaluation-criteria" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Skill Area</th>
+<th>What They Evaluate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OOP Fundamentals</strong></td>
+<td>Class design, inheritance, abstraction, encapsulation</td>
+</tr>
+<tr>
+<td><strong>Pattern Recognition</strong></td>
+<td>Choosing the right pattern &amp; explaining why</td>
+</tr>
+<tr>
+<td><strong>Scalability / Extensibility</strong></td>
+<td>How easily system can adapt to new features</td>
+</tr>
+<tr>
+<td><strong>Trade-offs &amp; Reasoning</strong></td>
+<td>Explain design choices (e.g., Singleton vs Factory)</td>
+</tr>
+<tr>
+<td><strong>Communication &amp; Diagramming</strong></td>
+<td>How clearly you explain relationships &amp; data flow</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bonus-tip">⚡ Bonus Tip<a class="headerlink" href="#bonus-tip" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>If you’re aiming for <strong>FAANG / Product-based companies</strong>, focus on these <strong>5 LLDs first:</strong></p>
+<ol>
+<li>
+<p>Parking Lot</p>
+</li>
+<li>
+<p>Vending Machine</p>
+</li>
+<li>
+<p>BookMyShow / Food Ordering</p>
+</li>
+<li>
+<p>Notification System</p>
+</li>
+<li>
+<p>Logger / Rate Limiter
+</p>
+</li>
+</ol>
+</blockquote>
+<p>Each touches on <strong>core design patterns + concurrency + extensibility</strong>, which interviewers love.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

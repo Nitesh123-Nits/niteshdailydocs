@@ -1,0 +1,1117 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Saga , 2PC ( Distributed Transaction) - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#why-distributed-transactions-are-hard" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Saga , 2PC ( Distributed Transaction)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HLD" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p>Clean, interview-ready, system-design-level explanation of <strong>distributed transactions</strong>, <strong>why Sagas exist</strong>, <strong>orchestration vs choreography</strong>, when to use which, and how to answer interview questions with confidence.</p>
+<hr />
+<h1 id="why-distributed-transactions-are-hard">🔥 Why Distributed Transactions Are Hard<a class="headerlink" href="#why-distributed-transactions-are-hard" title="Permanent link">&para;</a></h1>
+<p>When you split your system into microservices, each service manages its own <strong>database</strong> and <strong>business logic</strong>.<br />
+A transaction that spans multiple services can no longer rely on:</p>
+<ul>
+<li>
+<p>ACID guarantees</p>
+</li>
+<li>
+<p>2-Phase Commit (2PC) — too slow, can lock resources, not cloud-friendly</p>
+</li>
+</ul>
+<p>So you need a pattern that ensures <strong>eventual consistency</strong> without blocking resources.</p>
+<p>That’s where <strong>Saga Pattern</strong> comes in.</p>
+<hr />
+<h1 id="what-is-saga-pattern">🎯 What Is Saga Pattern?<a class="headerlink" href="#what-is-saga-pattern" title="Permanent link">&para;</a></h1>
+<p>A <strong>Saga</strong> is a sequence of <strong>local transactions</strong> where each step updates its own service/database and then triggers the next step using events.</p>
+<p>If a step fails, the Saga triggers <strong>compensating transactions</strong> to undo the previous steps.</p>
+<p>Example:<br />
+Order → Payment → Inventory → Shipping<br />
+If Shipping fails → Undo Inventory → Undo Payment → Cancel Order</p>
+<hr />
+<h1 id="two-types-of-saga">⚡ Two Types of Saga<a class="headerlink" href="#two-types-of-saga" title="Permanent link">&para;</a></h1>
+<p>![[Pasted image 20251122170019.png]]</p>
+<p>There are <strong>two coordination styles</strong>:</p>
+<hr />
+<h1 id="1-saga-choreography-event-driven">1️⃣ Saga Choreography (Event-Driven)<a class="headerlink" href="#1-saga-choreography-event-driven" title="Permanent link">&para;</a></h1>
+<p>![[Pasted image 20251122170113.png]]</p>
+<p><strong>No central coordinator</strong>.<br />
+Each service listens to events and performs the next action.</p>
+<h3 id="flow">Flow:<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Order Service → publishes <em>OrderCreated</em></p>
+</li>
+<li>
+<p>Payment Service → listens, processes payment → publishes <em>PaymentCompleted</em></p>
+</li>
+<li>
+<p>Inventory Service → listens, updates stock → publishes <em>StockReserved</em></p>
+</li>
+<li>
+<p>Shipping Service → listens and ships</p>
+</li>
+</ol>
+<p>If an error occurs → publish a failure event → previous services listen and run compensations.</p>
+<h3 id="advantages">✔ Advantages<a class="headerlink" href="#advantages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Very loosely coupled</p>
+</li>
+<li>
+<p>No single point of failure</p>
+</li>
+<li>
+<p>High scalability</p>
+</li>
+<li>
+<p>Event-driven → easy to extend</p>
+</li>
+</ul>
+<h3 id="disadvantages">✘ Disadvantages<a class="headerlink" href="#disadvantages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Harder to understand end-to-end flow</p>
+</li>
+<li>
+<p>Debugging and tracing complexity</p>
+</li>
+<li>
+<p>No single place to apply business rules</p>
+</li>
+<li>
+<p>Risk of “event storm” → too many event types</p>
+</li>
+</ul>
+<h3 id="when-to-use">👉 When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Business workflow is simple</p>
+</li>
+<li>
+<p>Few services involved (2–4)</p>
+</li>
+<li>
+<p>You want high decoupling</p>
+</li>
+<li>
+<p>Event-driven architecture already exists (Kafka, RabbitMQ)</p>
+</li>
+</ul>
+<h3 id="interview-points">Interview points<a class="headerlink" href="#interview-points" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Choreography is ideal when the transaction flow is simple, services are autonomous, and we want high scalability without a central coordinator.”</p>
+</blockquote>
+<hr />
+<h1 id="2-saga-orchestration-central-controller">2️⃣ Saga Orchestration (Central Controller)<a class="headerlink" href="#2-saga-orchestration-central-controller" title="Permanent link">&para;</a></h1>
+<p>![[Pasted image 20251122170206.png]]</p>
+<p>A <strong>central Saga orchestrator</strong> commands all services.</p>
+<h3 id="flow_1">Flow:<a class="headerlink" href="#flow_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Orchestrator → calls Payment → waits for response</p>
+</li>
+<li>
+<p>Orchestrator → calls Inventory</p>
+</li>
+<li>
+<p>Orchestrator → calls Shipping</p>
+</li>
+<li>
+<p>If failure → orchestrator calls compensations</p>
+</li>
+</ol>
+<h3 id="advantages_1">✔ Advantages<a class="headerlink" href="#advantages_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Single point for workflow logic</p>
+</li>
+<li>
+<p>Easier monitoring &amp; debugging</p>
+</li>
+<li>
+<p>Centralized error handling</p>
+</li>
+<li>
+<p>Predictable flow</p>
+</li>
+</ul>
+<h3 id="disadvantages_1">✘ Disadvantages<a class="headerlink" href="#disadvantages_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Orchestrator becomes a dependency</p>
+</li>
+<li>
+<p>Slightly more coupling</p>
+</li>
+<li>
+<p>Can grow complex as workflow grows</p>
+</li>
+</ul>
+<h3 id="when-to-use_1">👉 When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Complex, long-running workflows</p>
+</li>
+<li>
+<p>Many services involved (5+)</p>
+</li>
+<li>
+<p>Need clear visibility, tracking, audit</p>
+</li>
+<li>
+<p>Strict business rules (approval flows, retries, deadlines)</p>
+</li>
+</ul>
+<h3 id="interview-points_1">Interview points<a class="headerlink" href="#interview-points_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Orchestration works best when you want a clear, centrally managed business workflow with strong observability.”</p>
+</blockquote>
+<hr />
+<h1 id="orchestration-vs-choreography-short-comparison">🥊 Orchestration vs Choreography — Short Comparison<a class="headerlink" href="#orchestration-vs-choreography-short-comparison" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Choreography</th>
+<th>Orchestration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coordination</td>
+<td>Distributed (events)</td>
+<td>Centralized (controller)</td>
+</tr>
+<tr>
+<td>Coupling</td>
+<td>Loose</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Hard</td>
+<td>Easy</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>Excellent</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Workflow complexity</td>
+<td>Hard to manage</td>
+<td>Easy to manage</td>
+</tr>
+<tr>
+<td>Suitable for</td>
+<td>Simple flows</td>
+<td>Complex flows</td>
+</tr>
+<tr>
+<td>Failure handling</td>
+<td>Distributed</td>
+<td>Centralized</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="how-to-answer-in-interviews">🧠 How to Answer in Interviews<a class="headerlink" href="#how-to-answer-in-interviews" title="Permanent link">&para;</a></h1>
+<h3 id="1-what-problem-does-saga-solve">❓1. What problem does Saga solve?<a class="headerlink" href="#1-what-problem-does-saga-solve" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Saga solves the problem of achieving eventual consistency across microservices without using distributed locking or 2PC. It breaks a big transaction into smaller local transactions with compensating actions.”</p>
+</blockquote>
+<h3 id="2-when-do-you-use-saga">❓2. When do you use Saga?<a class="headerlink" href="#2-when-do-you-use-saga" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Whenever a business transaction touches multiple microservices and requires eventual consistency and rollback semantics.”</p>
+</blockquote>
+<h3 id="3-difference-between-orchestration-and-choreography">❓3. Difference between Orchestration and Choreography?<a class="headerlink" href="#3-difference-between-orchestration-and-choreography" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Choreography is event-driven without a central controller; orchestration has a central coordinator that directs each step.”</p>
+</blockquote>
+<h3 id="4-which-one-should-you-choose">❓4. Which one should you choose?<a class="headerlink" href="#4-which-one-should-you-choose" title="Permanent link">&para;</a></h3>
+<p>Give a balanced answer:</p>
+<blockquote>
+<p>“If the workflow is simple and we want loose coupling, I choose choreography.<br />
+For complex workflows, involving many services, with clear visibility and rules, I choose orchestration.”</p>
+</blockquote>
+<h3 id="5-why-not-use-distributed-transactions-with-2pc">❓5. Why not use distributed transactions with 2PC?<a class="headerlink" href="#5-why-not-use-distributed-transactions-with-2pc" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“2PC introduces locking, blocking, single point of failure, coordination overhead, and is not cloud-friendly. Sagas avoid this by using eventual consistency.”</p>
+</blockquote>
+<h3 id="6-how-do-compensating-transactions-work">❓6. How do compensating transactions work?<a class="headerlink" href="#6-how-do-compensating-transactions-work" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Each service defines a reverse action that restores state if later steps fail.”</p>
+</blockquote>
+<hr />
+<h1 id="a-real-world-example-interview-gold">🧩 A Real-World Example (Interview Gold)<a class="headerlink" href="#a-real-world-example-interview-gold" title="Permanent link">&para;</a></h1>
+<h3 id="example-use-case-online-order-flow">Example use case: Online Order Flow<a class="headerlink" href="#example-use-case-online-order-flow" title="Permanent link">&para;</a></h3>
+<p><strong>Choreography</strong> → small startups</p>
+<ul>
+<li>
+<p>Order → Payment → Inventory</p>
+</li>
+<li>
+<p>Good for simple flows</p>
+</li>
+</ul>
+<p><strong>Orchestration</strong> → enterprise systems</p>
+<ul>
+<li>
+<p>Order Orchestrator → Payment → Inventory → Warehouse → Fraud detection → Billing → Notification</p>
+</li>
+<li>
+<p>Needs flow control, visibility, retries.</p>
+</li>
+</ul>
+<p>Interviewers love when you tie the concept to domain workflows.</p>
+<hr />
+<h1 id="final-recommendation">🏆 Final Recommendation<a class="headerlink" href="#final-recommendation" title="Permanent link">&para;</a></h1>
+<p><strong>Use Choreography</strong> when:<br />
+✔ 3–5 services<br />
+✔ Simple flow<br />
+✔ Event-driven system<br />
+✔ Scalability &amp; low coupling matter</p>
+<p><strong>Use Orchestration</strong> when:<br />
+✔ 5+ services<br />
+✔ Complex decision rules<br />
+✔ Need audit, monitoring, observability<br />
+✔ Long-running business processes</p>
+<hr />
+<h2 id="question-2pc-vs-saga">Question 2PC vs Saga<a class="headerlink" href="#question-2pc-vs-saga" title="Permanent link">&para;</a></h2>
+<p><strong>Clear, interview-ready, engineering-accurate comparison</strong> between <strong>2PC (Two-Phase Commit)</strong> and the <strong>Saga Pattern</strong>, along with <em>why modern distributed systems choose Saga over 2PC</em>.</p>
+<p>I’ll give you:</p>
+<p>✔ Deep conceptual difference<br />
+✔ A crisp comparison table<br />
+✔ Problems 2PC creates<br />
+✔ How Saga solves them<br />
+✔ When 2PC is still used<br />
+✔ Interview-ready short answers</p>
+<hr />
+<h1 id="first-what-2pc-tries-to-solve">🚀 First: What 2PC Tries to Solve<a class="headerlink" href="#first-what-2pc-tries-to-solve" title="Permanent link">&para;</a></h1>
+<p>2PC (Two-Phase Commit) tries to ensure that <strong>multiple databases</strong> commit or roll back together <strong>atomically</strong>, as if they were a single database.</p>
+<p>It does this by using a <strong>Transaction Coordinator</strong> and <strong>Prepare + Commit</strong> protocol.</p>
+<h3 id="2pc-flow">2PC Flow<a class="headerlink" href="#2pc-flow" title="Permanent link">&para;</a></h3>
+<p>![[Pasted image 20251122170519.png]]
+![[Pasted image 20251122170542.png]]</p>
+<p>1️⃣ <strong>Prepare Phase</strong><br />
+Coordinator asks all participants: <em>“Can you commit?”</em><br />
+Each service locks resources and replies YES/NO.</p>
+<p>2️⃣ <strong>Commit Phase</strong></p>
+<ul>
+<li>
+<p>If all reply YES → coordinator tells all to commit</p>
+</li>
+<li>
+<p>If any reply NO → coordinator tells all to roll back</p>
+</li>
+</ul>
+<p>Sounds perfect — but reality is different.</p>
+<hr />
+<h1 id="why-2pc-fails-in-modern-distributed-systems">❌ Why 2PC Fails in Modern Distributed Systems<a class="headerlink" href="#why-2pc-fails-in-modern-distributed-systems" title="Permanent link">&para;</a></h1>
+<p>Below are <strong>practical engineering reasons</strong> why cloud-native systems <em>avoid</em> 2PC.</p>
+<hr />
+<h2 id="1-resource-locking-blocking-low-throughput">1. <strong>Resource Locking → Blocking → Low Throughput</strong><a class="headerlink" href="#1-resource-locking-blocking-low-throughput" title="Permanent link">&para;</a></h2>
+<p>During “Prepare”, each service <strong>locks rows/tables</strong> until commit.</p>
+<p>This causes:</p>
+<ul>
+<li>
+<p>high concurrency issues</p>
+</li>
+<li>
+<p>long lock times</p>
+</li>
+<li>
+<p>degraded performance</p>
+</li>
+<li>
+<p>risk of deadlocks</p>
+</li>
+</ul>
+<p>In distributed microservices, a single workflow might touch many services → locks everywhere → system becomes slow.</p>
+<h3 id="saga-solution">Saga Solution<a class="headerlink" href="#saga-solution" title="Permanent link">&para;</a></h3>
+<p>Sagas <strong>never lock anything</strong> across services.</p>
+<p>Each local transaction commits immediately.<br />
+If something fails later → compensating transactions undo prior actions.</p>
+<p><strong>No locks. No blocking.</strong></p>
+<hr />
+<h2 id="2-coordinator-single-point-of-failure">2. <strong>Coordinator = Single Point of Failure</strong><a class="headerlink" href="#2-coordinator-single-point-of-failure" title="Permanent link">&para;</a></h2>
+<p>If the coordinator dies <strong>after prepare but before commit</strong>, participants sit with resources locked, waiting forever.</p>
+<p>You need:</p>
+<ul>
+<li>
+<p>special recovery protocols</p>
+</li>
+<li>
+<p>state logs</p>
+</li>
+<li>
+<p>timeouts</p>
+</li>
+<li>
+<p>manual fixes</p>
+</li>
+</ul>
+<p>Saga eliminates the coordinator or uses a <strong>stateless orchestrator</strong>.</p>
+<hr />
+<h2 id="3-not-cloud-friendly-not-horizontal-scalable">3. <strong>Not Cloud-Friendly / Not Horizontal Scalable</strong><a class="headerlink" href="#3-not-cloud-friendly-not-horizontal-scalable" title="Permanent link">&para;</a></h2>
+<p>Modern systems are:</p>
+<ul>
+<li>
+<p>distributed</p>
+</li>
+<li>
+<p>containerized</p>
+</li>
+<li>
+<p>elastic</p>
+</li>
+<li>
+<p>async event-driven</p>
+</li>
+</ul>
+<p>2PC assumes:</p>
+<ul>
+<li>
+<p>stable synchronous connections</p>
+</li>
+<li>
+<p>a small number of participants</p>
+</li>
+<li>
+<p>controllable network latency</p>
+</li>
+</ul>
+<p>This breaks in cloud-native setups.</p>
+<p>Saga is built <strong>for unreliable networks and async systems</strong>.</p>
+<hr />
+<h2 id="4-no-support-for-long-running-transactions">4. <strong>No Support for Long-Running Transactions</strong><a class="headerlink" href="#4-no-support-for-long-running-transactions" title="Permanent link">&para;</a></h2>
+<p>If a workflow takes minutes/hours (e.g., user payment approval):</p>
+<p>2PC cannot keep locks for that long.</p>
+<p>Saga supports long-running workflows naturally.</p>
+<hr />
+<h2 id="5-tight-coupling">5. <strong>Tight Coupling</strong><a class="headerlink" href="#5-tight-coupling" title="Permanent link">&para;</a></h2>
+<p>2PC couples services at the transaction boundary:</p>
+<ul>
+<li>
+<p>all participants must speak the protocol</p>
+</li>
+<li>
+<p>must be online</p>
+</li>
+<li>
+<p>must respond within strict time</p>
+</li>
+<li>
+<p>cannot evolve independently</p>
+</li>
+</ul>
+<p>Sagas encourage <strong>loose coupling</strong> using:</p>
+<ul>
+<li>
+<p>events (choreography)</p>
+</li>
+<li>
+<p>orchestrators (orchestration)</p>
+</li>
+</ul>
+<hr />
+<h2 id="6-poor-failure-recovery">6. <strong>Poor Failure Recovery</strong><a class="headerlink" href="#6-poor-failure-recovery" title="Permanent link">&para;</a></h2>
+<p>If a participant commits but crashes before informing coordinator → inconsistent state.</p>
+<p>Saga uses compensating transactions → recovery is clean and predictable.</p>
+<hr />
+<h2 id="7-high-latency">7. <strong>High Latency</strong><a class="headerlink" href="#7-high-latency" title="Permanent link">&para;</a></h2>
+<p>2PC requires:</p>
+<ul>
+<li>
+<p>network round trips</p>
+</li>
+<li>
+<p>acknowledgements</p>
+</li>
+<li>
+<p>sync blocking calls</p>
+</li>
+</ul>
+<p>Saga is asynchronous → high throughput.</p>
+<hr />
+<h2 id="2pc-vs-saga-pattern-comparison-table">📊 <strong>2PC vs Saga Pattern — Comparison Table</strong><a class="headerlink" href="#2pc-vs-saga-pattern-comparison-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th><strong>2PC (Two-Phase Commit)</strong></th>
+<th><strong>Saga Pattern</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consistency</td>
+<td>Strong (ACID-like)</td>
+<td>Eventual</td>
+</tr>
+<tr>
+<td>Locking</td>
+<td>Yes, locks held during prepare</td>
+<td>No global locks</td>
+</tr>
+<tr>
+<td>Coupling</td>
+<td>Strongly coupled</td>
+<td>Loosely coupled</td>
+</tr>
+<tr>
+<td>Coordinator</td>
+<td>Required (SPOF risk)</td>
+<td>Optional; choreography has none</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>Poor</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>Long-running workflows</td>
+<td>Not suitable</td>
+<td>Fully supported</td>
+</tr>
+<tr>
+<td>Failure handling</td>
+<td>Complex recovery</td>
+<td>Compensating transactions</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>Slow (blocking)</td>
+<td>Fast (non-blocking)</td>
+</tr>
+<tr>
+<td>Latency</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Cloud-native suitability</td>
+<td>Poor</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>Number of participants</td>
+<td>Few DBs</td>
+<td>Many microservices</td>
+</tr>
+<tr>
+<td>Rollback strategy</td>
+<td>Rollback via coordinator</td>
+<td>Compensations via domain logic</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="what-saga-solves-that-2pc-cannot">🤯 What Saga Solves That 2PC Cannot<a class="headerlink" href="#what-saga-solves-that-2pc-cannot" title="Permanent link">&para;</a></h1>
+<h3 id="1-eventual-consistency-across-independently-owned-services"><strong>1. Eventual consistency across independently owned services</strong><a class="headerlink" href="#1-eventual-consistency-across-independently-owned-services" title="Permanent link">&para;</a></h3>
+<p>2PC assumes all participants share a global transactional context — not practical in microservices.</p>
+<h3 id="2-ability-to-run-long-running-business-processes"><strong>2. Ability to run long-running business processes</strong><a class="headerlink" href="#2-ability-to-run-long-running-business-processes" title="Permanent link">&para;</a></h3>
+<p>Saga can span seconds, minutes, or hours.</p>
+<h3 id="3-no-distributed-locking"><strong>3. No distributed locking</strong><a class="headerlink" href="#3-no-distributed-locking" title="Permanent link">&para;</a></h3>
+<p>Saga commits each step independently → non-blocking.</p>
+<h3 id="4-better-resilience-in-partial-failures"><strong>4. Better resilience in partial failures</strong><a class="headerlink" href="#4-better-resilience-in-partial-failures" title="Permanent link">&para;</a></h3>
+<p>Saga compensates, which is domain-aware and safer.</p>
+<h3 id="5-works-with-async-communication-kafka-rabbitmq"><strong>5. Works with async communication (Kafka, RabbitMQ)</strong><a class="headerlink" href="#5-works-with-async-communication-kafka-rabbitmq" title="Permanent link">&para;</a></h3>
+<p>2PC requires synchronous round trips.</p>
+<h3 id="6-cloud-native-scalable-fault-tolerant"><strong>6. Cloud-native, scalable, fault-tolerant</strong><a class="headerlink" href="#6-cloud-native-scalable-fault-tolerant" title="Permanent link">&para;</a></h3>
+<p>Designed for async, unreliable networks.</p>
+<hr />
+<h1 id="when-to-use-2pc-rare-but-still-exists">🧠 When to Use 2PC (Rare but still exists)<a class="headerlink" href="#when-to-use-2pc-rare-but-still-exists" title="Permanent link">&para;</a></h1>
+<p>Use 2PC <strong>only when</strong>:</p>
+<ul>
+<li>
+<p>All participants share the same database or strongly consistent storage</p>
+</li>
+<li>
+<p>Very strict ACID guarantees are required</p>
+</li>
+<li>
+<p>System is not microservices but monolithic or tightly controlled</p>
+</li>
+<li>
+<p>Very small number of participants</p>
+</li>
+<li>
+<p>No long-running transactions</p>
+</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>
+<p>Bank internal systems using a single cluster</p>
+</li>
+<li>
+<p>Distributed relational databases like PostgreSQL clusters</p>
+</li>
+<li>
+<p>XA-compliant systems inside a data center</p>
+</li>
+</ul>
+<hr />
+<h1 id="when-to-use-saga-modern-default">🏆 When to Use Saga (Modern Default)<a class="headerlink" href="#when-to-use-saga-modern-default" title="Permanent link">&para;</a></h1>
+<p>Use Saga when:</p>
+<ul>
+<li>
+<p>You have microservices</p>
+</li>
+<li>
+<p>You need eventual consistency</p>
+</li>
+<li>
+<p>Workflow is long-running</p>
+</li>
+<li>
+<p>Rollback must be domain-aware</p>
+</li>
+<li>
+<p>Services must be loosely coupled</p>
+</li>
+<li>
+<p>System must be cloud-native and scalable</p>
+</li>
+</ul>
+<hr />
+<h1 id="interview-ready-answer-short-perfect">💬 Interview-Ready Answer (Short &amp; Perfect)<a class="headerlink" href="#interview-ready-answer-short-perfect" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>“2PC guarantees strong consistency but introduces locking, blocking, coordination overhead, and a single point of failure. It is not scalable and doesn’t work well in cloud-native microservices.</p>
+<p>Saga avoids locks by breaking a global transaction into multiple local transactions with compensating actions. It supports asynchronous communication, long-running workflows, and high scalability.</p>
+<p>Therefore, Saga solves problems of availability, scalability, and fault tolerance that 2PC cannot.”</p>
+</blockquote>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

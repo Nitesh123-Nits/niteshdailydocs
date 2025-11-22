@@ -1,0 +1,1335 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Technical notes, system design, Spring Boot, microservices">
+      
+      
+        <meta name="author" content="Nitesh">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Sharding - Nitesh Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-high-cardinality" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nitesh Notes" class="md-header__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nitesh Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Sharding
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nitesh Notes" class="md-nav__button md-logo" aria-label="Nitesh Notes" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Nitesh Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nitesh123-Nits/niteshdailydocs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    System Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Distributed System" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load Balancer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Saga vs 2PC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spring
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/webflux-best-practices.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebFlux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Sharding</h1>
+
+<p>![[Pasted image 20251122171427.png]]When choosing a <strong>shard key</strong> (in a sharded database like MongoDB, Cassandra, or any distributed data system), these <strong>three principles</strong> are the most critical. Let’s break them down clearly:</p>
+<hr />
+<h3 id="1-high-cardinality">🔑 1. <strong>High Cardinality</strong><a class="headerlink" href="#1-high-cardinality" title="Permanent link">&para;</a></h3>
+<p><strong>Meaning:</strong></p>
+<ul>
+<li>
+<p>The shard key should have <strong>many unique possible values</strong>.</p>
+</li>
+<li>
+<p>This ensures that data can be distributed across all shards rather than clustering around a few.</p>
+</li>
+</ul>
+<p><strong>Why it matters:</strong></p>
+<ul>
+<li>Low-cardinality fields (like “country” or “status”) cause <strong>data skew</strong> — one shard gets most of the writes, leading to performance bottlenecks.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Cardinality</th>
+<th>Good Shard Key?</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gender</code></td>
+<td>Low (2 values)</td>
+<td>❌ No</td>
+<td>All data goes to only 2 shards</td>
+</tr>
+<tr>
+<td><code>userId</code></td>
+<td>High (millions of users)</td>
+<td>✅ Yes</td>
+<td>Even spread across shards</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2-even-data-distribution">⚖️ 2. <strong>Even Data Distribution</strong><a class="headerlink" href="#2-even-data-distribution" title="Permanent link">&para;</a></h3>
+<p><strong>Meaning:</strong></p>
+<ul>
+<li>The shard key should spread data <strong>uniformly across shards</strong> to prevent <strong>hotspots</strong> (shards getting uneven traffic).</li>
+</ul>
+<p><strong>How to achieve:</strong></p>
+<ul>
+<li>
+<p>Use a <strong>hashed</strong> shard key if values are sequential (e.g., MongoDB’s <code>hashed(userId)</code>).</p>
+</li>
+<li>
+<p>Combine multiple fields (compound shard key) like <code>region + userId</code> if you need some locality but still want good distribution.</p>
+</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>
+<p><code>timestamp</code> → ❌ bad (monotonic, all new writes go to the latest shard)</p>
+</li>
+<li>
+<p><code>hashed(userId)</code> → ✅ good (randomized, balanced write load)</p>
+</li>
+</ul>
+<hr />
+<h3 id="3-align-with-query-patterns">🧭 3. <strong>Align With Query Patterns</strong><a class="headerlink" href="#3-align-with-query-patterns" title="Permanent link">&para;</a></h3>
+<p><strong>Meaning:</strong></p>
+<ul>
+<li>The shard key must <strong>match your most common query filters</strong> to enable <strong>targeted queries</strong> (querying one shard instead of all).</li>
+</ul>
+<p><strong>Why it matters:</strong></p>
+<ul>
+<li>If your shard key doesn’t align with query filters, every query becomes a <strong>scatter-gather</strong> — sent to all shards → poor performance.</li>
+</ul>
+<p><strong>Example:</strong><br />
+If your common queries are:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">db</span><span class="p">.</span><span class="nx">orders</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="w"> </span><span class="nx">userId</span><span class="o">:</span><span class="w"> </span><span class="mf">123</span><span class="w"> </span><span class="p">})</span>
+</code></pre></div>
+<p>Then <code>userId</code> (or <code>hashed(userId)</code>) is a perfect shard key.</p>
+<p>If queries are like:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">db</span><span class="p">.</span><span class="nx">orders</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="w"> </span><span class="nx">region</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;US&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">orderDate</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">$gt</span><span class="o">:</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">})</span>
+</code></pre></div>
+<p>Then a <strong>compound shard key</strong> like <code>{ region, orderDate }</code> might be ideal.</p>
+<hr />
+<h3 id="summary-ideal-shard-key-checklist">🧩 Summary: Ideal Shard Key Checklist<a class="headerlink" href="#summary-ideal-shard-key-checklist" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Cardinality</strong></td>
+<td>Many unique values</td>
+<td><code>userId</code>, <code>email</code>, <code>UUID</code></td>
+</tr>
+<tr>
+<td><strong>Even Distribution</strong></td>
+<td>Avoid hotspots or uneven load</td>
+<td><code>hashed(userId)</code>, <code>region + userId</code></td>
+</tr>
+<tr>
+<td><strong>Aligned with Queries</strong></td>
+<td>Matches most frequent filters</td>
+<td>If queries often use <code>userId</code>, use it as shard key</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="common-mistakes">🚫 Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Sharding on <strong>timestamp</strong> → causes all writes to newest shard (hotspot).</p>
+</li>
+<li>
+<p>Sharding on <strong>low-cardinality</strong> field → uneven data split.</p>
+</li>
+<li>
+<p>Shard key not used in queries → scatter-gather overhead.</p>
+</li>
+</ul>
+<hr />
+<p>Would you like me to show a <strong>few practical shard key examples</strong> for systems like MongoDB, Cassandra, and Elasticsearch side by side?<br />
+That way you can see how these principles apply in real design scenarios.</p>
+<h2 id="question">Question<a class="headerlink" href="#question" title="Permanent link">&para;</a></h2>
+<p>Let’s go through <strong>real-world shard key design examples</strong> across three popular distributed databases — <strong>MongoDB</strong>, <strong>Cassandra</strong>, and <strong>Elasticsearch</strong> — to see how <em>high cardinality</em>, <em>even distribution</em>, and <em>query alignment</em> work together.</p>
+<hr />
+<h2 id="1-mongodb">🧱 1. <strong>MongoDB</strong><a class="headerlink" href="#1-mongodb" title="Permanent link">&para;</a></h2>
+<h3 id="good-example-hasheduserid">✅ Good Example: <code>hashed(userId)</code><a class="headerlink" href="#good-example-hasheduserid" title="Permanent link">&para;</a></h3>
+<p><strong>Use Case:</strong> Large multi-tenant app (e.g., e-commerce, social media).</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Cardinality</strong></td>
+<td>Every userId is unique — millions of possible values.</td>
+</tr>
+<tr>
+<td><strong>Even Distribution</strong></td>
+<td><code>hashed</code> key randomizes userIds → avoids hotspots.</td>
+</tr>
+<tr>
+<td><strong>Aligns with Queries</strong></td>
+<td>Most queries filter by userId (e.g., <code>find({ userId: 123 })</code>).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong><br />
+✔ Balanced writes and queries target only one shard.<br />
+⚠ Downside — you lose ordering by userId (hash breaks order).</p>
+<hr />
+<h3 id="bad-example-createdat-timestamp">⚠ Bad Example: <code>createdAt</code> (timestamp)<a class="headerlink" href="#bad-example-createdat-timestamp" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cardinality</strong></td>
+<td>High — timestamps are unique.</td>
+</tr>
+<tr>
+<td><strong>Distribution</strong></td>
+<td>❌ Bad — writes always go to the most recent shard.</td>
+</tr>
+<tr>
+<td><strong>Query Alignment</strong></td>
+<td>❌ Often causes hotspot writes.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong><br />
+Uneven write load, one shard overloaded (the latest).</p>
+<hr />
+<h3 id="alternative-compound-shard-key-region-hasheduserid">✅ Alternative: Compound Shard Key <code>{ region, hashed(userId) }</code><a class="headerlink" href="#alternative-compound-shard-key-region-hasheduserid" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Cardinality</strong></td>
+<td>Region + hashed userId gives large unique key space.</td>
+</tr>
+<tr>
+<td><strong>Even Distribution</strong></td>
+<td>Hashing ensures balance even within each region.</td>
+</tr>
+<tr>
+<td><strong>Query Alignment</strong></td>
+<td>Matches queries filtering by region and user.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong><br />
+Perfect for region-based apps like food delivery or social platforms.</p>
+<hr />
+<h2 id="2-cassandra">🪴 2. <strong>Cassandra</strong><a class="headerlink" href="#2-cassandra" title="Permanent link">&para;</a></h2>
+<p>Cassandra partitions data based on the <strong>partition key</strong> (acts like shard key).</p>
+<h3 id="good-example-user_id">✅ Good Example: <code>(user_id)</code><a class="headerlink" href="#good-example-user_id" title="Permanent link">&para;</a></h3>
+<p><strong>Use Case:</strong> Accessing user data or timeline.</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Cardinality</strong></td>
+<td>Every user_id is unique.</td>
+</tr>
+<tr>
+<td><strong>Even Distribution</strong></td>
+<td>Partition key is hashed internally → auto-balanced.</td>
+</tr>
+<tr>
+<td><strong>Query Alignment</strong></td>
+<td>Queries like <code>SELECT * FROM posts WHERE user_id = ?</code> hit one partition.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong><br />
+Fast lookups, evenly distributed partitions.</p>
+<hr />
+<h3 id="bad-example-country">⚠ Bad Example: <code>(country)</code><a class="headerlink" href="#bad-example-country" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cardinality</strong></td>
+<td>Low — few countries.</td>
+</tr>
+<tr>
+<td><strong>Distribution</strong></td>
+<td>❌ Skewed — US/India shards get overloaded.</td>
+</tr>
+<tr>
+<td><strong>Query Alignment</strong></td>
+<td>Queries not selective — read many partitions.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong><br />
+Hot partitions and unbalanced storage.</p>
+<hr />
+<h3 id="better-compound-partition-key-country-user_id">✅ Better: Compound Partition Key <code>(country, user_id)</code><a class="headerlink" href="#better-compound-partition-key-country-user_id" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Cardinality</strong></td>
+<td>Combination increases uniqueness.</td>
+</tr>
+<tr>
+<td><strong>Even Distribution</strong></td>
+<td>User_id spreads data inside each country.</td>
+</tr>
+<tr>
+<td><strong>Query Alignment</strong></td>
+<td>Enables country-specific queries too.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-elasticsearch">🔍 3. <strong>Elasticsearch</strong><a class="headerlink" href="#3-elasticsearch" title="Permanent link">&para;</a></h2>
+<p>Elasticsearch distributes data using <strong>index shards</strong> and routing keys.</p>
+<h3 id="good-example-userid-as-routing-key">✅ Good Example: <code>userId</code> (as routing key)<a class="headerlink" href="#good-example-userid-as-routing-key" title="Permanent link">&para;</a></h3>
+<p><strong>Use Case:</strong> Querying logs or posts per user.</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Cardinality</strong></td>
+<td>Many users → many routing values.</td>
+</tr>
+<tr>
+<td><strong>Even Distribution</strong></td>
+<td>User IDs distributed evenly across shards.</td>
+</tr>
+<tr>
+<td><strong>Query Alignment</strong></td>
+<td>You can route queries directly to that user’s shard (<code>routing=userId</code>).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result:</strong><br />
+Low latency, reduced cluster load.</p>
+<hr />
+<h3 id="bad-example-region">⚠ Bad Example: <code>region</code><a class="headerlink" href="#bad-example-region" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cardinality</strong></td>
+<td>Low.</td>
+</tr>
+<tr>
+<td><strong>Distribution</strong></td>
+<td>Some shards overloaded with popular regions.</td>
+</tr>
+<tr>
+<td><strong>Query Alignment</strong></td>
+<td>If your queries aren’t by region, routing fails.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="comparison-table">⚙️ Comparison Table<a class="headerlink" href="#comparison-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Database</th>
+<th>Concept</th>
+<th>Good Example</th>
+<th>Bad Example</th>
+<th>Key Balancing Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MongoDB</strong></td>
+<td>Shard Key</td>
+<td><code>hashed(userId)</code></td>
+<td><code>createdAt</code></td>
+<td>Hash-based sharding</td>
+</tr>
+<tr>
+<td><strong>Cassandra</strong></td>
+<td>Partition Key</td>
+<td><code>(user_id)</code></td>
+<td><code>(country)</code></td>
+<td>Murmur3 hashing</td>
+</tr>
+<tr>
+<td><strong>Elasticsearch</strong></td>
+<td>Routing Key</td>
+<td><code>userId</code></td>
+<td><code>region</code></td>
+<td>Routing hash function</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="general-rule-of-thumb">🧭 General Rule of Thumb<a class="headerlink" href="#general-rule-of-thumb" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Guideline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Avoid hotspots</strong></td>
+<td>Don’t use monotonically increasing keys (timestamps, IDs).</td>
+</tr>
+<tr>
+<td><strong>Keep queries targeted</strong></td>
+<td>Choose shard key that appears in your most common query filter.</td>
+</tr>
+<tr>
+<td><strong>Enable scalability</strong></td>
+<td>Prefer high-cardinality fields or compound keys.</td>
+</tr>
+<tr>
+<td><strong>Balance writes and reads</strong></td>
+<td>Use hashing when ordering isn’t important.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="question_1">Question<a class="headerlink" href="#question_1" title="Permanent link">&para;</a></h2>
+<p><strong>Different types of sharding</strong> is fundamental for system design interviews and real-world architecture.</p>
+<p>Let’s break this down <strong>clearly, deeply, and visually structured</strong> 👇</p>
+<hr />
+<h2 id="what-is-sharding">🧩 <strong>What Is Sharding?</strong><a class="headerlink" href="#what-is-sharding" title="Permanent link">&para;</a></h2>
+<p><strong>Sharding</strong> = breaking a large dataset into smaller, faster, more manageable parts called <strong>shards</strong>, which are distributed across multiple servers (nodes).</p>
+<p>It’s mainly used to:</p>
+<ul>
+<li>
+<p>Scale horizontally</p>
+</li>
+<li>
+<p>Improve performance and availability</p>
+</li>
+<li>
+<p>Distribute load and storage</p>
+</li>
+</ul>
+<hr />
+<h2 id="types-of-sharding">🧱 <strong>Types of Sharding</strong><a class="headerlink" href="#types-of-sharding" title="Permanent link">&para;</a></h2>
+<p>There are <strong>four major types</strong> of sharding you should know:</p>
+<ol>
+<li>
+<p><strong>Range-based Sharding</strong></p>
+</li>
+<li>
+<p><strong>Hash-based Sharding</strong></p>
+</li>
+<li>
+<p><strong>Directory / Lookup-based Sharding</strong></p>
+</li>
+<li>
+<p><strong>Composite / Hybrid Sharding</strong></p>
+</li>
+</ol>
+<p>Let’s explore each.</p>
+<hr />
+<h3 id="1-range-based-sharding">1️⃣ <strong>Range-Based Sharding</strong><a class="headerlink" href="#1-range-based-sharding" title="Permanent link">&para;</a></h3>
+<p><strong>How it works:</strong><br />
+Data is divided into shards based on value <strong>ranges</strong> of the shard key.</p>
+<p><strong>Example:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Range</th>
+<th>Shard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>userId 1–1,000,000</code></td>
+<td>Shard A</td>
+</tr>
+<tr>
+<td><code>userId 1,000,001–2,000,000</code></td>
+<td>Shard B</td>
+</tr>
+<tr>
+<td><code>userId 2,000,001–3,000,000</code></td>
+<td>Shard C</td>
+</tr>
+</tbody>
+</table>
+<p><strong>✅ Pros</strong></p>
+<ul>
+<li>
+<p>Simple to implement and understand</p>
+</li>
+<li>
+<p>Good for <strong>range queries</strong> (e.g., date ranges, sequential IDs)</p>
+</li>
+<li>
+<p>Easy to predict where data lives</p>
+</li>
+</ul>
+<p><strong>❌ Cons</strong></p>
+<ul>
+<li>
+<p><strong>Hotspot risk:</strong> all new data (e.g., new users or latest timestamps) go to one shard</p>
+</li>
+<li>
+<p>Rebalancing can be costly if ranges are uneven</p>
+</li>
+</ul>
+<p><strong>Used in:</strong></p>
+<ul>
+<li>
+<p>MySQL (manual range sharding)</p>
+</li>
+<li>
+<p>MongoDB (range shard keys)</p>
+</li>
+<li>
+<p>Elasticsearch (time-based indices)</p>
+</li>
+</ul>
+<hr />
+<h3 id="2-hash-based-sharding">2️⃣ <strong>Hash-Based Sharding</strong><a class="headerlink" href="#2-hash-based-sharding" title="Permanent link">&para;</a></h3>
+<p><strong>How it works:</strong><br />
+Apply a <strong>hash function</strong> to the shard key, then assign the data to shards based on the hash output.</p>
+<p><strong>Example:</strong><br />
+<code>hash(userId) % num_shards</code></p>
+<table>
+<thead>
+<tr>
+<th>userId</th>
+<th>Hash</th>
+<th>Shard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>1</td>
+<td>Shard A</td>
+</tr>
+<tr>
+<td>102</td>
+<td>2</td>
+<td>Shard B</td>
+</tr>
+<tr>
+<td>103</td>
+<td>0</td>
+<td>Shard C</td>
+</tr>
+</tbody>
+</table>
+<p><strong>✅ Pros</strong></p>
+<ul>
+<li>
+<p><strong>Even data distribution</strong> (reduces hotspots)</p>
+</li>
+<li>
+<p>Great for <strong>random access patterns</strong></p>
+</li>
+<li>
+<p>Ideal when queries are key-based (e.g., by userId, productId)</p>
+</li>
+</ul>
+<p><strong>❌ Cons</strong></p>
+<ul>
+<li>
+<p><strong>No range queries</strong> (hash breaks order)</p>
+</li>
+<li>
+<p>Harder to rebalance if shard count changes (consistent hashing helps)</p>
+</li>
+</ul>
+<p><strong>Used in:</strong></p>
+<ul>
+<li>
+<p>MongoDB (<code>hashed</code> shard key)</p>
+</li>
+<li>
+<p>Cassandra (partition key hashing)</p>
+</li>
+<li>
+<p>DynamoDB (partition hash key)</p>
+</li>
+</ul>
+<hr />
+<h3 id="3-directory-based-lookup-based-sharding">3️⃣ <strong>Directory-Based (Lookup-Based) Sharding</strong><a class="headerlink" href="#3-directory-based-lookup-based-sharding" title="Permanent link">&para;</a></h3>
+<p><strong>How it works:</strong><br />
+A <strong>mapping service (directory)</strong> stores which shard each key belongs to.</p>
+<p><strong>Example:</strong></p>
+<table>
+<thead>
+<tr>
+<th>userId</th>
+<th>Shard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>Shard A</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Shard B</td>
+</tr>
+<tr>
+<td>103</td>
+<td>Shard C</td>
+</tr>
+</tbody>
+</table>
+<p>When a query arrives:</p>
+<ul>
+<li>Directory lookup → find correct shard → forward the query.</li>
+</ul>
+<p><strong>✅ Pros</strong></p>
+<ul>
+<li>
+<p>Very <strong>flexible</strong> — any sharding rule possible</p>
+</li>
+<li>
+<p>Easy to <strong>reshard or rebalance</strong> dynamically</p>
+</li>
+<li>
+<p>Can mix rules (region, user type, etc.)</p>
+</li>
+</ul>
+<p><strong>❌ Cons</strong></p>
+<ul>
+<li>
+<p><strong>Directory is a single point of failure</strong> (unless replicated)</p>
+</li>
+<li>
+<p>Extra lookup step adds latency</p>
+</li>
+<li>
+<p>Directory must stay consistent</p>
+</li>
+</ul>
+<p><strong>Used in:</strong></p>
+<ul>
+<li>
+<p>Facebook’s TAO (social graph store)</p>
+</li>
+<li>
+<p>Custom enterprise sharding routers</p>
+</li>
+</ul>
+<hr />
+<h3 id="4-composite-hybrid-sharding">4️⃣ <strong>Composite / Hybrid Sharding</strong><a class="headerlink" href="#4-composite-hybrid-sharding" title="Permanent link">&para;</a></h3>
+<p><strong>How it works:</strong><br />
+Combines <strong>multiple sharding strategies</strong> — for example:</p>
+<ul>
+<li>
+<p><strong>Hash + Range</strong></p>
+</li>
+<li>
+<p><strong>Range + Directory</strong></p>
+</li>
+<li>
+<p><strong>Region + Hash</strong></p>
+</li>
+</ul>
+<p><strong>Example:</strong><br />
+Shard first by <code>region</code>, then within region by <code>hashed(userId)</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Hash(userId)</th>
+<th>Shard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>US</td>
+<td>0–4</td>
+<td>Shard A</td>
+</tr>
+<tr>
+<td>US</td>
+<td>5–9</td>
+<td>Shard B</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>0–4</td>
+<td>Shard C</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>5–9</td>
+<td>Shard D</td>
+</tr>
+</tbody>
+</table>
+<p><strong>✅ Pros</strong></p>
+<ul>
+<li>
+<p>Very <strong>flexible</strong> and <strong>balanced</strong></p>
+</li>
+<li>
+<p>Supports both <strong>regional locality</strong> and <strong>load distribution</strong></p>
+</li>
+<li>
+<p>Minimizes cross-region latency</p>
+</li>
+</ul>
+<p><strong>❌ Cons</strong></p>
+<ul>
+<li>
+<p>More complex to design and maintain</p>
+</li>
+<li>
+<p>Rebalancing logic gets complicated</p>
+</li>
+</ul>
+<p><strong>Used in:</strong></p>
+<ul>
+<li>
+<p>Global-scale systems (Netflix, Uber, Amazon)</p>
+</li>
+<li>
+<p>MongoDB compound shard keys</p>
+</li>
+</ul>
+<hr />
+<h2 id="comparison-table_1">⚙️ <strong>Comparison Table</strong><a class="headerlink" href="#comparison-table_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>How It Works</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Range-Based</strong></td>
+<td>Split by value ranges</td>
+<td>Great for range queries</td>
+<td>Hotspots on high/low ends</td>
+<td>Time-series, ordered data</td>
+</tr>
+<tr>
+<td><strong>Hash-Based</strong></td>
+<td>Hash of key → shard</td>
+<td>Even distribution</td>
+<td>No range queries</td>
+<td>User-based systems</td>
+</tr>
+<tr>
+<td><strong>Directory-Based</strong></td>
+<td>Lookup table maps keys to shards</td>
+<td>Highly flexible</td>
+<td>Directory overhead</td>
+<td>Dynamic routing systems</td>
+</tr>
+<tr>
+<td><strong>Composite (Hybrid)</strong></td>
+<td>Combine strategies</td>
+<td>Balanced + flexible</td>
+<td>Complex logic</td>
+<td>Multi-region, large-scale apps</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bonus-consistent-hashing">🧠 Bonus: <strong>Consistent Hashing</strong><a class="headerlink" href="#bonus-consistent-hashing" title="Permanent link">&para;</a></h2>
+<p>A <strong>variant of hash sharding</strong> used in systems like <strong>Cassandra</strong>, <strong>DynamoDB</strong>, <strong>Kafka</strong>, and <strong>Redis Cluster</strong>.</p>
+<p><strong>Idea:</strong><br />
+Instead of <code>hash(key) % N</code>, use a <strong>hash ring</strong> — when adding/removing a shard, only a small subset of keys move.</p>
+<p><strong>✅ Benefit:</strong><br />
+Highly scalable and avoids full data reshuffling.</p>
+<hr />
+<h2 id="when-to-use-which">🧭 When to Use Which<a class="headerlink" href="#when-to-use-which" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Best Sharding Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time-series or logs</td>
+<td>Range-based</td>
+</tr>
+<tr>
+<td>User-based systems</td>
+<td>Hash-based</td>
+</tr>
+<tr>
+<td>Complex routing or dynamic workloads</td>
+<td>Directory-based</td>
+</tr>
+<tr>
+<td>Global apps (e.g., region + user)</td>
+<td>Composite/Hybrid</td>
+</tr>
+<tr>
+<td>Streaming systems (Kafka, Redis)</td>
+<td>Consistent hashing</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "toc.integrate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
