@@ -21,7 +21,7 @@ theme:
 nav:
   - Home: index.md
   - System Design:
-      - Load Balancer: Distributed System/load-balancer.md
+      - Load Balancer: HLD/load-balancer.md
 
 
 markdown_extensions:
